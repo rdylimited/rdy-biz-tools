@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/calendar/list_events.json",
+  "title": "list_events",
+  "description": "List calendar events within a date/time range. Supports filtering by calendar, status, and search query. Returns events sorted by start time.",
+  "type": "object",
+  "properties": {
+    "time_min": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Start of time range (ISO 8601)"
+    },
+    "time_max": {
+      "type": "string",
+      "format": "date-time",
+      "description": "End of time range (ISO 8601)"
+    },
+    "calendar_id": {
+      "type": "string",
+      "description": "Calendar ID (defaults to primary)"
+    },
+    "query": {
+      "type": "string",
+      "description": "Free-text search query for event titles and descriptions"
+    },
+    "single_events": {
+      "type": "boolean",
+      "default": true,
+      "description": "Expand recurring events into individual instances"
+    },
+    "show_deleted": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include cancelled/deleted events"
+    },
+    "order_by": {
+      "type": "string",
+      "enum": ["startTime", "updated"],
+      "default": "startTime",
+      "description": "Sort order"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 250,
+      "default": 50,
+      "description": "Items per page"
+    }
+  },
+  "required": ["time_min", "time_max"]
+}

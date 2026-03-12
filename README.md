@@ -2,7 +2,7 @@
 
 JSON Schema definitions, generator scripts, and documentation for RDY business tools.
 
-**51 tools** across **8 modules**: Finance, HR, Tax, Procurement, CRM, Operations, Documents, Workflow.
+**66 tools** across **11 modules**: Finance, HR, Tax, Procurement, CRM, Operations, Documents, Workflow, Email, Calendar, Slack.
 
 ## Quick Start
 
@@ -36,6 +36,9 @@ schemas/
   operations/      6 tools — assets, shipments, warehouses, reservations
   documents/       6 tools — OCR, receipts, templates, versioning
   workflow/        4 tools — approvals, rules, status tracking
+  email/           5 tools — send, read, search, drafts, labels (Gmail)
+  calendar/        5 tools — events, availability, scheduling (Google/Outlook)
+  slack/           5 tools — messages, channels, threads, reactions
 scripts/
   generate-tool.js     Scaffold a new tool schema
   build-catalog.js     Generate catalog from schemas
@@ -81,7 +84,10 @@ See [docs/CATALOG.md](docs/CATALOG.md) for the full tool reference.
 | Operations | 6 |
 | Documents | 6 |
 | Workflow | 4 |
-| **Total** | **51** |
+| Email (Gmail) | 5 |
+| Calendar (Google/Outlook) | 5 |
+| Slack | 5 |
+| **Total** | **66** |
 
 ## Creating New Tools
 

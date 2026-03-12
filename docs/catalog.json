@@ -1,5 +1,382 @@
 [
   {
+    "module": "calendar",
+    "moduleLabel": "Calendar (Google/Outlook)",
+    "name": "check_availability",
+    "description": "Query free/busy information for one or more users over a time range. Returns busy blocks and available slots for scheduling.",
+    "schemaFile": "schemas/calendar/check_availability.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "time_min",
+      "time_max",
+      "users"
+    ],
+    "parameters": [
+      {
+        "name": "time_min",
+        "type": "string",
+        "required": true,
+        "description": "Start of availability window (ISO 8601)"
+      },
+      {
+        "name": "time_max",
+        "type": "string",
+        "required": true,
+        "description": "End of availability window (ISO 8601)"
+      },
+      {
+        "name": "users",
+        "type": "array",
+        "required": true,
+        "description": "Email addresses to check availability for"
+      },
+      {
+        "name": "calendar_ids",
+        "type": "array",
+        "required": false,
+        "description": "Specific calendar IDs to check (defaults to primary for each user)"
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "required": false,
+        "description": "IANA timezone for returned slots (e.g. 'Asia/Hong_Kong')"
+      },
+      {
+        "name": "slot_duration_minutes",
+        "type": "number",
+        "required": false,
+        "description": "Minimum slot duration in minutes for available blocks"
+      }
+    ]
+  },
+  {
+    "module": "calendar",
+    "moduleLabel": "Calendar (Google/Outlook)",
+    "name": "create_event",
+    "description": "Create a calendar event with title, time, location, attendees, and recurrence. Supports Google Calendar and Outlook-compatible fields.",
+    "schemaFile": "schemas/calendar/create_event.json",
+    "parameterCount": 14,
+    "requiredParams": [
+      "title",
+      "start_time",
+      "end_time"
+    ],
+    "parameters": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Event title/summary"
+      },
+      {
+        "name": "start_time",
+        "type": "string",
+        "required": true,
+        "description": "Event start time (ISO 8601)"
+      },
+      {
+        "name": "end_time",
+        "type": "string",
+        "required": true,
+        "description": "Event end time (ISO 8601)"
+      },
+      {
+        "name": "all_day",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether this is an all-day event"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Event date for all-day events (YYYY-MM-DD)"
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "required": false,
+        "description": "IANA timezone (e.g. 'Asia/Hong_Kong', 'America/New_York')"
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "required": false,
+        "description": "Event location (address or virtual meeting URL)"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Event description or agenda"
+      },
+      {
+        "name": "attendees",
+        "type": "array",
+        "required": false,
+        "description": "Event attendees"
+      },
+      {
+        "name": "recurrence",
+        "type": "string",
+        "required": false,
+        "description": "RRULE recurrence string (e.g. 'FREQ=WEEKLY;BYDAY=MO,WE,FR')"
+      },
+      {
+        "name": "reminders",
+        "type": "array",
+        "required": false,
+        "description": "Custom reminders"
+      },
+      {
+        "name": "calendar_id",
+        "type": "string",
+        "required": false,
+        "description": "Calendar ID (defaults to primary calendar)"
+      },
+      {
+        "name": "visibility",
+        "type": "string",
+        "required": false,
+        "description": "Event visibility",
+        "enum": [
+          "default",
+          "public",
+          "private",
+          "confidential"
+        ]
+      },
+      {
+        "name": "conference",
+        "type": "string",
+        "required": false,
+        "description": "Auto-create video conference link",
+        "enum": [
+          "google_meet",
+          "zoom",
+          "teams",
+          "none"
+        ]
+      }
+    ]
+  },
+  {
+    "module": "calendar",
+    "moduleLabel": "Calendar (Google/Outlook)",
+    "name": "delete_event",
+    "description": "Cancel or delete a calendar event. For recurring events, choose whether to delete a single instance, this and following, or all instances.",
+    "schemaFile": "schemas/calendar/delete_event.json",
+    "parameterCount": 5,
+    "requiredParams": [
+      "event_id"
+    ],
+    "parameters": [
+      {
+        "name": "event_id",
+        "type": "string",
+        "required": true,
+        "description": "Event ID to delete"
+      },
+      {
+        "name": "calendar_id",
+        "type": "string",
+        "required": false,
+        "description": "Calendar ID (defaults to primary)"
+      },
+      {
+        "name": "scope",
+        "type": "string",
+        "required": false,
+        "description": "For recurring events: delete single instance, this and all following, or all instances",
+        "enum": [
+          "single",
+          "this_and_following",
+          "all"
+        ]
+      },
+      {
+        "name": "send_updates",
+        "type": "string",
+        "required": false,
+        "description": "Who to notify about the cancellation",
+        "enum": [
+          "all",
+          "externalOnly",
+          "none"
+        ]
+      },
+      {
+        "name": "cancellation_message",
+        "type": "string",
+        "required": false,
+        "description": "Optional message to include in cancellation notification"
+      }
+    ]
+  },
+  {
+    "module": "calendar",
+    "moduleLabel": "Calendar (Google/Outlook)",
+    "name": "list_events",
+    "description": "List calendar events within a date/time range. Supports filtering by calendar, status, and search query. Returns events sorted by start time.",
+    "schemaFile": "schemas/calendar/list_events.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "time_min",
+      "time_max"
+    ],
+    "parameters": [
+      {
+        "name": "time_min",
+        "type": "string",
+        "required": true,
+        "description": "Start of time range (ISO 8601)"
+      },
+      {
+        "name": "time_max",
+        "type": "string",
+        "required": true,
+        "description": "End of time range (ISO 8601)"
+      },
+      {
+        "name": "calendar_id",
+        "type": "string",
+        "required": false,
+        "description": "Calendar ID (defaults to primary)"
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "description": "Free-text search query for event titles and descriptions"
+      },
+      {
+        "name": "single_events",
+        "type": "boolean",
+        "required": false,
+        "description": "Expand recurring events into individual instances"
+      },
+      {
+        "name": "show_deleted",
+        "type": "boolean",
+        "required": false,
+        "description": "Include cancelled/deleted events"
+      },
+      {
+        "name": "order_by",
+        "type": "string",
+        "required": false,
+        "description": "Sort order",
+        "enum": [
+          "startTime",
+          "updated"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "calendar",
+    "moduleLabel": "Calendar (Google/Outlook)",
+    "name": "update_event",
+    "description": "Modify an existing calendar event. Update title, time, location, attendees, or description. Supports updating a single instance of a recurring event.",
+    "schemaFile": "schemas/calendar/update_event.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "event_id"
+    ],
+    "parameters": [
+      {
+        "name": "event_id",
+        "type": "string",
+        "required": true,
+        "description": "Event ID to update"
+      },
+      {
+        "name": "calendar_id",
+        "type": "string",
+        "required": false,
+        "description": "Calendar ID (defaults to primary)"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "description": "Updated event title"
+      },
+      {
+        "name": "start_time",
+        "type": "string",
+        "required": false,
+        "description": "Updated start time (ISO 8601)"
+      },
+      {
+        "name": "end_time",
+        "type": "string",
+        "required": false,
+        "description": "Updated end time (ISO 8601)"
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "required": false,
+        "description": "Updated location"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Updated description"
+      },
+      {
+        "name": "attendees",
+        "type": "array",
+        "required": false,
+        "description": "Replacement attendee list (full replace, not merge)"
+      },
+      {
+        "name": "recurrence",
+        "type": "string",
+        "required": false,
+        "description": "Updated RRULE recurrence string"
+      },
+      {
+        "name": "visibility",
+        "type": "string",
+        "required": false,
+        "description": "Updated visibility",
+        "enum": [
+          "default",
+          "public",
+          "private",
+          "confidential"
+        ]
+      },
+      {
+        "name": "send_updates",
+        "type": "string",
+        "required": false,
+        "description": "Who to notify about the update",
+        "enum": [
+          "all",
+          "externalOnly",
+          "none"
+        ]
+      }
+    ]
+  },
+  {
     "module": "crm",
     "moduleLabel": "CRM",
     "name": "crm_company_manage",
@@ -499,6 +876,383 @@
         "type": "string",
         "required": true,
         "description": "Unique identifier of the document."
+      }
+    ]
+  },
+  {
+    "module": "email",
+    "moduleLabel": "Email (Gmail)",
+    "name": "draft_email",
+    "description": "Create, update, list, get, send, or delete email drafts. Drafts can be composed incrementally and sent when ready.",
+    "schemaFile": "schemas/email/draft_email.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "update",
+          "get",
+          "list",
+          "send",
+          "delete"
+        ]
+      },
+      {
+        "name": "draft_id",
+        "type": "string",
+        "required": false,
+        "description": "Draft ID (required for update/get/send/delete)"
+      },
+      {
+        "name": "to",
+        "type": "array",
+        "required": false,
+        "description": "Primary recipient email addresses"
+      },
+      {
+        "name": "cc",
+        "type": "array",
+        "required": false,
+        "description": "CC recipient email addresses"
+      },
+      {
+        "name": "bcc",
+        "type": "array",
+        "required": false,
+        "description": "BCC recipient email addresses"
+      },
+      {
+        "name": "subject",
+        "type": "string",
+        "required": false,
+        "description": "Email subject line"
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "required": false,
+        "description": "Email body content"
+      },
+      {
+        "name": "content_type",
+        "type": "string",
+        "required": false,
+        "description": "Body content type",
+        "enum": [
+          "text",
+          "html"
+        ]
+      },
+      {
+        "name": "in_reply_to",
+        "type": "string",
+        "required": false,
+        "description": "Message-ID to reply to"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "email",
+    "moduleLabel": "Email (Gmail)",
+    "name": "manage_labels",
+    "description": "Create, list, update, delete email labels, and apply or remove labels from messages. Supports nested labels via parent_id.",
+    "schemaFile": "schemas/email/manage_labels.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "list",
+          "update",
+          "delete",
+          "apply",
+          "remove"
+        ]
+      },
+      {
+        "name": "label_id",
+        "type": "string",
+        "required": false,
+        "description": "Label ID (required for update/delete)"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Label name (required for create)"
+      },
+      {
+        "name": "parent_id",
+        "type": "string",
+        "required": false,
+        "description": "Parent label ID for nested labels"
+      },
+      {
+        "name": "color",
+        "type": "object",
+        "required": false,
+        "description": "Label color settings"
+      },
+      {
+        "name": "message_ids",
+        "type": "array",
+        "required": false,
+        "description": "Message IDs to apply/remove labels from (required for apply/remove)"
+      },
+      {
+        "name": "label_names",
+        "type": "array",
+        "required": false,
+        "description": "Label names to apply/remove (required for apply/remove)"
+      }
+    ]
+  },
+  {
+    "module": "email",
+    "moduleLabel": "Email (Gmail)",
+    "name": "read_email",
+    "description": "Read emails from inbox or a specific message by ID. Returns subject, sender, recipients, body, attachments metadata, and labels.",
+    "schemaFile": "schemas/email/read_email.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "get",
+          "list",
+          "mark_read",
+          "mark_unread",
+          "archive",
+          "trash"
+        ]
+      },
+      {
+        "name": "message_id",
+        "type": "string",
+        "required": false,
+        "description": "Email message ID (required for get/mark_read/mark_unread/archive/trash)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "required": false,
+        "description": "Mailbox folder to read from (for list)",
+        "enum": [
+          "inbox",
+          "sent",
+          "drafts",
+          "trash",
+          "spam",
+          "all"
+        ]
+      },
+      {
+        "name": "unread_only",
+        "type": "boolean",
+        "required": false,
+        "description": "Filter to unread messages only (for list)"
+      },
+      {
+        "name": "include_body",
+        "type": "boolean",
+        "required": false,
+        "description": "Include full message body in response"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "email",
+    "moduleLabel": "Email (Gmail)",
+    "name": "search_email",
+    "description": "Search emails by query string, sender, labels, date range, or attachment presence. Uses Gmail-compatible search syntax.",
+    "schemaFile": "schemas/email/search_email.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "query"
+    ],
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "description": "Search query (Gmail search syntax, e.g. 'from:alice subject:invoice has:attachment')"
+      },
+      {
+        "name": "from",
+        "type": "string",
+        "required": false,
+        "description": "Filter by sender email address or name"
+      },
+      {
+        "name": "to",
+        "type": "string",
+        "required": false,
+        "description": "Filter by recipient email address"
+      },
+      {
+        "name": "subject",
+        "type": "string",
+        "required": false,
+        "description": "Filter by subject line (partial match)"
+      },
+      {
+        "name": "labels",
+        "type": "array",
+        "required": false,
+        "description": "Filter by label names (e.g. ['IMPORTANT', 'project-x'])"
+      },
+      {
+        "name": "has_attachment",
+        "type": "boolean",
+        "required": false,
+        "description": "Filter to messages with attachments"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "include_body",
+        "type": "boolean",
+        "required": false,
+        "description": "Include full message body in results"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "email",
+    "moduleLabel": "Email (Gmail)",
+    "name": "send_email",
+    "description": "Compose and send an email via Gmail or compatible SMTP provider. Supports TO, CC, BCC recipients, HTML or plain-text body, attachments, and reply threading via in_reply_to.",
+    "schemaFile": "schemas/email/send_email.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "to",
+      "subject",
+      "body"
+    ],
+    "parameters": [
+      {
+        "name": "to",
+        "type": "array",
+        "required": true,
+        "description": "Primary recipient email addresses"
+      },
+      {
+        "name": "cc",
+        "type": "array",
+        "required": false,
+        "description": "CC recipient email addresses"
+      },
+      {
+        "name": "bcc",
+        "type": "array",
+        "required": false,
+        "description": "BCC recipient email addresses"
+      },
+      {
+        "name": "subject",
+        "type": "string",
+        "required": true,
+        "description": "Email subject line"
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "required": true,
+        "description": "Email body content (plain text or HTML depending on content_type)"
+      },
+      {
+        "name": "content_type",
+        "type": "string",
+        "required": false,
+        "description": "Body content type: plain text or HTML",
+        "enum": [
+          "text",
+          "html"
+        ]
+      },
+      {
+        "name": "attachments",
+        "type": "array",
+        "required": false,
+        "description": "File attachments"
+      },
+      {
+        "name": "in_reply_to",
+        "type": "string",
+        "required": false,
+        "description": "Message-ID to reply to (threads the conversation)"
+      },
+      {
+        "name": "from_alias",
+        "type": "string",
+        "required": false,
+        "description": "Send-as alias email address (if configured)"
       }
     ]
   },
@@ -3166,6 +3920,278 @@
         "type": "number",
         "required": false,
         "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "slack",
+    "moduleLabel": "Slack",
+    "name": "add_reaction",
+    "description": "Add or remove an emoji reaction on a Slack message.",
+    "schemaFile": "schemas/slack/add_reaction.json",
+    "parameterCount": 4,
+    "requiredParams": [
+      "channel",
+      "timestamp",
+      "emoji"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": false,
+        "description": "Whether to add or remove the reaction",
+        "enum": [
+          "add",
+          "remove"
+        ]
+      },
+      {
+        "name": "channel",
+        "type": "string",
+        "required": true,
+        "description": "Channel ID where the message lives"
+      },
+      {
+        "name": "timestamp",
+        "type": "string",
+        "required": true,
+        "description": "Message timestamp to react to"
+      },
+      {
+        "name": "emoji",
+        "type": "string",
+        "required": true,
+        "description": "Emoji name without colons (e.g. 'thumbsup', 'white_check_mark')"
+      }
+    ]
+  },
+  {
+    "module": "slack",
+    "moduleLabel": "Slack",
+    "name": "create_thread",
+    "description": "Reply to a message in a thread. Creates a threaded conversation under the specified parent message.",
+    "schemaFile": "schemas/slack/create_thread.json",
+    "parameterCount": 5,
+    "requiredParams": [
+      "channel",
+      "thread_ts",
+      "text"
+    ],
+    "parameters": [
+      {
+        "name": "channel",
+        "type": "string",
+        "required": true,
+        "description": "Channel ID where the parent message lives"
+      },
+      {
+        "name": "thread_ts",
+        "type": "string",
+        "required": true,
+        "description": "Timestamp of the parent message to reply to"
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "required": true,
+        "description": "Reply text (markdown supported)"
+      },
+      {
+        "name": "blocks",
+        "type": "array",
+        "required": false,
+        "description": "Slack Block Kit blocks for rich formatting"
+      },
+      {
+        "name": "reply_broadcast",
+        "type": "boolean",
+        "required": false,
+        "description": "Also post the reply to the channel"
+      }
+    ]
+  },
+  {
+    "module": "slack",
+    "moduleLabel": "Slack",
+    "name": "list_channels",
+    "description": "List accessible Slack channels. Filter by type (public, private, DM, group DM) and membership status.",
+    "schemaFile": "schemas/slack/list_channels.json",
+    "parameterCount": 6,
+    "requiredParams": [],
+    "parameters": [
+      {
+        "name": "types",
+        "type": "array",
+        "required": false,
+        "description": "Channel types to include"
+      },
+      {
+        "name": "exclude_archived",
+        "type": "boolean",
+        "required": false,
+        "description": "Exclude archived channels"
+      },
+      {
+        "name": "member_only",
+        "type": "boolean",
+        "required": false,
+        "description": "Only show channels the user is a member of"
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "description": "Filter channels by name (partial match)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "slack",
+    "moduleLabel": "Slack",
+    "name": "search_messages",
+    "description": "Search Slack message history by query. Supports filtering by channel, user, date range, and sort order. Uses Slack search syntax.",
+    "schemaFile": "schemas/slack/search_messages.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "query"
+    ],
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "description": "Search query (Slack search syntax, e.g. 'from:@alice in:#engineering has:link after:2026-01-01')"
+      },
+      {
+        "name": "channel",
+        "type": "string",
+        "required": false,
+        "description": "Filter to a specific channel ID or name"
+      },
+      {
+        "name": "from_user",
+        "type": "string",
+        "required": false,
+        "description": "Filter by sender user ID or display name"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "sort",
+        "type": "string",
+        "required": false,
+        "description": "Sort results by relevance or recency",
+        "enum": [
+          "score",
+          "timestamp"
+        ]
+      },
+      {
+        "name": "sort_dir",
+        "type": "string",
+        "required": false,
+        "description": "Sort direction",
+        "enum": [
+          "asc",
+          "desc"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "slack",
+    "moduleLabel": "Slack",
+    "name": "send_message",
+    "description": "Post a message to a Slack channel or direct message. Supports plain text, markdown (mrkdwn), Block Kit blocks, and thread replies.",
+    "schemaFile": "schemas/slack/send_message.json",
+    "parameterCount": 8,
+    "requiredParams": [
+      "channel",
+      "text"
+    ],
+    "parameters": [
+      {
+        "name": "channel",
+        "type": "string",
+        "required": true,
+        "description": "Channel ID, channel name (e.g. '#general'), or user ID for DM"
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "required": true,
+        "description": "Message text (markdown supported). Used as fallback when blocks are provided."
+      },
+      {
+        "name": "blocks",
+        "type": "array",
+        "required": false,
+        "description": "Slack Block Kit blocks for rich message formatting"
+      },
+      {
+        "name": "thread_ts",
+        "type": "string",
+        "required": false,
+        "description": "Timestamp of parent message to reply in thread"
+      },
+      {
+        "name": "reply_broadcast",
+        "type": "boolean",
+        "required": false,
+        "description": "Also post threaded reply to the channel"
+      },
+      {
+        "name": "unfurl_links",
+        "type": "boolean",
+        "required": false,
+        "description": "Enable link previews"
+      },
+      {
+        "name": "unfurl_media",
+        "type": "boolean",
+        "required": false,
+        "description": "Enable media previews"
+      },
+      {
+        "name": "as_user",
+        "type": "boolean",
+        "required": false,
+        "description": "Post as the authenticated user (vs. bot)"
       }
     ]
   },

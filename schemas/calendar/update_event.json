@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/calendar/update_event.json",
+  "title": "update_event",
+  "description": "Modify an existing calendar event. Update title, time, location, attendees, or description. Supports updating a single instance of a recurring event.",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Event ID to update"
+    },
+    "calendar_id": {
+      "type": "string",
+      "description": "Calendar ID (defaults to primary)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Updated event title"
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Updated start time (ISO 8601)"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Updated end time (ISO 8601)"
+    },
+    "location": {
+      "type": "string",
+      "description": "Updated location"
+    },
+    "description": {
+      "type": "string",
+      "description": "Updated description"
+    },
+    "attendees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "format": "email" },
+          "optional": { "type": "boolean", "default": false }
+        },
+        "required": ["email"]
+      },
+      "description": "Replacement attendee list (full replace, not merge)"
+    },
+    "recurrence": {
+      "type": "string",
+      "description": "Updated RRULE recurrence string"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["default", "public", "private", "confidential"],
+      "description": "Updated visibility"
+    },
+    "send_updates": {
+      "type": "string",
+      "enum": ["all", "externalOnly", "none"],
+      "default": "all",
+      "description": "Who to notify about the update"
+    }
+  },
+  "required": ["event_id"]
+}

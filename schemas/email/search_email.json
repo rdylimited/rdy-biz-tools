@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/email/search_email.json",
+  "title": "search_email",
+  "description": "Search emails by query string, sender, labels, date range, or attachment presence. Uses Gmail-compatible search syntax.",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "Search query (Gmail search syntax, e.g. 'from:alice subject:invoice has:attachment')"
+    },
+    "from": {
+      "type": "string",
+      "description": "Filter by sender email address or name"
+    },
+    "to": {
+      "type": "string",
+      "description": "Filter by recipient email address"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Filter by subject line (partial match)"
+    },
+    "labels": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Filter by label names (e.g. ['IMPORTANT', 'project-x'])"
+    },
+    "has_attachment": {
+      "type": "boolean",
+      "description": "Filter to messages with attachments"
+    },
+    "date_from": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date filter (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "format": "date",
+      "description": "End date filter (YYYY-MM-DD)"
+    },
+    "include_body": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include full message body in results"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["query"]
+}

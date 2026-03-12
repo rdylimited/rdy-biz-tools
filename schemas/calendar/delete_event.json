@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/calendar/delete_event.json",
+  "title": "delete_event",
+  "description": "Cancel or delete a calendar event. For recurring events, choose whether to delete a single instance, this and following, or all instances.",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Event ID to delete"
+    },
+    "calendar_id": {
+      "type": "string",
+      "description": "Calendar ID (defaults to primary)"
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["single", "this_and_following", "all"],
+      "default": "single",
+      "description": "For recurring events: delete single instance, this and all following, or all instances"
+    },
+    "send_updates": {
+      "type": "string",
+      "enum": ["all", "externalOnly", "none"],
+      "default": "all",
+      "description": "Who to notify about the cancellation"
+    },
+    "cancellation_message": {
+      "type": "string",
+      "description": "Optional message to include in cancellation notification"
+    }
+  },
+  "required": ["event_id"]
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/email/draft_email.json",
+  "title": "draft_email",
+  "description": "Create, update, list, get, send, or delete email drafts. Drafts can be composed incrementally and sent when ready.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "update", "get", "list", "send", "delete"],
+      "description": "Operation to perform"
+    },
+    "draft_id": {
+      "type": "string",
+      "description": "Draft ID (required for update/get/send/delete)"
+    },
+    "to": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "description": "Primary recipient email addresses"
+    },
+    "cc": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "description": "CC recipient email addresses"
+    },
+    "bcc": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "description": "BCC recipient email addresses"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject line"
+    },
+    "body": {
+      "type": "string",
+      "description": "Email body content"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": ["text", "html"],
+      "default": "text",
+      "description": "Body content type"
+    },
+    "in_reply_to": {
+      "type": "string",
+      "description": "Message-ID to reply to"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

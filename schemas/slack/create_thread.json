@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/slack/create_thread.json",
+  "title": "create_thread",
+  "description": "Reply to a message in a thread. Creates a threaded conversation under the specified parent message.",
+  "type": "object",
+  "properties": {
+    "channel": {
+      "type": "string",
+      "description": "Channel ID where the parent message lives"
+    },
+    "thread_ts": {
+      "type": "string",
+      "description": "Timestamp of the parent message to reply to"
+    },
+    "text": {
+      "type": "string",
+      "description": "Reply text (markdown supported)"
+    },
+    "blocks": {
+      "type": "array",
+      "items": { "type": "object" },
+      "description": "Slack Block Kit blocks for rich formatting"
+    },
+    "reply_broadcast": {
+      "type": "boolean",
+      "default": false,
+      "description": "Also post the reply to the channel"
+    }
+  },
+  "required": ["channel", "thread_ts", "text"]
+}

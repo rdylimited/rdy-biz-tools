@@ -28,6 +28,9 @@ const MODULE_LABELS = {
   operations: "Operations",
   documents: "Documents",
   workflow: "Workflow",
+  email: "Email (Gmail)",
+  calendar: "Calendar (Google/Outlook)",
+  slack: "Slack",
 };
 
 const catalog = [];

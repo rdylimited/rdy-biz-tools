@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/slack/add_reaction.json",
+  "title": "add_reaction",
+  "description": "Add or remove an emoji reaction on a Slack message.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["add", "remove"],
+      "default": "add",
+      "description": "Whether to add or remove the reaction"
+    },
+    "channel": {
+      "type": "string",
+      "description": "Channel ID where the message lives"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "Message timestamp to react to"
+    },
+    "emoji": {
+      "type": "string",
+      "description": "Emoji name without colons (e.g. 'thumbsup', 'white_check_mark')"
+    }
+  },
+  "required": ["channel", "timestamp", "emoji"]
+}

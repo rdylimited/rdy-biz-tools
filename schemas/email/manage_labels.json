@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/email/manage_labels.json",
+  "title": "manage_labels",
+  "description": "Create, list, update, delete email labels, and apply or remove labels from messages. Supports nested labels via parent_id.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "list", "update", "delete", "apply", "remove"],
+      "description": "Operation to perform"
+    },
+    "label_id": {
+      "type": "string",
+      "description": "Label ID (required for update/delete)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Label name (required for create)"
+    },
+    "parent_id": {
+      "type": "string",
+      "description": "Parent label ID for nested labels"
+    },
+    "color": {
+      "type": "object",
+      "properties": {
+        "background": { "type": "string", "description": "Background hex color (e.g. '#ff0000')" },
+        "text": { "type": "string", "description": "Text hex color" }
+      },
+      "description": "Label color settings"
+    },
+    "message_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Message IDs to apply/remove labels from (required for apply/remove)"
+    },
+    "label_names": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Label names to apply/remove (required for apply/remove)"
+    }
+  },
+  "required": ["action"]
+}

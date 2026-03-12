@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/email/read_email.json",
+  "title": "read_email",
+  "description": "Read emails from inbox or a specific message by ID. Returns subject, sender, recipients, body, attachments metadata, and labels.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["get", "list", "mark_read", "mark_unread", "archive", "trash"],
+      "description": "Operation to perform"
+    },
+    "message_id": {
+      "type": "string",
+      "description": "Email message ID (required for get/mark_read/mark_unread/archive/trash)"
+    },
+    "folder": {
+      "type": "string",
+      "enum": ["inbox", "sent", "drafts", "trash", "spam", "all"],
+      "default": "inbox",
+      "description": "Mailbox folder to read from (for list)"
+    },
+    "unread_only": {
+      "type": "boolean",
+      "default": false,
+      "description": "Filter to unread messages only (for list)"
+    },
+    "include_body": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include full message body in response"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

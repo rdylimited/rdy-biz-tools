@@ -26,6 +26,9 @@ const MODULES = [
   "operations",
   "documents",
   "workflow",
+  "email",
+  "calendar",
+  "slack",
 ];
 
 function parseArgs(args) {

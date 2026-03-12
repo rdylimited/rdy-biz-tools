@@ -1,6 +1,16 @@
 # RDY Business Tools — Catalog
 
-> Auto-generated from schema files. 51 tools across 8 modules.
+> Auto-generated from schema files. 66 tools across 11 modules.
+
+## Calendar (Google/Outlook) (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`check_availability`](../schemas/calendar/check_availability.json) | Query free/busy information for one or more users over a time range. Returns ... | 6 (required: time_min, time_max, users) |
+| [`create_event`](../schemas/calendar/create_event.json) | Create a calendar event with title, time, location, attendees, and recurrence... | 14 (required: title, start_time, end_time) |
+| [`delete_event`](../schemas/calendar/delete_event.json) | Cancel or delete a calendar event. For recurring events, choose whether to de... | 5 (required: event_id) |
+| [`list_events`](../schemas/calendar/list_events.json) | List calendar events within a date/time range. Supports filtering by calendar... | 9 (required: time_min, time_max) |
+| [`update_event`](../schemas/calendar/update_event.json) | Modify an existing calendar event. Update title, time, location, attendees, o... | 11 (required: event_id) |
 
 ## CRM (5 tools)
 
@@ -22,6 +32,16 @@
 | [`doc_search`](../schemas/documents/doc_search.json) | Search documents by name, type, and date range. | 6 (required: none) |
 | [`doc_template_manage`](../schemas/documents/doc_template_manage.json) | Create, read, update, list, and deactivate document templates. | 7 (required: action) |
 | [`doc_version_history`](../schemas/documents/doc_version_history.json) | Retrieve the version history of a document. | 1 (required: document_id) |
+
+## Email (Gmail) (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`draft_email`](../schemas/email/draft_email.json) | Create, update, list, get, send, or delete email drafts. Drafts can be compos... | 11 (required: action) |
+| [`manage_labels`](../schemas/email/manage_labels.json) | Create, list, update, delete email labels, and apply or remove labels from me... | 7 (required: action) |
+| [`read_email`](../schemas/email/read_email.json) | Read emails from inbox or a specific message by ID. Returns subject, sender, ... | 7 (required: action) |
+| [`search_email`](../schemas/email/search_email.json) | Search emails by query string, sender, labels, date range, or attachment pres... | 11 (required: query) |
+| [`send_email`](../schemas/email/send_email.json) | Compose and send an email via Gmail or compatible SMTP provider. Supports TO,... | 9 (required: to, subject, body) |
 
 ## Finance (10 tools)
 
@@ -74,6 +94,16 @@
 | [`proc_supplier_manage`](../schemas/procurement/proc_supplier_manage.json) | Create, retrieve, update, list, or deactivate suppliers | 10 (required: action) |
 | [`proc_supplier_quote`](../schemas/procurement/proc_supplier_quote.json) | Create, retrieve, list, or compare supplier quotations | 12 (required: action) |
 
+## Slack (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`add_reaction`](../schemas/slack/add_reaction.json) | Add or remove an emoji reaction on a Slack message. | 4 (required: channel, timestamp, emoji) |
+| [`create_thread`](../schemas/slack/create_thread.json) | Reply to a message in a thread. Creates a threaded conversation under the spe... | 5 (required: channel, thread_ts, text) |
+| [`list_channels`](../schemas/slack/list_channels.json) | List accessible Slack channels. Filter by type (public, private, DM, group DM... | 6 (required: none) |
+| [`search_messages`](../schemas/slack/search_messages.json) | Search Slack message history by query. Supports filtering by channel, user, d... | 9 (required: query) |
+| [`send_message`](../schemas/slack/send_message.json) | Post a message to a Slack channel or direct message. Supports plain text, mar... | 8 (required: channel, text) |
+
 ## Tax (5 tools)
 
 | Tool | Description | Parameters |
@@ -97,12 +127,15 @@
 
 | Module | Tools |
 |--------|-------|
+| Calendar (Google/Outlook) | 5 |
 | CRM | 5 |
 | Documents | 6 |
+| Email (Gmail) | 5 |
 | Finance | 10 |
 | Human Resources | 7 |
 | Operations | 6 |
 | Procurement | 8 |
+| Slack | 5 |
 | Tax | 5 |
 | Workflow | 4 |
-| **Total** | **51** |
+| **Total** | **66** |

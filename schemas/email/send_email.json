@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/email/send_email.json",
+  "title": "send_email",
+  "description": "Compose and send an email via Gmail or compatible SMTP provider. Supports TO, CC, BCC recipients, HTML or plain-text body, attachments, and reply threading via in_reply_to.",
+  "type": "object",
+  "properties": {
+    "to": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "minItems": 1,
+      "description": "Primary recipient email addresses"
+    },
+    "cc": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "description": "CC recipient email addresses"
+    },
+    "bcc": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "description": "BCC recipient email addresses"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject line"
+    },
+    "body": {
+      "type": "string",
+      "description": "Email body content (plain text or HTML depending on content_type)"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": ["text", "html"],
+      "default": "text",
+      "description": "Body content type: plain text or HTML"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filename": { "type": "string", "description": "Attachment filename" },
+          "content_base64": { "type": "string", "description": "Base64-encoded file content" },
+          "mime_type": { "type": "string", "description": "MIME type (e.g. application/pdf)" }
+        },
+        "required": ["filename", "content_base64"]
+      },
+      "description": "File attachments"
+    },
+    "in_reply_to": {
+      "type": "string",
+      "description": "Message-ID to reply to (threads the conversation)"
+    },
+    "from_alias": {
+      "type": "string",
+      "format": "email",
+      "description": "Send-as alias email address (if configured)"
+    }
+  },
+  "required": ["to", "subject", "body"]
+}

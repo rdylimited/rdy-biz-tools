@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/slack/list_channels.json",
+  "title": "list_channels",
+  "description": "List accessible Slack channels. Filter by type (public, private, DM, group DM) and membership status.",
+  "type": "object",
+  "properties": {
+    "types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["public_channel", "private_channel", "mpim", "im"]
+      },
+      "default": ["public_channel"],
+      "description": "Channel types to include"
+    },
+    "exclude_archived": {
+      "type": "boolean",
+      "default": true,
+      "description": "Exclude archived channels"
+    },
+    "member_only": {
+      "type": "boolean",
+      "default": false,
+      "description": "Only show channels the user is a member of"
+    },
+    "query": {
+      "type": "string",
+      "description": "Filter channels by name (partial match)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 200,
+      "default": 100,
+      "description": "Items per page"
+    }
+  },
+  "required": []
+}

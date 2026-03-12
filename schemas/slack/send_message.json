@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/slack/send_message.json",
+  "title": "send_message",
+  "description": "Post a message to a Slack channel or direct message. Supports plain text, markdown (mrkdwn), Block Kit blocks, and thread replies.",
+  "type": "object",
+  "properties": {
+    "channel": {
+      "type": "string",
+      "description": "Channel ID, channel name (e.g. '#general'), or user ID for DM"
+    },
+    "text": {
+      "type": "string",
+      "description": "Message text (markdown supported). Used as fallback when blocks are provided."
+    },
+    "blocks": {
+      "type": "array",
+      "items": { "type": "object" },
+      "description": "Slack Block Kit blocks for rich message formatting"
+    },
+    "thread_ts": {
+      "type": "string",
+      "description": "Timestamp of parent message to reply in thread"
+    },
+    "reply_broadcast": {
+      "type": "boolean",
+      "default": false,
+      "description": "Also post threaded reply to the channel"
+    },
+    "unfurl_links": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable link previews"
+    },
+    "unfurl_media": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable media previews"
+    },
+    "as_user": {
+      "type": "boolean",
+      "default": true,
+      "description": "Post as the authenticated user (vs. bot)"
+    }
+  },
+  "required": ["channel", "text"]
+}

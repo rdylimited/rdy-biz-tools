@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/calendar/check_availability.json",
+  "title": "check_availability",
+  "description": "Query free/busy information for one or more users over a time range. Returns busy blocks and available slots for scheduling.",
+  "type": "object",
+  "properties": {
+    "time_min": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Start of availability window (ISO 8601)"
+    },
+    "time_max": {
+      "type": "string",
+      "format": "date-time",
+      "description": "End of availability window (ISO 8601)"
+    },
+    "users": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "minItems": 1,
+      "description": "Email addresses to check availability for"
+    },
+    "calendar_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific calendar IDs to check (defaults to primary for each user)"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "IANA timezone for returned slots (e.g. 'Asia/Hong_Kong')"
+    },
+    "slot_duration_minutes": {
+      "type": "number",
+      "minimum": 5,
+      "default": 30,
+      "description": "Minimum slot duration in minutes for available blocks"
+    }
+  },
+  "required": ["time_min", "time_max", "users"]
+}

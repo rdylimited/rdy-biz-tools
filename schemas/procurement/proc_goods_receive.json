@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/procurement/proc_goods_receive.json",
+  "title": "proc_goods_receive",
+  "description": "Create or retrieve goods received notes",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list"],
+      "description": "The goods received operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "GRN UUID"
+    },
+    "po_id": {
+      "type": "string",
+      "description": "Associated purchase order UUID"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date goods were received (YYYY-MM-DD)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "lines": {
+      "type": "array",
+      "description": "Goods received line items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "po_line_id": {
+            "type": "string",
+            "description": "Purchase order line UUID"
+          },
+          "quantity_received": {
+            "type": "number",
+            "description": "Quantity received"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Line-level notes"
+          }
+        },
+        "required": ["po_line_id", "quantity_received"]
+      }
+    },
+    "po_id_filter": {
+      "type": "string",
+      "description": "Filter by purchase order UUID"
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

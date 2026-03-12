@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/finance/fin_balance_sheet.json",
+  "title": "fin_balance_sheet",
+  "description": "Generate a balance sheet report as of a given date, grouping accounts by type (assets, liabilities, equity). Optionally compare against a second date.",
+  "type": "object",
+  "properties": {
+    "as_of_date": {
+      "type": "string",
+      "description": "Report date (YYYY-MM-DD)"
+    },
+    "comparison_date": {
+      "type": "string",
+      "description": "Optional comparison date for period-over-period view"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "ISO 4217 currency code"
+    }
+  },
+  "required": ["as_of_date"]
+}

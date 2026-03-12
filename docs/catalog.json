@@ -1,0 +1,3787 @@
+[
+  {
+    "module": "crm",
+    "moduleLabel": "CRM",
+    "name": "crm_company_manage",
+    "description": "Create, read, update, list, and deactivate companies (customers, vendors, or both).",
+    "schemaFile": "schemas/crm/crm_company_manage.json",
+    "parameterCount": 12,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform on the company record.",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "deactivate"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the company."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Company name."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Company relationship type.",
+        "enum": [
+          "customer",
+          "vendor",
+          "both"
+        ]
+      },
+      {
+        "name": "tax_id",
+        "type": "string",
+        "required": false,
+        "description": "Tax identification number."
+      },
+      {
+        "name": "address",
+        "type": "object",
+        "required": false,
+        "description": "Company address."
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "required": false,
+        "description": "Phone number."
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": false,
+        "description": "Email address."
+      },
+      {
+        "name": "website",
+        "type": "string",
+        "required": false,
+        "description": "Website URL."
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes."
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "crm",
+    "moduleLabel": "CRM",
+    "name": "crm_contact_export",
+    "description": "Export contacts in CSV or JSON format.",
+    "schemaFile": "schemas/crm/crm_contact_export.json",
+    "parameterCount": 2,
+    "requiredParams": [],
+    "parameters": [
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Filter export by contact type.",
+        "enum": [
+          "customer",
+          "vendor",
+          "employee"
+        ]
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "required": false,
+        "description": "Output format.",
+        "enum": [
+          "csv",
+          "json"
+        ]
+      }
+    ]
+  },
+  {
+    "module": "crm",
+    "moduleLabel": "CRM",
+    "name": "crm_contact_manage",
+    "description": "Create, read, update, list, and deactivate contacts.",
+    "schemaFile": "schemas/crm/crm_contact_manage.json",
+    "parameterCount": 10,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform on the contact record.",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "deactivate"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the contact."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Contact name."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Contact type.",
+        "enum": [
+          "customer",
+          "vendor",
+          "employee"
+        ]
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": false,
+        "description": "Email address."
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "required": false,
+        "description": "Phone number."
+      },
+      {
+        "name": "company_id",
+        "type": "string",
+        "required": false,
+        "description": "Associated company identifier."
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes."
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "crm",
+    "moduleLabel": "CRM",
+    "name": "crm_contact_merge",
+    "description": "Merge duplicate contacts by absorbing a secondary contact into a primary contact.",
+    "schemaFile": "schemas/crm/crm_contact_merge.json",
+    "parameterCount": 2,
+    "requiredParams": [
+      "primary_id",
+      "secondary_id"
+    ],
+    "parameters": [
+      {
+        "name": "primary_id",
+        "type": "string",
+        "required": true,
+        "description": "UUID of the contact to keep."
+      },
+      {
+        "name": "secondary_id",
+        "type": "string",
+        "required": true,
+        "description": "UUID of the contact to merge and deactivate."
+      }
+    ]
+  },
+  {
+    "module": "crm",
+    "moduleLabel": "CRM",
+    "name": "crm_contact_search",
+    "description": "Full-text search across contacts.",
+    "schemaFile": "schemas/crm/crm_contact_search.json",
+    "parameterCount": 3,
+    "requiredParams": [
+      "query"
+    ],
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "description": "Search query string."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Filter by contact type.",
+        "enum": [
+          "customer",
+          "vendor",
+          "employee"
+        ]
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Maximum number of results to return."
+      }
+    ]
+  },
+  {
+    "module": "documents",
+    "moduleLabel": "Documents",
+    "name": "doc_generate",
+    "description": "Render a document from a template with variable substitution.",
+    "schemaFile": "schemas/documents/doc_generate.json",
+    "parameterCount": 3,
+    "requiredParams": [
+      "template_id"
+    ],
+    "parameters": [
+      {
+        "name": "template_id",
+        "type": "string",
+        "required": true,
+        "description": "Identifier of the template to render."
+      },
+      {
+        "name": "variables",
+        "type": "object",
+        "required": false,
+        "description": "Key-value pairs to substitute into the template."
+      },
+      {
+        "name": "output_format",
+        "type": "string",
+        "required": false,
+        "description": "Output format for the rendered document.",
+        "enum": [
+          "html",
+          "pdf"
+        ]
+      }
+    ]
+  },
+  {
+    "module": "documents",
+    "moduleLabel": "Documents",
+    "name": "doc_ocr_scan",
+    "description": "Extract text from images using OCR.",
+    "schemaFile": "schemas/documents/doc_ocr_scan.json",
+    "parameterCount": 4,
+    "requiredParams": [],
+    "parameters": [
+      {
+        "name": "image_url",
+        "type": "string",
+        "required": false,
+        "description": "URL of the image to scan."
+      },
+      {
+        "name": "image_base64",
+        "type": "string",
+        "required": false,
+        "description": "Base64-encoded image data."
+      },
+      {
+        "name": "file_path",
+        "type": "string",
+        "required": false,
+        "description": "Local file path to the image."
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "required": false,
+        "description": "Language hint (e.g. zh, en)."
+      }
+    ]
+  },
+  {
+    "module": "documents",
+    "moduleLabel": "Documents",
+    "name": "doc_receipt_process",
+    "description": "Parse and extract structured data from a receipt via OCR text or image.",
+    "schemaFile": "schemas/documents/doc_receipt_process.json",
+    "parameterCount": 3,
+    "requiredParams": [],
+    "parameters": [
+      {
+        "name": "text",
+        "type": "string",
+        "required": false,
+        "description": "Raw OCR text of the receipt."
+      },
+      {
+        "name": "image_url",
+        "type": "string",
+        "required": false,
+        "description": "URL of the receipt image."
+      },
+      {
+        "name": "image_base64",
+        "type": "string",
+        "required": false,
+        "description": "Base64-encoded receipt image data."
+      }
+    ]
+  },
+  {
+    "module": "documents",
+    "moduleLabel": "Documents",
+    "name": "doc_search",
+    "description": "Search documents by name, type, and date range.",
+    "schemaFile": "schemas/documents/doc_search.json",
+    "parameterCount": 6,
+    "requiredParams": [],
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "description": "Name search (case-insensitive)."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Filter by document type."
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Filter documents from this date (YYYY-MM-DD)."
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "Filter documents up to this date (YYYY-MM-DD)."
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "documents",
+    "moduleLabel": "Documents",
+    "name": "doc_template_manage",
+    "description": "Create, read, update, list, and deactivate document templates.",
+    "schemaFile": "schemas/documents/doc_template_manage.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform on the template.",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "deactivate"
+        ]
+      },
+      {
+        "name": "template_id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the template."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Template name."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Template type (e.g. invoice, contract, receipt)."
+      },
+      {
+        "name": "body_html",
+        "type": "string",
+        "required": false,
+        "description": "Handlebars HTML template body."
+      },
+      {
+        "name": "variables_schema",
+        "type": "object",
+        "required": false,
+        "description": "JSON Schema describing the template variables."
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the template is active."
+      }
+    ]
+  },
+  {
+    "module": "documents",
+    "moduleLabel": "Documents",
+    "name": "doc_version_history",
+    "description": "Retrieve the version history of a document.",
+    "schemaFile": "schemas/documents/doc_version_history.json",
+    "parameterCount": 1,
+    "requiredParams": [
+      "document_id"
+    ],
+    "parameters": [
+      {
+        "name": "document_id",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier of the document."
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_balance_sheet",
+    "description": "Generate a balance sheet report as of a given date, grouping accounts by type (assets, liabilities, equity). Optionally compare against a second date.",
+    "schemaFile": "schemas/finance/fin_balance_sheet.json",
+    "parameterCount": 3,
+    "requiredParams": [
+      "as_of_date"
+    ],
+    "parameters": [
+      {
+        "name": "as_of_date",
+        "type": "string",
+        "required": true,
+        "description": "Report date (YYYY-MM-DD)"
+      },
+      {
+        "name": "comparison_date",
+        "type": "string",
+        "required": false,
+        "description": "Optional comparison date for period-over-period view"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_bank_reconcile",
+    "description": "Import bank transactions, list unreconciled items, match to journal entries, and mark as reconciled.",
+    "schemaFile": "schemas/finance/fin_bank_reconcile.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "import_transactions",
+          "list_unreconciled",
+          "match",
+          "reconcile"
+        ]
+      },
+      {
+        "name": "bank_account_id",
+        "type": "string",
+        "required": false,
+        "description": "Bank account UUID"
+      },
+      {
+        "name": "transaction_id",
+        "type": "string",
+        "required": false,
+        "description": "Bank transaction UUID (for match/reconcile)"
+      },
+      {
+        "name": "journal_entry_id",
+        "type": "string",
+        "required": false,
+        "description": "Journal entry UUID to match against"
+      },
+      {
+        "name": "transactions",
+        "type": "array",
+        "required": false,
+        "description": "Bank transactions to import"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_bill_manage",
+    "description": "Create, retrieve, update, list, receive, or void supplier bills. Mirrors invoice management on the payable side.",
+    "schemaFile": "schemas/finance/fin_bill_manage.json",
+    "parameterCount": 16,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "receive",
+          "void"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Bill UUID (required for get/update/receive/void)"
+      },
+      {
+        "name": "supplier_id",
+        "type": "string",
+        "required": false,
+        "description": "Supplier contact UUID"
+      },
+      {
+        "name": "po_id",
+        "type": "string",
+        "required": false,
+        "description": "Purchase order UUID"
+      },
+      {
+        "name": "bill_number",
+        "type": "string",
+        "required": false,
+        "description": "Supplier bill/reference number"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Bill date (YYYY-MM-DD)"
+      },
+      {
+        "name": "due_date",
+        "type": "string",
+        "required": false,
+        "description": "Payment due date (YYYY-MM-DD)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Bill notes"
+      },
+      {
+        "name": "lines",
+        "type": "array",
+        "required": false,
+        "description": "Bill line items"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Status filter for list",
+        "enum": [
+          "draft",
+          "received",
+          "paid",
+          "void"
+        ]
+      },
+      {
+        "name": "supplier_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by supplier UUID (for list)"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_budget_manage",
+    "description": "Create budgets, add account lines, list budgets, and compare budgeted vs actual amounts from journal entries.",
+    "schemaFile": "schemas/finance/fin_budget_manage.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "add_line",
+          "compare"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Budget UUID (required for get/add_line/compare)"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Budget name"
+      },
+      {
+        "name": "period_start",
+        "type": "string",
+        "required": false,
+        "description": "Budget period start date (YYYY-MM-DD)"
+      },
+      {
+        "name": "period_end",
+        "type": "string",
+        "required": false,
+        "description": "Budget period end date (YYYY-MM-DD)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "account_id",
+        "type": "string",
+        "required": false,
+        "description": "Account UUID (for add_line)"
+      },
+      {
+        "name": "amount",
+        "type": "string",
+        "required": false,
+        "description": "Budgeted amount (for add_line)"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Budget notes"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_chart_of_accounts",
+    "description": "Create, retrieve, update, list, or deactivate general ledger accounts. Supports hierarchical accounts via parent_id and filtering by account type.",
+    "schemaFile": "schemas/finance/fin_chart_of_accounts.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "update",
+          "deactivate"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Account UUID (required for get/update/deactivate)"
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "description": "Account code (e.g. 1000)"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Account name"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Account type",
+        "enum": [
+          "asset",
+          "liability",
+          "equity",
+          "revenue",
+          "expense"
+        ]
+      },
+      {
+        "name": "parent_id",
+        "type": "string",
+        "required": false,
+        "description": "Parent account UUID for hierarchical accounts"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Account description"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_credit_note",
+    "description": "Create, retrieve, or list credit and debit notes against invoices or bills.",
+    "schemaFile": "schemas/finance/fin_credit_note.json",
+    "parameterCount": 16,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Credit/debit note UUID (required for get)"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Note type",
+        "enum": [
+          "credit",
+          "debit"
+        ]
+      },
+      {
+        "name": "invoice_id",
+        "type": "string",
+        "required": false,
+        "description": "Invoice UUID to apply note against"
+      },
+      {
+        "name": "bill_id",
+        "type": "string",
+        "required": false,
+        "description": "Bill UUID to apply note against"
+      },
+      {
+        "name": "amount",
+        "type": "string",
+        "required": false,
+        "description": "Note amount as decimal string"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "required": false,
+        "description": "Reason for the credit/debit note"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Note date (YYYY-MM-DD)"
+      },
+      {
+        "name": "type_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by note type (for list)",
+        "enum": [
+          "credit",
+          "debit"
+        ]
+      },
+      {
+        "name": "invoice_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by invoice UUID (for list)"
+      },
+      {
+        "name": "bill_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by bill UUID (for list)"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_invoice_manage",
+    "description": "Create, retrieve, update, list, send, or void customer invoices. Auto-generates invoice numbers and calculates subtotals, tax, and totals from line items.",
+    "schemaFile": "schemas/finance/fin_invoice_manage.json",
+    "parameterCount": 14,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "send",
+          "void"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Invoice UUID (required for get/update/send/void)"
+      },
+      {
+        "name": "customer_id",
+        "type": "string",
+        "required": false,
+        "description": "Customer contact UUID"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Invoice date (YYYY-MM-DD)"
+      },
+      {
+        "name": "due_date",
+        "type": "string",
+        "required": false,
+        "description": "Payment due date (YYYY-MM-DD)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Invoice notes / terms"
+      },
+      {
+        "name": "lines",
+        "type": "array",
+        "required": false,
+        "description": "Invoice line items"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Status filter for list",
+        "enum": [
+          "draft",
+          "sent",
+          "paid",
+          "void"
+        ]
+      },
+      {
+        "name": "customer_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by customer UUID (for list)"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_journal_entry",
+    "description": "Create, retrieve, list, post, or reverse double-entry journal entries. Validates that total debits equal total credits before insert.",
+    "schemaFile": "schemas/finance/fin_journal_entry.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "post",
+          "reverse"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Journal entry UUID (required for get/post/reverse)"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Entry date (YYYY-MM-DD)"
+      },
+      {
+        "name": "memo",
+        "type": "string",
+        "required": false,
+        "description": "Entry memo/description"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "lines",
+        "type": "array",
+        "required": false,
+        "description": "Journal entry line items"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Status filter for list",
+        "enum": [
+          "draft",
+          "posted"
+        ]
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_payment_record",
+    "description": "Record received or made payments with optional allocation to invoices or bills.",
+    "schemaFile": "schemas/finance/fin_payment_record.json",
+    "parameterCount": 16,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Payment UUID (required for get)"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Payment direction",
+        "enum": [
+          "received",
+          "made"
+        ]
+      },
+      {
+        "name": "contact_id",
+        "type": "string",
+        "required": false,
+        "description": "Contact UUID (customer or supplier)"
+      },
+      {
+        "name": "amount",
+        "type": "string",
+        "required": false,
+        "description": "Payment amount as decimal string"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "method",
+        "type": "string",
+        "required": false,
+        "description": "Payment method",
+        "enum": [
+          "bank_transfer",
+          "cheque",
+          "cash",
+          "credit_card",
+          "other"
+        ]
+      },
+      {
+        "name": "reference",
+        "type": "string",
+        "required": false,
+        "description": "Payment reference number"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Payment date (YYYY-MM-DD)"
+      },
+      {
+        "name": "allocated_to",
+        "type": "array",
+        "required": false,
+        "description": "Payment allocation to invoices or bills"
+      },
+      {
+        "name": "type_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by payment direction (for list)",
+        "enum": [
+          "received",
+          "made"
+        ]
+      },
+      {
+        "name": "contact_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by contact UUID (for list)"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "finance",
+    "moduleLabel": "Finance",
+    "name": "fin_quotation_manage",
+    "description": "Create, retrieve, update, list, send, accept, reject, or convert quotations to invoices. Linking converted_invoice_id on conversion.",
+    "schemaFile": "schemas/finance/fin_quotation_manage.json",
+    "parameterCount": 14,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "send",
+          "accept",
+          "reject",
+          "convert_to_invoice"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Quotation UUID (required for get/update/send/accept/reject/convert_to_invoice)"
+      },
+      {
+        "name": "customer_id",
+        "type": "string",
+        "required": false,
+        "description": "Customer contact UUID"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Quotation date (YYYY-MM-DD)"
+      },
+      {
+        "name": "expiry_date",
+        "type": "string",
+        "required": false,
+        "description": "Quotation expiry date (YYYY-MM-DD)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Quotation notes / terms"
+      },
+      {
+        "name": "lines",
+        "type": "array",
+        "required": false,
+        "description": "Quotation line items"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Status filter for list",
+        "enum": [
+          "draft",
+          "sent",
+          "accepted",
+          "rejected",
+          "converted"
+        ]
+      },
+      {
+        "name": "customer_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by customer UUID (for list)"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "hr",
+    "moduleLabel": "Human Resources",
+    "name": "hr_attendance_log",
+    "description": "Clock employees in/out, retrieve attendance records, and generate monthly summaries with hours and overtime.",
+    "schemaFile": "schemas/hr/hr_attendance_log.json",
+    "parameterCount": 8,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform",
+        "enum": [
+          "clock_in",
+          "clock_out",
+          "get",
+          "list",
+          "summary"
+        ]
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Employee UUID"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Date (YYYY-MM-DD)"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Filter start date (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "Filter end date (YYYY-MM-DD)"
+      },
+      {
+        "name": "month",
+        "type": "number",
+        "required": false,
+        "description": "Month number (1-12) for summary"
+      },
+      {
+        "name": "year",
+        "type": "number",
+        "required": false,
+        "description": "Year for summary"
+      }
+    ]
+  },
+  {
+    "module": "hr",
+    "moduleLabel": "Human Resources",
+    "name": "hr_contract_manage",
+    "description": "Create, retrieve, list, or terminate employee contracts including salary and pay frequency details.",
+    "schemaFile": "schemas/hr/hr_contract_manage.json",
+    "parameterCount": 13,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "terminate"
+        ]
+      },
+      {
+        "name": "contract_id",
+        "type": "string",
+        "required": false,
+        "description": "Contract UUID"
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Employee UUID"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Contract type",
+        "enum": [
+          "permanent",
+          "fixed_term",
+          "part_time",
+          "contractor"
+        ]
+      },
+      {
+        "name": "start_date",
+        "type": "string",
+        "required": false,
+        "description": "Contract start date (YYYY-MM-DD)"
+      },
+      {
+        "name": "end_date",
+        "type": "string",
+        "required": false,
+        "description": "Contract end date (YYYY-MM-DD)"
+      },
+      {
+        "name": "salary",
+        "type": "string",
+        "required": false,
+        "description": "Monthly salary as decimal string"
+      },
+      {
+        "name": "salary_currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "pay_frequency",
+        "type": "string",
+        "required": false,
+        "description": "Pay frequency",
+        "enum": [
+          "weekly",
+          "biweekly",
+          "monthly"
+        ]
+      },
+      {
+        "name": "terms",
+        "type": "string",
+        "required": false,
+        "description": "Contract terms and conditions"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Contract status filter",
+        "enum": [
+          "active",
+          "terminated"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for pagination"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "hr",
+    "moduleLabel": "Human Resources",
+    "name": "hr_employee_manage",
+    "description": "Create, retrieve, update, list, or terminate employees with department and contact linking.",
+    "schemaFile": "schemas/hr/hr_employee_manage.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "terminate"
+        ]
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Employee UUID (required for get/update/terminate)"
+      },
+      {
+        "name": "contact_id",
+        "type": "string",
+        "required": false,
+        "description": "Contact UUID to link (required for create)"
+      },
+      {
+        "name": "employee_number",
+        "type": "string",
+        "required": false,
+        "description": "Employee number (e.g. EMP-001)"
+      },
+      {
+        "name": "department_id",
+        "type": "string",
+        "required": false,
+        "description": "Department UUID"
+      },
+      {
+        "name": "position",
+        "type": "string",
+        "required": false,
+        "description": "Job title / position"
+      },
+      {
+        "name": "hire_date",
+        "type": "string",
+        "required": false,
+        "description": "Hire date (YYYY-MM-DD)"
+      },
+      {
+        "name": "termination_date",
+        "type": "string",
+        "required": false,
+        "description": "Termination date (YYYY-MM-DD)"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Status filter for list",
+        "enum": [
+          "active",
+          "terminated"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for pagination"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "hr",
+    "moduleLabel": "Human Resources",
+    "name": "hr_expense_claim",
+    "description": "Create, retrieve, update, list, submit, approve, reject, or reimburse employee expense claims.",
+    "schemaFile": "schemas/hr/hr_expense_claim.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "submit",
+          "approve",
+          "reject",
+          "reimburse"
+        ]
+      },
+      {
+        "name": "claim_id",
+        "type": "string",
+        "required": false,
+        "description": "Expense claim UUID"
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Employee UUID"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Claim date (YYYY-MM-DD)"
+      },
+      {
+        "name": "items",
+        "type": "array",
+        "required": false,
+        "description": "Line items for the expense claim"
+      },
+      {
+        "name": "total",
+        "type": "string",
+        "required": false,
+        "description": "Total claim amount"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Claim status filter",
+        "enum": [
+          "draft",
+          "submitted",
+          "approved",
+          "rejected",
+          "reimbursed"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for pagination"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "hr",
+    "moduleLabel": "Human Resources",
+    "name": "hr_leave_manage",
+    "description": "Request, approve, reject, or cancel leave requests, and query leave balances for employees.",
+    "schemaFile": "schemas/hr/hr_leave_manage.json",
+    "parameterCount": 14,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform",
+        "enum": [
+          "request",
+          "approve",
+          "reject",
+          "cancel",
+          "get_balance",
+          "list"
+        ]
+      },
+      {
+        "name": "request_id",
+        "type": "string",
+        "required": false,
+        "description": "Leave request UUID"
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Employee UUID"
+      },
+      {
+        "name": "leave_type",
+        "type": "string",
+        "required": false,
+        "description": "Type of leave (e.g. annual, sick, maternity)"
+      },
+      {
+        "name": "start_date",
+        "type": "string",
+        "required": false,
+        "description": "Leave start date (YYYY-MM-DD)"
+      },
+      {
+        "name": "end_date",
+        "type": "string",
+        "required": false,
+        "description": "Leave end date (YYYY-MM-DD)"
+      },
+      {
+        "name": "days",
+        "type": "number",
+        "required": false,
+        "description": "Number of leave days"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes"
+      },
+      {
+        "name": "year",
+        "type": "number",
+        "required": false,
+        "description": "Year for balance query"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Leave request status filter",
+        "enum": [
+          "pending",
+          "approved",
+          "rejected",
+          "cancelled"
+        ]
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Filter start date (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "Filter end date (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for pagination"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "hr",
+    "moduleLabel": "Human Resources",
+    "name": "hr_payroll_run",
+    "description": "Create, calculate, approve, pay, get, or list payroll runs. Calculate computes gross, MPF, tax, and net for each active employee.",
+    "schemaFile": "schemas/hr/hr_payroll_run.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform",
+        "enum": [
+          "create",
+          "calculate",
+          "get",
+          "list",
+          "approve",
+          "pay"
+        ]
+      },
+      {
+        "name": "payroll_run_id",
+        "type": "string",
+        "required": false,
+        "description": "Payroll run UUID (required for calculate/get/approve/pay)"
+      },
+      {
+        "name": "period_start",
+        "type": "string",
+        "required": false,
+        "description": "Pay period start date (YYYY-MM-DD), required for create"
+      },
+      {
+        "name": "period_end",
+        "type": "string",
+        "required": false,
+        "description": "Pay period end date (YYYY-MM-DD), required for create"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for pagination"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "hr",
+    "moduleLabel": "Human Resources",
+    "name": "hr_payslip_generate",
+    "description": "Generate text-based payslip summaries for a payroll run. Provide employee_id to generate for a single employee, or omit to generate for all.",
+    "schemaFile": "schemas/hr/hr_payslip_generate.json",
+    "parameterCount": 2,
+    "requiredParams": [
+      "payroll_run_id"
+    ],
+    "parameters": [
+      {
+        "name": "payroll_run_id",
+        "type": "string",
+        "required": true,
+        "description": "Payroll run UUID"
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Employee UUID (optional; omit to generate for all employees)"
+      }
+    ]
+  },
+  {
+    "module": "operations",
+    "moduleLabel": "Operations",
+    "name": "ops_asset_manage",
+    "description": "Fixed asset management including creation, lookup, disposal, and depreciation calculation.",
+    "schemaFile": "schemas/operations/ops_asset_manage.json",
+    "parameterCount": 14,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform on the asset.",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "dispose",
+          "depreciate"
+        ]
+      },
+      {
+        "name": "asset_id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the asset."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Asset name."
+      },
+      {
+        "name": "category",
+        "type": "string",
+        "required": false,
+        "description": "Asset category."
+      },
+      {
+        "name": "purchase_date",
+        "type": "string",
+        "required": false,
+        "description": "Date the asset was purchased (YYYY-MM-DD)."
+      },
+      {
+        "name": "cost",
+        "type": "string",
+        "required": false,
+        "description": "Decimal string representing the purchase cost."
+      },
+      {
+        "name": "salvage_value",
+        "type": "string",
+        "required": false,
+        "description": "Decimal string representing the salvage value."
+      },
+      {
+        "name": "useful_life_months",
+        "type": "number",
+        "required": false,
+        "description": "Useful life of the asset in months."
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "required": false,
+        "description": "Physical location of the asset."
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes."
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "description": "Depreciation period date (YYYY-MM-DD)."
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Current status of the asset.",
+        "enum": [
+          "active",
+          "disposed",
+          "fully_depreciated"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "operations",
+    "moduleLabel": "Operations",
+    "name": "ops_delivery_note",
+    "description": "Create and manage delivery notes linked to shipments.",
+    "schemaFile": "schemas/operations/ops_delivery_note.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform.",
+        "enum": [
+          "create",
+          "get",
+          "list"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the delivery note."
+      },
+      {
+        "name": "shipment_id",
+        "type": "string",
+        "required": false,
+        "description": "Associated shipment identifier."
+      },
+      {
+        "name": "items",
+        "type": "array",
+        "required": false,
+        "description": "Line items on the delivery note."
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "operations",
+    "moduleLabel": "Operations",
+    "name": "ops_reservation_availability",
+    "description": "Query available reservation slots for a given resource type and date range.",
+    "schemaFile": "schemas/operations/ops_reservation_availability.json",
+    "parameterCount": 4,
+    "requiredParams": [
+      "resource_type",
+      "date_from",
+      "date_to"
+    ],
+    "parameters": [
+      {
+        "name": "resource_type",
+        "type": "string",
+        "required": true,
+        "description": "Type of resource to check availability for."
+      },
+      {
+        "name": "resource_id",
+        "type": "string",
+        "required": false,
+        "description": "Specific resource identifier to check."
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": true,
+        "description": "Start of availability query range (YYYY-MM-DD)."
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": true,
+        "description": "End of availability query range (YYYY-MM-DD)."
+      }
+    ]
+  },
+  {
+    "module": "operations",
+    "moduleLabel": "Operations",
+    "name": "ops_reservation_manage",
+    "description": "Manage reservations including creation, updates, cancellation, completion, and no-show handling.",
+    "schemaFile": "schemas/operations/ops_reservation_manage.json",
+    "parameterCount": 13,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform on the reservation.",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "cancel",
+          "complete",
+          "no_show"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the reservation."
+      },
+      {
+        "name": "resource_type",
+        "type": "string",
+        "required": false,
+        "description": "Type of resource being reserved."
+      },
+      {
+        "name": "resource_id",
+        "type": "string",
+        "required": false,
+        "description": "Identifier of the specific resource."
+      },
+      {
+        "name": "contact_id",
+        "type": "string",
+        "required": false,
+        "description": "Contact making the reservation."
+      },
+      {
+        "name": "start_time",
+        "type": "string",
+        "required": false,
+        "description": "Reservation start time (ISO 8601 datetime)."
+      },
+      {
+        "name": "end_time",
+        "type": "string",
+        "required": false,
+        "description": "Reservation end time (ISO 8601 datetime)."
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes."
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Filter reservations starting from this date."
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "Filter reservations up to this date."
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Reservation status filter.",
+        "enum": [
+          "pending",
+          "confirmed",
+          "cancelled",
+          "completed",
+          "no_show"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "operations",
+    "moduleLabel": "Operations",
+    "name": "ops_shipment_track",
+    "description": "Shipment tracking with status updates, events, and item management.",
+    "schemaFile": "schemas/operations/ops_shipment_track.json",
+    "parameterCount": 14,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform on the shipment.",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "update_status",
+          "add_event",
+          "add_items"
+        ]
+      },
+      {
+        "name": "shipment_id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the shipment."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Shipment direction.",
+        "enum": [
+          "inbound",
+          "outbound"
+        ]
+      },
+      {
+        "name": "carrier",
+        "type": "string",
+        "required": false,
+        "description": "Carrier or logistics provider name."
+      },
+      {
+        "name": "tracking_number",
+        "type": "string",
+        "required": false,
+        "description": "External tracking number."
+      },
+      {
+        "name": "origin",
+        "type": "object",
+        "required": false,
+        "description": "Shipment origin location."
+      },
+      {
+        "name": "destination",
+        "type": "object",
+        "required": false,
+        "description": "Shipment destination location."
+      },
+      {
+        "name": "contact_id",
+        "type": "string",
+        "required": false,
+        "description": "Associated contact identifier."
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes."
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Shipment status.",
+        "enum": [
+          "pending",
+          "picked_up",
+          "in_transit",
+          "delivered",
+          "returned",
+          "cancelled"
+        ]
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "required": false,
+        "description": "Event location."
+      },
+      {
+        "name": "items",
+        "type": "array",
+        "required": false,
+        "description": "Shipment line items."
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "operations",
+    "moduleLabel": "Operations",
+    "name": "ops_warehouse_manage",
+    "description": "Warehouse CRUD operations and stock transfer between warehouses.",
+    "schemaFile": "schemas/operations/ops_warehouse_manage.json",
+    "parameterCount": 13,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform.",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "update",
+          "deactivate",
+          "transfer_stock"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the warehouse."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Warehouse name."
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "description": "Short warehouse code."
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "required": false,
+        "description": "Warehouse address."
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes."
+      },
+      {
+        "name": "from_warehouse_id",
+        "type": "string",
+        "required": false,
+        "description": "Source warehouse for stock transfer."
+      },
+      {
+        "name": "to_warehouse_id",
+        "type": "string",
+        "required": false,
+        "description": "Destination warehouse for stock transfer."
+      },
+      {
+        "name": "item_id",
+        "type": "string",
+        "required": false,
+        "description": "Item to transfer."
+      },
+      {
+        "name": "quantity",
+        "type": "number",
+        "required": false,
+        "description": "Quantity to transfer."
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "required": false,
+        "description": "Reason for the transfer."
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "procurement",
+    "moduleLabel": "Procurement",
+    "name": "proc_bom_cost_calc",
+    "description": "Calculate total BOM cost recursively",
+    "schemaFile": "schemas/procurement/proc_bom_cost_calc.json",
+    "parameterCount": 2,
+    "requiredParams": [
+      "bom_id"
+    ],
+    "parameters": [
+      {
+        "name": "bom_id",
+        "type": "string",
+        "required": true,
+        "description": "BOM UUID to calculate cost for"
+      },
+      {
+        "name": "quantity",
+        "type": "number",
+        "required": false,
+        "description": "Number of units to cost (defaults to 1)"
+      }
+    ]
+  },
+  {
+    "module": "procurement",
+    "moduleLabel": "Procurement",
+    "name": "proc_bom_manage",
+    "description": "Bill of Materials management with multi-level support",
+    "schemaFile": "schemas/procurement/proc_bom_manage.json",
+    "parameterCount": 17,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The BOM operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "add_line",
+          "activate",
+          "obsolete"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "BOM UUID"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "BOM name"
+      },
+      {
+        "name": "item_id",
+        "type": "string",
+        "required": false,
+        "description": "Finished item UUID"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes"
+      },
+      {
+        "name": "bom_id",
+        "type": "string",
+        "required": false,
+        "description": "Parent BOM UUID (for add_line)"
+      },
+      {
+        "name": "line_item_id",
+        "type": "string",
+        "required": false,
+        "description": "Component item UUID"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Line item description"
+      },
+      {
+        "name": "quantity",
+        "type": "number",
+        "required": false,
+        "description": "Quantity required"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "description": "Unit of measure"
+      },
+      {
+        "name": "child_bom_id",
+        "type": "string",
+        "required": false,
+        "description": "Sub-assembly BOM UUID"
+      },
+      {
+        "name": "level",
+        "type": "number",
+        "required": false,
+        "description": "BOM level depth"
+      },
+      {
+        "name": "sort_order",
+        "type": "number",
+        "required": false,
+        "description": "Display sort order"
+      },
+      {
+        "name": "item_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by item UUID"
+      },
+      {
+        "name": "status_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by BOM status",
+        "enum": [
+          "draft",
+          "active",
+          "obsolete"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "procurement",
+    "moduleLabel": "Procurement",
+    "name": "proc_goods_receive",
+    "description": "Create or retrieve goods received notes",
+    "schemaFile": "schemas/procurement/proc_goods_receive.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The goods received operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "GRN UUID"
+      },
+      {
+        "name": "po_id",
+        "type": "string",
+        "required": false,
+        "description": "Associated purchase order UUID"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Date goods were received (YYYY-MM-DD)"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes"
+      },
+      {
+        "name": "lines",
+        "type": "array",
+        "required": false,
+        "description": "Goods received line items"
+      },
+      {
+        "name": "po_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by purchase order UUID"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "procurement",
+    "moduleLabel": "Procurement",
+    "name": "proc_inventory_check",
+    "description": "Check stock levels, warehouse contents, low stock report",
+    "schemaFile": "schemas/procurement/proc_inventory_check.json",
+    "parameterCount": 3,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The inventory check operation to perform",
+        "enum": [
+          "check_item",
+          "check_warehouse",
+          "low_stock_report"
+        ]
+      },
+      {
+        "name": "item_id",
+        "type": "string",
+        "required": false,
+        "description": "Item UUID to check stock for"
+      },
+      {
+        "name": "warehouse_id",
+        "type": "string",
+        "required": false,
+        "description": "Warehouse UUID to check contents of"
+      }
+    ]
+  },
+  {
+    "module": "procurement",
+    "moduleLabel": "Procurement",
+    "name": "proc_purchase_order",
+    "description": "CRUD + send/receive/close/cancel purchase orders",
+    "schemaFile": "schemas/procurement/proc_purchase_order.json",
+    "parameterCount": 15,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The purchase order operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "send",
+          "receive",
+          "close",
+          "cancel"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Purchase order UUID"
+      },
+      {
+        "name": "supplier_id",
+        "type": "string",
+        "required": false,
+        "description": "Supplier UUID"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "description": "Purchase order date (YYYY-MM-DD)"
+      },
+      {
+        "name": "expected_date",
+        "type": "string",
+        "required": false,
+        "description": "Expected delivery date (YYYY-MM-DD)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "Currency code (e.g. USD, HKD)"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes"
+      },
+      {
+        "name": "lines",
+        "type": "array",
+        "required": false,
+        "description": "Purchase order line items"
+      },
+      {
+        "name": "grn_id",
+        "type": "string",
+        "required": false,
+        "description": "GRN UUID (for receive action)"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Current status of the purchase order",
+        "enum": [
+          "draft",
+          "sent",
+          "partial",
+          "received",
+          "closed",
+          "cancelled"
+        ]
+      },
+      {
+        "name": "supplier_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter by supplier UUID"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Filter start date (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "Filter end date (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "procurement",
+    "moduleLabel": "Procurement",
+    "name": "proc_reorder_manage",
+    "description": "Manage reorder rules, trigger stock check",
+    "schemaFile": "schemas/procurement/proc_reorder_manage.json",
+    "parameterCount": 10,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The reorder rule operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "update",
+          "delete",
+          "trigger_check"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Reorder rule UUID"
+      },
+      {
+        "name": "item_id",
+        "type": "string",
+        "required": false,
+        "description": "Item UUID"
+      },
+      {
+        "name": "min_level",
+        "type": "number",
+        "required": false,
+        "description": "Minimum stock level before reorder triggers"
+      },
+      {
+        "name": "reorder_quantity",
+        "type": "number",
+        "required": false,
+        "description": "Quantity to reorder"
+      },
+      {
+        "name": "preferred_supplier_id",
+        "type": "string",
+        "required": false,
+        "description": "Preferred supplier UUID for reorders"
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the reorder rule is active"
+      },
+      {
+        "name": "active_filter",
+        "type": "boolean",
+        "required": false,
+        "description": "Filter rules by active status"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "procurement",
+    "moduleLabel": "Procurement",
+    "name": "proc_supplier_manage",
+    "description": "Create, retrieve, update, list, or deactivate suppliers",
+    "schemaFile": "schemas/procurement/proc_supplier_manage.json",
+    "parameterCount": 10,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The supplier operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "deactivate"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Supplier UUID"
+      },
+      {
+        "name": "company_id",
+        "type": "string",
+        "required": false,
+        "description": "Associated company UUID"
+      },
+      {
+        "name": "payment_terms",
+        "type": "string",
+        "required": false,
+        "description": "Payment terms (e.g. 'Net 30')"
+      },
+      {
+        "name": "rating",
+        "type": "number",
+        "required": false,
+        "description": "Supplier rating from 1 to 5"
+      },
+      {
+        "name": "lead_time_days",
+        "type": "number",
+        "required": false,
+        "description": "Typical lead time in days"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes about the supplier"
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the supplier is active"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "procurement",
+    "moduleLabel": "Procurement",
+    "name": "proc_supplier_quote",
+    "description": "Create, retrieve, list, or compare supplier quotations",
+    "schemaFile": "schemas/procurement/proc_supplier_quote.json",
+    "parameterCount": 12,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The quotation operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "compare"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Quote UUID"
+      },
+      {
+        "name": "supplier_id",
+        "type": "string",
+        "required": false,
+        "description": "Supplier UUID"
+      },
+      {
+        "name": "items",
+        "type": "array",
+        "required": false,
+        "description": "Line items in the quotation"
+      },
+      {
+        "name": "valid_until",
+        "type": "string",
+        "required": false,
+        "description": "Quote expiry date (YYYY-MM-DD)"
+      },
+      {
+        "name": "total",
+        "type": "string",
+        "required": false,
+        "description": "Total quoted amount as decimal string"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "Currency code (e.g. USD, HKD)"
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Additional notes"
+      },
+      {
+        "name": "quote_ids",
+        "type": "array",
+        "required": false,
+        "description": "List of quote UUIDs to compare (for compare action)"
+      },
+      {
+        "name": "supplier_id_filter",
+        "type": "string",
+        "required": false,
+        "description": "Filter quotes by supplier UUID"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "tax",
+    "moduleLabel": "Tax",
+    "name": "tax_calculate",
+    "description": "Calculate tax for a period by querying financial data",
+    "schemaFile": "schemas/tax/tax_calculate.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The calculation operation to perform",
+        "enum": [
+          "calculate_period",
+          "get_calculation",
+          "list_calculations"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Tax calculation UUID"
+      },
+      {
+        "name": "tax_period_id",
+        "type": "string",
+        "required": false,
+        "description": "Tax period UUID to calculate for"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Type of tax to calculate",
+        "enum": [
+          "profits",
+          "sales",
+          "GST",
+          "VAT",
+          "income",
+          "WHT"
+        ]
+      },
+      {
+        "name": "tax_rate_id",
+        "type": "string",
+        "required": false,
+        "description": "Tax rate UUID to apply"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "tax",
+    "moduleLabel": "Tax",
+    "name": "tax_filing_prepare",
+    "description": "Manage tax periods, prepare filing summaries, record submissions",
+    "schemaFile": "schemas/tax/tax_filing_prepare.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The filing operation to perform",
+        "enum": [
+          "create_period",
+          "get_period",
+          "list_periods",
+          "prepare_filing",
+          "submit_filing"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Filing record UUID"
+      },
+      {
+        "name": "tax_period_id",
+        "type": "string",
+        "required": false,
+        "description": "Tax period UUID"
+      },
+      {
+        "name": "jurisdiction",
+        "type": "string",
+        "required": false,
+        "description": "Jurisdiction code (e.g. HK, US, GB)"
+      },
+      {
+        "name": "period_start",
+        "type": "string",
+        "required": false,
+        "description": "Start date of the tax period (YYYY-MM-DD)"
+      },
+      {
+        "name": "period_end",
+        "type": "string",
+        "required": false,
+        "description": "End date of the tax period (YYYY-MM-DD)"
+      },
+      {
+        "name": "reference_number",
+        "type": "string",
+        "required": false,
+        "description": "External filing reference number"
+      },
+      {
+        "name": "filed_date",
+        "type": "string",
+        "required": false,
+        "description": "Date the filing was submitted (YYYY-MM-DD)"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Current status of the tax period",
+        "enum": [
+          "open",
+          "calculating",
+          "prepared",
+          "submitted",
+          "closed"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "tax",
+    "moduleLabel": "Tax",
+    "name": "tax_rate_manage",
+    "description": "Create, retrieve, update, list, or deactivate tax rates with jurisdiction support",
+    "schemaFile": "schemas/tax/tax_rate_manage.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform on tax rates",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "update",
+          "deactivate"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Tax rate UUID"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Tax rate name"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "description": "Type of tax",
+        "enum": [
+          "GST",
+          "VAT",
+          "WHT",
+          "income",
+          "profits",
+          "sales"
+        ]
+      },
+      {
+        "name": "rate",
+        "type": "string",
+        "required": false,
+        "description": "Tax rate as decimal (e.g. '0.165' for 16.5%)"
+      },
+      {
+        "name": "jurisdiction",
+        "type": "string",
+        "required": false,
+        "description": "Jurisdiction code (e.g. HK, US, GB)"
+      },
+      {
+        "name": "effective_from",
+        "type": "string",
+        "required": false,
+        "description": "Date the tax rate becomes effective (YYYY-MM-DD)"
+      },
+      {
+        "name": "effective_to",
+        "type": "string",
+        "required": false,
+        "description": "Date the tax rate expires (YYYY-MM-DD)"
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the tax rate is active"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "tax",
+    "moduleLabel": "Tax",
+    "name": "tax_report",
+    "description": "Generate tax summaries, deductions reports, obligations overview",
+    "schemaFile": "schemas/tax/tax_report.json",
+    "parameterCount": 5,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The type of tax report to generate",
+        "enum": [
+          "tax_summary",
+          "deductions_report",
+          "obligations"
+        ]
+      },
+      {
+        "name": "tax_period_id",
+        "type": "string",
+        "required": false,
+        "description": "Tax period UUID to report on"
+      },
+      {
+        "name": "period_start",
+        "type": "string",
+        "required": false,
+        "description": "Start date for the report range (YYYY-MM-DD)"
+      },
+      {
+        "name": "period_end",
+        "type": "string",
+        "required": false,
+        "description": "End date for the report range (YYYY-MM-DD)"
+      },
+      {
+        "name": "obligations_limit",
+        "type": "number",
+        "required": false,
+        "description": "Maximum number of obligations to return"
+      }
+    ]
+  },
+  {
+    "module": "tax",
+    "moduleLabel": "Tax",
+    "name": "tax_withholding_track",
+    "description": "Track WHT records, generate certificates",
+    "schemaFile": "schemas/tax/tax_withholding_track.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The withholding tax operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "generate_certificate"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "WHT record UUID"
+      },
+      {
+        "name": "payment_id",
+        "type": "string",
+        "required": false,
+        "description": "Associated payment UUID"
+      },
+      {
+        "name": "tax_rate_id",
+        "type": "string",
+        "required": false,
+        "description": "Tax rate UUID applied for withholding"
+      },
+      {
+        "name": "gross_amount",
+        "type": "string",
+        "required": false,
+        "description": "Gross payment amount as decimal string"
+      },
+      {
+        "name": "wht_amount",
+        "type": "string",
+        "required": false,
+        "description": "Withholding tax amount as decimal string"
+      },
+      {
+        "name": "certificate_number",
+        "type": "string",
+        "required": false,
+        "description": "WHT certificate number"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Filter start date (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "Filter end date (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "workflow",
+    "moduleLabel": "Workflow",
+    "name": "wf_approval_action",
+    "description": "Take an action (approve, reject, or request changes) on a pending approval.",
+    "schemaFile": "schemas/workflow/wf_approval_action.json",
+    "parameterCount": 4,
+    "requiredParams": [
+      "approval_id",
+      "action",
+      "actor_id"
+    ],
+    "parameters": [
+      {
+        "name": "approval_id",
+        "type": "string",
+        "required": true,
+        "description": "Identifier of the approval record."
+      },
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The approval action to take.",
+        "enum": [
+          "approve",
+          "reject",
+          "request_changes"
+        ]
+      },
+      {
+        "name": "actor_id",
+        "type": "string",
+        "required": true,
+        "description": "Identifier of the user taking the action."
+      },
+      {
+        "name": "comment",
+        "type": "string",
+        "required": false,
+        "description": "Optional comment explaining the decision."
+      }
+    ]
+  },
+  {
+    "module": "workflow",
+    "moduleLabel": "Workflow",
+    "name": "wf_approval_status",
+    "description": "Query approval records by ID, actor, document type, or status.",
+    "schemaFile": "schemas/workflow/wf_approval_status.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The query operation to perform.",
+        "enum": [
+          "get",
+          "list",
+          "pending_for_me"
+        ]
+      },
+      {
+        "name": "approval_id",
+        "type": "string",
+        "required": false,
+        "description": "Identifier of a specific approval record."
+      },
+      {
+        "name": "actor_id",
+        "type": "string",
+        "required": false,
+        "description": "Filter by approver identifier."
+      },
+      {
+        "name": "document_type",
+        "type": "string",
+        "required": false,
+        "description": "Filter by document type."
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Filter by approval status.",
+        "enum": [
+          "pending",
+          "approved",
+          "rejected",
+          "changes_requested"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  },
+  {
+    "module": "workflow",
+    "moduleLabel": "Workflow",
+    "name": "wf_approval_submit",
+    "description": "Submit a document for approval routing.",
+    "schemaFile": "schemas/workflow/wf_approval_submit.json",
+    "parameterCount": 4,
+    "requiredParams": [
+      "document_type",
+      "document_id",
+      "submitted_by"
+    ],
+    "parameters": [
+      {
+        "name": "document_type",
+        "type": "string",
+        "required": true,
+        "description": "e.g. invoice, purchase_order, expense_claim."
+      },
+      {
+        "name": "document_id",
+        "type": "string",
+        "required": true,
+        "description": "Identifier of the document to submit."
+      },
+      {
+        "name": "submitted_by",
+        "type": "string",
+        "required": true,
+        "description": "Identifier of the submitting user."
+      },
+      {
+        "name": "amount",
+        "type": "string",
+        "required": false,
+        "description": "Document amount for threshold matching."
+      }
+    ]
+  },
+  {
+    "module": "workflow",
+    "moduleLabel": "Workflow",
+    "name": "wf_rule_manage",
+    "description": "Manage approval routing rules including thresholds, approver chains, and auto-approve settings.",
+    "schemaFile": "schemas/workflow/wf_rule_manage.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "The operation to perform on the rule.",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "update",
+          "delete"
+        ]
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Unique identifier of the rule."
+      },
+      {
+        "name": "document_type",
+        "type": "string",
+        "required": false,
+        "description": "Document type this rule applies to."
+      },
+      {
+        "name": "threshold_amount",
+        "type": "string",
+        "required": false,
+        "description": "Amount threshold that triggers this rule."
+      },
+      {
+        "name": "approver_chain",
+        "type": "array",
+        "required": false,
+        "description": "Ordered list of approver identifiers."
+      },
+      {
+        "name": "auto_approve_below",
+        "type": "string",
+        "required": false,
+        "description": "Automatically approve documents below this amount."
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "required": false,
+        "description": "Approval routing mode.",
+        "enum": [
+          "sequential",
+          "parallel"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number for paginated results."
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page."
+      }
+    ]
+  }
+]

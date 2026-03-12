@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/crm/crm_company_manage.json",
+  "title": "crm_company_manage",
+  "description": "Create, read, update, list, and deactivate companies (customers, vendors, or both).",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "deactivate"],
+      "description": "The operation to perform on the company record."
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the company."
+    },
+    "name": {
+      "type": "string",
+      "description": "Company name."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["customer", "vendor", "both"],
+      "description": "Company relationship type."
+    },
+    "tax_id": {
+      "type": "string",
+      "description": "Tax identification number."
+    },
+    "address": {
+      "type": "object",
+      "description": "Company address.",
+      "properties": {
+        "line1": {
+          "type": "string",
+          "description": "Address line 1."
+        },
+        "line2": {
+          "type": "string",
+          "description": "Address line 2."
+        },
+        "city": {
+          "type": "string",
+          "description": "City."
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province."
+        },
+        "postal_code": {
+          "type": "string",
+          "description": "Postal or ZIP code."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country."
+        }
+      },
+      "required": ["line1", "city", "postal_code", "country"]
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number."
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address."
+    },
+    "website": {
+      "type": "string",
+      "description": "Website URL."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

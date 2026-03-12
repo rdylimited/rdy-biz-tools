@@ -1,0 +1,34 @@
+{
+  "name": "@rdylimited/rdy-biz-tools",
+  "version": "0.1.0",
+  "description": "JSON Schema definitions and generator scripts for RDY business tools",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rdylimited/rdy-biz-tools.git"
+  },
+  "type": "module",
+  "exports": {
+    "./schemas/*": "./schemas/*"
+  },
+  "scripts": {
+    "generate": "node scripts/generate-tool.js",
+    "catalog": "node scripts/build-catalog.js",
+    "validate": "node scripts/validate-schemas.js"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.0"
+  },
+  "keywords": [
+    "mcp",
+    "tools",
+    "json-schema",
+    "business",
+    "finance",
+    "hr",
+    "tax",
+    "procurement",
+    "crm",
+    "operations"
+  ]
+}

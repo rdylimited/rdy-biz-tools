@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/crm/crm_contact_manage.json",
+  "title": "crm_contact_manage",
+  "description": "Create, read, update, list, and deactivate contacts.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "deactivate"],
+      "description": "The operation to perform on the contact record."
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the contact."
+    },
+    "name": {
+      "type": "string",
+      "description": "Contact name."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["customer", "vendor", "employee"],
+      "description": "Contact type."
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address."
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number."
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Associated company identifier."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

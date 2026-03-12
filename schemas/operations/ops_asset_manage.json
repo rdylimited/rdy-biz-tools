@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/operations/ops_asset_manage.json",
+  "title": "ops_asset_manage",
+  "description": "Fixed asset management including creation, lookup, disposal, and depreciation calculation.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "dispose", "depreciate"],
+      "description": "The operation to perform on the asset."
+    },
+    "asset_id": {
+      "type": "string",
+      "description": "Unique identifier of the asset."
+    },
+    "name": {
+      "type": "string",
+      "description": "Asset name."
+    },
+    "category": {
+      "type": "string",
+      "description": "Asset category."
+    },
+    "purchase_date": {
+      "type": "string",
+      "description": "Date the asset was purchased (YYYY-MM-DD)."
+    },
+    "cost": {
+      "type": "string",
+      "description": "Decimal string representing the purchase cost."
+    },
+    "salvage_value": {
+      "type": "string",
+      "description": "Decimal string representing the salvage value."
+    },
+    "useful_life_months": {
+      "type": "number",
+      "description": "Useful life of the asset in months.",
+      "minimum": 1
+    },
+    "location": {
+      "type": "string",
+      "description": "Physical location of the asset."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    },
+    "period": {
+      "type": "string",
+      "description": "Depreciation period date (YYYY-MM-DD)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "disposed", "fully_depreciated"],
+      "description": "Current status of the asset."
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

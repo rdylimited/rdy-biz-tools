@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/documents/doc_generate.json",
+  "title": "doc_generate",
+  "description": "Render a document from a template with variable substitution.",
+  "type": "object",
+  "properties": {
+    "template_id": {
+      "type": "string",
+      "description": "Identifier of the template to render."
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Key-value pairs to substitute into the template."
+    },
+    "output_format": {
+      "type": "string",
+      "enum": ["html", "pdf"],
+      "default": "html",
+      "description": "Output format for the rendered document."
+    }
+  },
+  "required": ["template_id"]
+}

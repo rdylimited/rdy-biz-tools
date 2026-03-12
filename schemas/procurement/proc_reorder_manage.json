@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/procurement/proc_reorder_manage.json",
+  "title": "proc_reorder_manage",
+  "description": "Manage reorder rules, trigger stock check",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "update", "delete", "trigger_check"],
+      "description": "The reorder rule operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Reorder rule UUID"
+    },
+    "item_id": {
+      "type": "string",
+      "description": "Item UUID"
+    },
+    "min_level": {
+      "type": "number",
+      "description": "Minimum stock level before reorder triggers"
+    },
+    "reorder_quantity": {
+      "type": "number",
+      "description": "Quantity to reorder"
+    },
+    "preferred_supplier_id": {
+      "type": "string",
+      "description": "Preferred supplier UUID for reorders"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the reorder rule is active"
+    },
+    "active_filter": {
+      "type": "boolean",
+      "description": "Filter rules by active status"
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

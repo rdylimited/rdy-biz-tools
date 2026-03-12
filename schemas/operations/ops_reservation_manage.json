@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/operations/ops_reservation_manage.json",
+  "title": "ops_reservation_manage",
+  "description": "Manage reservations including creation, updates, cancellation, completion, and no-show handling.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "cancel", "complete", "no_show"],
+      "description": "The operation to perform on the reservation."
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the reservation."
+    },
+    "resource_type": {
+      "type": "string",
+      "description": "Type of resource being reserved."
+    },
+    "resource_id": {
+      "type": "string",
+      "description": "Identifier of the specific resource."
+    },
+    "contact_id": {
+      "type": "string",
+      "description": "Contact making the reservation."
+    },
+    "start_time": {
+      "type": "string",
+      "description": "Reservation start time (ISO 8601 datetime)."
+    },
+    "end_time": {
+      "type": "string",
+      "description": "Reservation end time (ISO 8601 datetime)."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Filter reservations starting from this date."
+    },
+    "date_to": {
+      "type": "string",
+      "description": "Filter reservations up to this date."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "confirmed", "cancelled", "completed", "no_show"],
+      "description": "Reservation status filter."
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

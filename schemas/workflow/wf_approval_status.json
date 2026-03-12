@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/workflow/wf_approval_status.json",
+  "title": "wf_approval_status",
+  "description": "Query approval records by ID, actor, document type, or status.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["get", "list", "pending_for_me"],
+      "description": "The query operation to perform."
+    },
+    "approval_id": {
+      "type": "string",
+      "description": "Identifier of a specific approval record."
+    },
+    "actor_id": {
+      "type": "string",
+      "description": "Filter by approver identifier."
+    },
+    "document_type": {
+      "type": "string",
+      "description": "Filter by document type."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "approved", "rejected", "changes_requested"],
+      "description": "Filter by approval status."
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

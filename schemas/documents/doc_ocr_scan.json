@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/documents/doc_ocr_scan.json",
+  "title": "doc_ocr_scan",
+  "description": "Extract text from images using OCR.",
+  "type": "object",
+  "properties": {
+    "image_url": {
+      "type": "string",
+      "description": "URL of the image to scan."
+    },
+    "image_base64": {
+      "type": "string",
+      "description": "Base64-encoded image data."
+    },
+    "file_path": {
+      "type": "string",
+      "description": "Local file path to the image."
+    },
+    "language": {
+      "type": "string",
+      "description": "Language hint (e.g. zh, en)."
+    }
+  }
+}

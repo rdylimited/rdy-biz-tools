@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/hr/hr_employee_manage.json",
+  "title": "hr_employee_manage",
+  "description": "Create, retrieve, update, list, or terminate employees with department and contact linking.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "terminate"],
+      "description": "The operation to perform"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee UUID (required for get/update/terminate)"
+    },
+    "contact_id": {
+      "type": "string",
+      "description": "Contact UUID to link (required for create)"
+    },
+    "employee_number": {
+      "type": "string",
+      "description": "Employee number (e.g. EMP-001)"
+    },
+    "department_id": {
+      "type": "string",
+      "description": "Department UUID"
+    },
+    "position": {
+      "type": "string",
+      "description": "Job title / position"
+    },
+    "hire_date": {
+      "type": "string",
+      "description": "Hire date (YYYY-MM-DD)"
+    },
+    "termination_date": {
+      "type": "string",
+      "description": "Termination date (YYYY-MM-DD)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "terminated"],
+      "description": "Status filter for list"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number for pagination"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

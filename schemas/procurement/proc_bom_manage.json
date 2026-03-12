@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/procurement/proc_bom_manage.json",
+  "title": "proc_bom_manage",
+  "description": "Bill of Materials management with multi-level support",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "add_line", "activate", "obsolete"],
+      "description": "The BOM operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "BOM UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "BOM name"
+    },
+    "item_id": {
+      "type": "string",
+      "description": "Finished item UUID"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "bom_id": {
+      "type": "string",
+      "description": "Parent BOM UUID (for add_line)"
+    },
+    "line_item_id": {
+      "type": "string",
+      "description": "Component item UUID"
+    },
+    "description": {
+      "type": "string",
+      "description": "Line item description"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Quantity required"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measure"
+    },
+    "child_bom_id": {
+      "type": "string",
+      "description": "Sub-assembly BOM UUID"
+    },
+    "level": {
+      "type": "number",
+      "description": "BOM level depth"
+    },
+    "sort_order": {
+      "type": "number",
+      "description": "Display sort order"
+    },
+    "item_id_filter": {
+      "type": "string",
+      "description": "Filter by item UUID"
+    },
+    "status_filter": {
+      "type": "string",
+      "enum": ["draft", "active", "obsolete"],
+      "description": "Filter by BOM status"
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

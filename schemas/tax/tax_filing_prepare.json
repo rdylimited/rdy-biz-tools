@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/tax/tax_filing_prepare.json",
+  "title": "tax_filing_prepare",
+  "description": "Manage tax periods, prepare filing summaries, record submissions",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create_period", "get_period", "list_periods", "prepare_filing", "submit_filing"],
+      "description": "The filing operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Filing record UUID"
+    },
+    "tax_period_id": {
+      "type": "string",
+      "description": "Tax period UUID"
+    },
+    "jurisdiction": {
+      "type": "string",
+      "description": "Jurisdiction code (e.g. HK, US, GB)"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of the tax period (YYYY-MM-DD)"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of the tax period (YYYY-MM-DD)"
+    },
+    "reference_number": {
+      "type": "string",
+      "description": "External filing reference number"
+    },
+    "filed_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the filing was submitted (YYYY-MM-DD)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["open", "calculating", "prepared", "submitted", "closed"],
+      "description": "Current status of the tax period"
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

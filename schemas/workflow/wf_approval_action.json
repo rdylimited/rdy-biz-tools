@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/workflow/wf_approval_action.json",
+  "title": "wf_approval_action",
+  "description": "Take an action (approve, reject, or request changes) on a pending approval.",
+  "type": "object",
+  "properties": {
+    "approval_id": {
+      "type": "string",
+      "description": "Identifier of the approval record."
+    },
+    "action": {
+      "type": "string",
+      "enum": ["approve", "reject", "request_changes"],
+      "description": "The approval action to take."
+    },
+    "actor_id": {
+      "type": "string",
+      "description": "Identifier of the user taking the action."
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment explaining the decision."
+    }
+  },
+  "required": ["approval_id", "action", "actor_id"]
+}

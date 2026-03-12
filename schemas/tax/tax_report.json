@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/tax/tax_report.json",
+  "title": "tax_report",
+  "description": "Generate tax summaries, deductions reports, obligations overview",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["tax_summary", "deductions_report", "obligations"],
+      "description": "The type of tax report to generate"
+    },
+    "tax_period_id": {
+      "type": "string",
+      "description": "Tax period UUID to report on"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date for the report range (YYYY-MM-DD)"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date for the report range (YYYY-MM-DD)"
+    },
+    "obligations_limit": {
+      "type": "number",
+      "description": "Maximum number of obligations to return"
+    }
+  },
+  "required": ["action"]
+}

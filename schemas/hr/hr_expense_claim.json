@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/hr/hr_expense_claim.json",
+  "title": "hr_expense_claim",
+  "description": "Create, retrieve, update, list, submit, approve, reject, or reimburse employee expense claims.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "submit", "approve", "reject", "reimburse"],
+      "description": "The operation to perform"
+    },
+    "claim_id": {
+      "type": "string",
+      "description": "Expense claim UUID"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee UUID"
+    },
+    "date": {
+      "type": "string",
+      "description": "Claim date (YYYY-MM-DD)"
+    },
+    "items": {
+      "type": "array",
+      "description": "Line items for the expense claim",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Item description"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Item amount as decimal string"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["travel", "meals", "supplies", "accommodation", "transport", "office", "other"],
+            "description": "Expense category"
+          },
+          "receipt_url": {
+            "type": "string",
+            "description": "URL to receipt image or document"
+          }
+        },
+        "required": ["description", "amount", "category"]
+      }
+    },
+    "total": {
+      "type": "string",
+      "description": "Total claim amount"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "submitted", "approved", "rejected", "reimbursed"],
+      "description": "Claim status filter"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number for pagination"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

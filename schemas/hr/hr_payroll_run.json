@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/hr/hr_payroll_run.json",
+  "title": "hr_payroll_run",
+  "description": "Create, calculate, approve, pay, get, or list payroll runs. Calculate computes gross, MPF, tax, and net for each active employee.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "calculate", "get", "list", "approve", "pay"],
+      "description": "The operation to perform"
+    },
+    "payroll_run_id": {
+      "type": "string",
+      "description": "Payroll run UUID (required for calculate/get/approve/pay)"
+    },
+    "period_start": {
+      "type": "string",
+      "description": "Pay period start date (YYYY-MM-DD), required for create"
+    },
+    "period_end": {
+      "type": "string",
+      "description": "Pay period end date (YYYY-MM-DD), required for create"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number for pagination"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

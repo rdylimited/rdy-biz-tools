@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/finance/fin_chart_of_accounts.json",
+  "title": "fin_chart_of_accounts",
+  "description": "Create, retrieve, update, list, or deactivate general ledger accounts. Supports hierarchical accounts via parent_id and filtering by account type.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "update", "deactivate"],
+      "description": "Operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Account UUID (required for get/update/deactivate)"
+    },
+    "code": {
+      "type": "string",
+      "description": "Account code (e.g. 1000)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Account name"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["asset", "liability", "equity", "revenue", "expense"],
+      "description": "Account type"
+    },
+    "parent_id": {
+      "type": "string",
+      "description": "Parent account UUID for hierarchical accounts"
+    },
+    "description": {
+      "type": "string",
+      "description": "Account description"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

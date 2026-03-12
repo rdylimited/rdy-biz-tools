@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/finance/fin_invoice_manage.json",
+  "title": "fin_invoice_manage",
+  "description": "Create, retrieve, update, list, send, or void customer invoices. Auto-generates invoice numbers and calculates subtotals, tax, and totals from line items.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "send", "void"],
+      "description": "Operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Invoice UUID (required for get/update/send/void)"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer contact UUID"
+    },
+    "date": {
+      "type": "string",
+      "description": "Invoice date (YYYY-MM-DD)"
+    },
+    "due_date": {
+      "type": "string",
+      "description": "Payment due date (YYYY-MM-DD)"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "ISO 4217 currency code"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Invoice notes / terms"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Line item description"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Quantity as decimal string"
+          },
+          "unit_price": {
+            "type": "string",
+            "description": "Unit price as decimal string"
+          },
+          "tax_rate": {
+            "type": "string",
+            "description": "Tax rate as decimal (e.g. '0.08' for 8%)"
+          }
+        },
+        "required": ["description", "quantity", "unit_price"]
+      },
+      "description": "Invoice line items"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "sent", "paid", "void"],
+      "description": "Status filter for list"
+    },
+    "customer_id_filter": {
+      "type": "string",
+      "description": "Filter by customer UUID (for list)"
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Start date filter (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "description": "End date filter (YYYY-MM-DD)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

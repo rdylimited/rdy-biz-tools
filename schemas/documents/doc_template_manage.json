@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/documents/doc_template_manage.json",
+  "title": "doc_template_manage",
+  "description": "Create, read, update, list, and deactivate document templates.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "deactivate"],
+      "description": "The operation to perform on the template."
+    },
+    "template_id": {
+      "type": "string",
+      "description": "Unique identifier of the template."
+    },
+    "name": {
+      "type": "string",
+      "description": "Template name."
+    },
+    "type": {
+      "type": "string",
+      "description": "Template type (e.g. invoice, contract, receipt)."
+    },
+    "body_html": {
+      "type": "string",
+      "description": "Handlebars HTML template body."
+    },
+    "variables_schema": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "JSON Schema describing the template variables."
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the template is active."
+    }
+  },
+  "required": ["action"]
+}

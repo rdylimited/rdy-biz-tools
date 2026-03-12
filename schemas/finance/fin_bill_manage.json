@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/finance/fin_bill_manage.json",
+  "title": "fin_bill_manage",
+  "description": "Create, retrieve, update, list, receive, or void supplier bills. Mirrors invoice management on the payable side.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "receive", "void"],
+      "description": "Operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Bill UUID (required for get/update/receive/void)"
+    },
+    "supplier_id": {
+      "type": "string",
+      "description": "Supplier contact UUID"
+    },
+    "po_id": {
+      "type": "string",
+      "description": "Purchase order UUID"
+    },
+    "bill_number": {
+      "type": "string",
+      "description": "Supplier bill/reference number"
+    },
+    "date": {
+      "type": "string",
+      "description": "Bill date (YYYY-MM-DD)"
+    },
+    "due_date": {
+      "type": "string",
+      "description": "Payment due date (YYYY-MM-DD)"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "ISO 4217 currency code"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Bill notes"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Line item description"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Quantity as decimal string"
+          },
+          "unit_price": {
+            "type": "string",
+            "description": "Unit price as decimal string"
+          },
+          "tax_rate": {
+            "type": "string",
+            "description": "Tax rate as decimal (e.g. '0.08' for 8%)"
+          }
+        },
+        "required": ["description", "quantity", "unit_price"]
+      },
+      "description": "Bill line items"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "received", "paid", "void"],
+      "description": "Status filter for list"
+    },
+    "supplier_id_filter": {
+      "type": "string",
+      "description": "Filter by supplier UUID (for list)"
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Start date filter (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "description": "End date filter (YYYY-MM-DD)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

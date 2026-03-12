@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/procurement/proc_bom_cost_calc.json",
+  "title": "proc_bom_cost_calc",
+  "description": "Calculate total BOM cost recursively",
+  "type": "object",
+  "properties": {
+    "bom_id": {
+      "type": "string",
+      "description": "BOM UUID to calculate cost for"
+    },
+    "quantity": {
+      "type": "number",
+      "default": 1,
+      "description": "Number of units to cost (defaults to 1)"
+    }
+  },
+  "required": ["bom_id"]
+}

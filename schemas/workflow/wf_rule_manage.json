@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/workflow/wf_rule_manage.json",
+  "title": "wf_rule_manage",
+  "description": "Manage approval routing rules including thresholds, approver chains, and auto-approve settings.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "update", "delete"],
+      "description": "The operation to perform on the rule."
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the rule."
+    },
+    "document_type": {
+      "type": "string",
+      "description": "Document type this rule applies to."
+    },
+    "threshold_amount": {
+      "type": "string",
+      "description": "Amount threshold that triggers this rule."
+    },
+    "approver_chain": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Ordered list of approver identifiers."
+    },
+    "auto_approve_below": {
+      "type": "string",
+      "description": "Automatically approve documents below this amount."
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["sequential", "parallel"],
+      "description": "Approval routing mode."
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

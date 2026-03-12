@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/hr/hr_leave_manage.json",
+  "title": "hr_leave_manage",
+  "description": "Request, approve, reject, or cancel leave requests, and query leave balances for employees.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["request", "approve", "reject", "cancel", "get_balance", "list"],
+      "description": "The operation to perform"
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Leave request UUID"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee UUID"
+    },
+    "leave_type": {
+      "type": "string",
+      "description": "Type of leave (e.g. annual, sick, maternity)"
+    },
+    "start_date": {
+      "type": "string",
+      "description": "Leave start date (YYYY-MM-DD)"
+    },
+    "end_date": {
+      "type": "string",
+      "description": "Leave end date (YYYY-MM-DD)"
+    },
+    "days": {
+      "type": "number",
+      "description": "Number of leave days"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "year": {
+      "type": "number",
+      "description": "Year for balance query"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "approved", "rejected", "cancelled"],
+      "description": "Leave request status filter"
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Filter start date (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "description": "Filter end date (YYYY-MM-DD)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number for pagination"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

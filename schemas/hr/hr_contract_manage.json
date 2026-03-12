@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/hr/hr_contract_manage.json",
+  "title": "hr_contract_manage",
+  "description": "Create, retrieve, list, or terminate employee contracts including salary and pay frequency details.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "terminate"],
+      "description": "The operation to perform"
+    },
+    "contract_id": {
+      "type": "string",
+      "description": "Contract UUID"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee UUID"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["permanent", "fixed_term", "part_time", "contractor"],
+      "description": "Contract type"
+    },
+    "start_date": {
+      "type": "string",
+      "description": "Contract start date (YYYY-MM-DD)"
+    },
+    "end_date": {
+      "type": "string",
+      "description": "Contract end date (YYYY-MM-DD)"
+    },
+    "salary": {
+      "type": "string",
+      "description": "Monthly salary as decimal string"
+    },
+    "salary_currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "ISO 4217 currency code"
+    },
+    "pay_frequency": {
+      "type": "string",
+      "enum": ["weekly", "biweekly", "monthly"],
+      "description": "Pay frequency"
+    },
+    "terms": {
+      "type": "string",
+      "description": "Contract terms and conditions"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "terminated"],
+      "description": "Contract status filter"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number for pagination"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

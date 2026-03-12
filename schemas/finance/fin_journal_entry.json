@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/finance/fin_journal_entry.json",
+  "title": "fin_journal_entry",
+  "description": "Create, retrieve, list, post, or reverse double-entry journal entries. Validates that total debits equal total credits before insert.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "post", "reverse"],
+      "description": "Operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Journal entry UUID (required for get/post/reverse)"
+    },
+    "date": {
+      "type": "string",
+      "description": "Entry date (YYYY-MM-DD)"
+    },
+    "memo": {
+      "type": "string",
+      "description": "Entry memo/description"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "ISO 4217 currency code"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "description": "Chart of accounts UUID"
+          },
+          "debit": {
+            "type": "string",
+            "description": "Debit amount as decimal string"
+          },
+          "credit": {
+            "type": "string",
+            "description": "Credit amount as decimal string"
+          },
+          "description": {
+            "type": "string",
+            "description": "Line description"
+          }
+        },
+        "required": ["account_id"]
+      },
+      "description": "Journal entry line items"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "posted"],
+      "description": "Status filter for list"
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Start date filter (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "description": "End date filter (YYYY-MM-DD)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

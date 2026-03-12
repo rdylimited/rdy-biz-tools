@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/finance/fin_bank_reconcile.json",
+  "title": "fin_bank_reconcile",
+  "description": "Import bank transactions, list unreconciled items, match to journal entries, and mark as reconciled.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["import_transactions", "list_unreconciled", "match", "reconcile"],
+      "description": "Operation to perform"
+    },
+    "bank_account_id": {
+      "type": "string",
+      "description": "Bank account UUID"
+    },
+    "transaction_id": {
+      "type": "string",
+      "description": "Bank transaction UUID (for match/reconcile)"
+    },
+    "journal_entry_id": {
+      "type": "string",
+      "description": "Journal entry UUID to match against"
+    },
+    "transactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Transaction date (YYYY-MM-DD)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction description"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Transaction amount as decimal string"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Transaction reference"
+          }
+        },
+        "required": ["date", "description", "amount"]
+      },
+      "description": "Bank transactions to import"
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Start date filter (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "description": "End date filter (YYYY-MM-DD)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

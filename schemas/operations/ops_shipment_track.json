@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/operations/ops_shipment_track.json",
+  "title": "ops_shipment_track",
+  "description": "Shipment tracking with status updates, events, and item management.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "update_status", "add_event", "add_items"],
+      "description": "The operation to perform on the shipment."
+    },
+    "shipment_id": {
+      "type": "string",
+      "description": "Unique identifier of the shipment."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["inbound", "outbound"],
+      "description": "Shipment direction."
+    },
+    "carrier": {
+      "type": "string",
+      "description": "Carrier or logistics provider name."
+    },
+    "tracking_number": {
+      "type": "string",
+      "description": "External tracking number."
+    },
+    "origin": {
+      "type": "object",
+      "description": "Shipment origin location."
+    },
+    "destination": {
+      "type": "object",
+      "description": "Shipment destination location."
+    },
+    "contact_id": {
+      "type": "string",
+      "description": "Associated contact identifier."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "picked_up", "in_transit", "delivered", "returned", "cancelled"],
+      "description": "Shipment status."
+    },
+    "location": {
+      "type": "string",
+      "description": "Event location."
+    },
+    "items": {
+      "type": "array",
+      "description": "Shipment line items.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "description": "Item identifier."
+          },
+          "description": {
+            "type": "string",
+            "description": "Item description."
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Item quantity.",
+            "minimum": 1
+          }
+        },
+        "required": ["description", "quantity"]
+      }
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

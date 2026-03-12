@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/hr/hr_payslip_generate.json",
+  "title": "hr_payslip_generate",
+  "description": "Generate text-based payslip summaries for a payroll run. Provide employee_id to generate for a single employee, or omit to generate for all.",
+  "type": "object",
+  "properties": {
+    "payroll_run_id": {
+      "type": "string",
+      "description": "Payroll run UUID"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee UUID (optional; omit to generate for all employees)"
+    }
+  },
+  "required": ["payroll_run_id"]
+}

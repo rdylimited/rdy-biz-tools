@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/documents/doc_version_history.json",
+  "title": "doc_version_history",
+  "description": "Retrieve the version history of a document.",
+  "type": "object",
+  "properties": {
+    "document_id": {
+      "type": "string",
+      "description": "Unique identifier of the document."
+    }
+  },
+  "required": ["document_id"]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/crm/crm_contact_search.json",
+  "title": "crm_contact_search",
+  "description": "Full-text search across contacts.",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "Search query string."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["customer", "vendor", "employee"],
+      "description": "Filter by contact type."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Maximum number of results to return.",
+      "maximum": 100
+    }
+  },
+  "required": ["query"]
+}

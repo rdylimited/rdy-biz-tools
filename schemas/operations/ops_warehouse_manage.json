@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/operations/ops_warehouse_manage.json",
+  "title": "ops_warehouse_manage",
+  "description": "Warehouse CRUD operations and stock transfer between warehouses.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "update", "deactivate", "transfer_stock"],
+      "description": "The operation to perform."
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the warehouse."
+    },
+    "name": {
+      "type": "string",
+      "description": "Warehouse name."
+    },
+    "code": {
+      "type": "string",
+      "description": "Short warehouse code."
+    },
+    "address": {
+      "type": "string",
+      "description": "Warehouse address."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes."
+    },
+    "from_warehouse_id": {
+      "type": "string",
+      "description": "Source warehouse for stock transfer."
+    },
+    "to_warehouse_id": {
+      "type": "string",
+      "description": "Destination warehouse for stock transfer."
+    },
+    "item_id": {
+      "type": "string",
+      "description": "Item to transfer."
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Quantity to transfer.",
+      "minimum": 1
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the transfer."
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

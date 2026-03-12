@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/documents/doc_search.json",
+  "title": "doc_search",
+  "description": "Search documents by name, type, and date range.",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "Name search (case-insensitive)."
+    },
+    "type": {
+      "type": "string",
+      "description": "Filter by document type."
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Filter documents from this date (YYYY-MM-DD)."
+    },
+    "date_to": {
+      "type": "string",
+      "description": "Filter documents up to this date (YYYY-MM-DD)."
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  }
+}

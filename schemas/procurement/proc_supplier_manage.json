@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/procurement/proc_supplier_manage.json",
+  "title": "proc_supplier_manage",
+  "description": "Create, retrieve, update, list, or deactivate suppliers",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "deactivate"],
+      "description": "The supplier operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Supplier UUID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Associated company UUID"
+    },
+    "payment_terms": {
+      "type": "string",
+      "description": "Payment terms (e.g. 'Net 30')"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Supplier rating from 1 to 5"
+    },
+    "lead_time_days": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Typical lead time in days"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about the supplier"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the supplier is active"
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

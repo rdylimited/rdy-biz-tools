@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/tax/tax_rate_manage.json",
+  "title": "tax_rate_manage",
+  "description": "Create, retrieve, update, list, or deactivate tax rates with jurisdiction support",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "update", "deactivate"],
+      "description": "The operation to perform on tax rates"
+    },
+    "id": {
+      "type": "string",
+      "description": "Tax rate UUID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Tax rate name"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["GST", "VAT", "WHT", "income", "profits", "sales"],
+      "description": "Type of tax"
+    },
+    "rate": {
+      "type": "string",
+      "description": "Tax rate as decimal (e.g. '0.165' for 16.5%)"
+    },
+    "jurisdiction": {
+      "type": "string",
+      "description": "Jurisdiction code (e.g. HK, US, GB)"
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the tax rate becomes effective (YYYY-MM-DD)"
+    },
+    "effective_to": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the tax rate expires (YYYY-MM-DD)"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the tax rate is active"
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

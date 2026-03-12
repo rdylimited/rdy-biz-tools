@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/operations/ops_delivery_note.json",
+  "title": "ops_delivery_note",
+  "description": "Create and manage delivery notes linked to shipments.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list"],
+      "description": "The operation to perform."
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the delivery note."
+    },
+    "shipment_id": {
+      "type": "string",
+      "description": "Associated shipment identifier."
+    },
+    "items": {
+      "type": "array",
+      "description": "Line items on the delivery note.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Item description."
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Item quantity.",
+            "minimum": 1
+          },
+          "notes": {
+            "type": "string",
+            "description": "Item-level notes."
+          }
+        },
+        "required": ["description", "quantity"]
+      }
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results."
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page."
+    }
+  },
+  "required": ["action"]
+}

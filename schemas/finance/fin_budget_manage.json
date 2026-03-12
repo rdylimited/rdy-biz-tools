@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/finance/fin_budget_manage.json",
+  "title": "fin_budget_manage",
+  "description": "Create budgets, add account lines, list budgets, and compare budgeted vs actual amounts from journal entries.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "add_line", "compare"],
+      "description": "Operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Budget UUID (required for get/add_line/compare)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Budget name"
+    },
+    "period_start": {
+      "type": "string",
+      "description": "Budget period start date (YYYY-MM-DD)"
+    },
+    "period_end": {
+      "type": "string",
+      "description": "Budget period end date (YYYY-MM-DD)"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "ISO 4217 currency code"
+    },
+    "account_id": {
+      "type": "string",
+      "description": "Account UUID (for add_line)"
+    },
+    "amount": {
+      "type": "string",
+      "description": "Budgeted amount (for add_line)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Budget notes"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

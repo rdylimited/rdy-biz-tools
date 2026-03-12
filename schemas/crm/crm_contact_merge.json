@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/crm/crm_contact_merge.json",
+  "title": "crm_contact_merge",
+  "description": "Merge duplicate contacts by absorbing a secondary contact into a primary contact.",
+  "type": "object",
+  "properties": {
+    "primary_id": {
+      "type": "string",
+      "description": "UUID of the contact to keep."
+    },
+    "secondary_id": {
+      "type": "string",
+      "description": "UUID of the contact to merge and deactivate."
+    }
+  },
+  "required": ["primary_id", "secondary_id"]
+}

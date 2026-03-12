@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/hr/hr_attendance_log.json",
+  "title": "hr_attendance_log",
+  "description": "Clock employees in/out, retrieve attendance records, and generate monthly summaries with hours and overtime.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["clock_in", "clock_out", "get", "list", "summary"],
+      "description": "The operation to perform"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee UUID"
+    },
+    "date": {
+      "type": "string",
+      "description": "Date (YYYY-MM-DD)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Filter start date (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "description": "Filter end date (YYYY-MM-DD)"
+    },
+    "month": {
+      "type": "number",
+      "description": "Month number (1-12) for summary"
+    },
+    "year": {
+      "type": "number",
+      "description": "Year for summary"
+    }
+  },
+  "required": ["action"]
+}

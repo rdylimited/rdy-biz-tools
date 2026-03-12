@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/workflow/wf_approval_submit.json",
+  "title": "wf_approval_submit",
+  "description": "Submit a document for approval routing.",
+  "type": "object",
+  "properties": {
+    "document_type": {
+      "type": "string",
+      "description": "e.g. invoice, purchase_order, expense_claim."
+    },
+    "document_id": {
+      "type": "string",
+      "description": "Identifier of the document to submit."
+    },
+    "submitted_by": {
+      "type": "string",
+      "description": "Identifier of the submitting user."
+    },
+    "amount": {
+      "type": "string",
+      "description": "Document amount for threshold matching."
+    }
+  },
+  "required": ["document_type", "document_id", "submitted_by"]
+}

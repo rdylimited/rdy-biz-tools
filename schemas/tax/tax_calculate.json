@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/tax/tax_calculate.json",
+  "title": "tax_calculate",
+  "description": "Calculate tax for a period by querying financial data",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["calculate_period", "get_calculation", "list_calculations"],
+      "description": "The calculation operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Tax calculation UUID"
+    },
+    "tax_period_id": {
+      "type": "string",
+      "description": "Tax period UUID to calculate for"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["profits", "sales", "GST", "VAT", "income", "WHT"],
+      "description": "Type of tax to calculate"
+    },
+    "tax_rate_id": {
+      "type": "string",
+      "description": "Tax rate UUID to apply"
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

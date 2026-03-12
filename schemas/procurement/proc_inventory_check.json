@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/procurement/proc_inventory_check.json",
+  "title": "proc_inventory_check",
+  "description": "Check stock levels, warehouse contents, low stock report",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["check_item", "check_warehouse", "low_stock_report"],
+      "description": "The inventory check operation to perform"
+    },
+    "item_id": {
+      "type": "string",
+      "description": "Item UUID to check stock for"
+    },
+    "warehouse_id": {
+      "type": "string",
+      "description": "Warehouse UUID to check contents of"
+    }
+  },
+  "required": ["action"]
+}

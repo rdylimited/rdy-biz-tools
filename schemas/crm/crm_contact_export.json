@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/crm/crm_contact_export.json",
+  "title": "crm_contact_export",
+  "description": "Export contacts in CSV or JSON format.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["customer", "vendor", "employee"],
+      "description": "Filter export by contact type."
+    },
+    "format": {
+      "type": "string",
+      "enum": ["csv", "json"],
+      "default": "json",
+      "description": "Output format."
+    }
+  }
+}

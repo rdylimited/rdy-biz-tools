@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/documents/doc_receipt_process.json",
+  "title": "doc_receipt_process",
+  "description": "Parse and extract structured data from a receipt via OCR text or image.",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Raw OCR text of the receipt."
+    },
+    "image_url": {
+      "type": "string",
+      "description": "URL of the receipt image."
+    },
+    "image_base64": {
+      "type": "string",
+      "description": "Base64-encoded receipt image data."
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/procurement/proc_supplier_quote.json",
+  "title": "proc_supplier_quote",
+  "description": "Create, retrieve, list, or compare supplier quotations",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "compare"],
+      "description": "The quotation operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Quote UUID"
+    },
+    "supplier_id": {
+      "type": "string",
+      "description": "Supplier UUID"
+    },
+    "items": {
+      "type": "array",
+      "description": "Line items in the quotation",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "description": "Item UUID"
+          },
+          "description": {
+            "type": "string",
+            "description": "Item description"
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Quantity quoted"
+          },
+          "unit_price": {
+            "type": "string",
+            "description": "Unit price as decimal string"
+          }
+        },
+        "required": ["item_id", "description", "quantity", "unit_price"]
+      }
+    },
+    "valid_until": {
+      "type": "string",
+      "format": "date",
+      "description": "Quote expiry date (YYYY-MM-DD)"
+    },
+    "total": {
+      "type": "string",
+      "description": "Total quoted amount as decimal string"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code (e.g. USD, HKD)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "quote_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of quote UUIDs to compare (for compare action)"
+    },
+    "supplier_id_filter": {
+      "type": "string",
+      "description": "Filter quotes by supplier UUID"
+    },
+    "page": {
+      "type": "number",
+      "description": "Page number for paginated results"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["action"]
+}

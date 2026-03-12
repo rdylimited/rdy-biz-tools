@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/finance/fin_quotation_manage.json",
+  "title": "fin_quotation_manage",
+  "description": "Create, retrieve, update, list, send, accept, reject, or convert quotations to invoices. Linking converted_invoice_id on conversion.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "send", "accept", "reject", "convert_to_invoice"],
+      "description": "Operation to perform"
+    },
+    "id": {
+      "type": "string",
+      "description": "Quotation UUID (required for get/update/send/accept/reject/convert_to_invoice)"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer contact UUID"
+    },
+    "date": {
+      "type": "string",
+      "description": "Quotation date (YYYY-MM-DD)"
+    },
+    "expiry_date": {
+      "type": "string",
+      "description": "Quotation expiry date (YYYY-MM-DD)"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "ISO 4217 currency code"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Quotation notes / terms"
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Line item description"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Quantity as decimal string"
+          },
+          "unit_price": {
+            "type": "string",
+            "description": "Unit price as decimal string"
+          },
+          "tax_rate": {
+            "type": "string",
+            "description": "Tax rate as decimal (e.g. '0.08' for 8%)"
+          }
+        },
+        "required": ["description", "quantity", "unit_price"]
+      },
+      "description": "Quotation line items"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "sent", "accepted", "rejected", "converted"],
+      "description": "Status filter for list"
+    },
+    "customer_id_filter": {
+      "type": "string",
+      "description": "Filter by customer UUID (for list)"
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Start date filter (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "description": "End date filter (YYYY-MM-DD)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

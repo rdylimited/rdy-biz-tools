@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/operations/ops_reservation_availability.json",
+  "title": "ops_reservation_availability",
+  "description": "Query available reservation slots for a given resource type and date range.",
+  "type": "object",
+  "properties": {
+    "resource_type": {
+      "type": "string",
+      "description": "Type of resource to check availability for."
+    },
+    "resource_id": {
+      "type": "string",
+      "description": "Specific resource identifier to check."
+    },
+    "date_from": {
+      "type": "string",
+      "description": "Start of availability query range (YYYY-MM-DD)."
+    },
+    "date_to": {
+      "type": "string",
+      "description": "End of availability query range (YYYY-MM-DD)."
+    }
+  },
+  "required": ["resource_type", "date_from", "date_to"]
+}

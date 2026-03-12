@@ -31,6 +31,9 @@ const MODULE_LABELS = {
   email: "Email (Gmail)",
   calendar: "Calendar (Google/Outlook)",
   slack: "Slack",
+  notion: "Notion",
+  wechat: "WeChat",
+  whatsapp: "WhatsApp Business",
 };
 
 const catalog = [];

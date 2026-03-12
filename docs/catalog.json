@@ -2764,6 +2764,256 @@
     ]
   },
   {
+    "module": "notion",
+    "moduleLabel": "Notion",
+    "name": "create_page",
+    "description": "Create a new Notion page in a database or as a child of another page. Supports setting properties, adding content blocks, and specifying an icon and cover image.",
+    "schemaFile": "schemas/notion/create_page.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "parent_type",
+      "parent_id",
+      "title"
+    ],
+    "parameters": [
+      {
+        "name": "parent_type",
+        "type": "string",
+        "required": true,
+        "description": "Whether the parent is a database or another page",
+        "enum": [
+          "database",
+          "page"
+        ]
+      },
+      {
+        "name": "parent_id",
+        "type": "string",
+        "required": true,
+        "description": "UUID of the parent database or page"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Page title (maps to the title property for database pages)"
+      },
+      {
+        "name": "properties",
+        "type": "object",
+        "required": false,
+        "description": "Database properties to set (key = property name, value = property value object per Notion API format)"
+      },
+      {
+        "name": "children",
+        "type": "array",
+        "required": false,
+        "description": "Content blocks to add to the page body"
+      },
+      {
+        "name": "icon",
+        "type": "object",
+        "required": false,
+        "description": "Page icon"
+      },
+      {
+        "name": "cover_url",
+        "type": "string",
+        "required": false,
+        "description": "External URL for the page cover image"
+      }
+    ]
+  },
+  {
+    "module": "notion",
+    "moduleLabel": "Notion",
+    "name": "manage_blocks",
+    "description": "Retrieve, append, update, or delete content blocks within a Notion page. Blocks represent paragraphs, headings, lists, code, images, and other content types.",
+    "schemaFile": "schemas/notion/manage_blocks.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "action",
+      "block_id"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "get_children",
+          "append",
+          "update",
+          "delete"
+        ]
+      },
+      {
+        "name": "block_id",
+        "type": "string",
+        "required": true,
+        "description": "Block or page UUID. For get_children/append: the parent. For update/delete: the target block."
+      },
+      {
+        "name": "children",
+        "type": "array",
+        "required": false,
+        "description": "Blocks to append (required for append action)"
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "required": false,
+        "description": "Updated text content (for update action on text blocks)"
+      },
+      {
+        "name": "start_cursor",
+        "type": "string",
+        "required": false,
+        "description": "Pagination cursor for get_children"
+      },
+      {
+        "name": "page_size",
+        "type": "number",
+        "required": false,
+        "description": "Number of blocks per page (for get_children)"
+      }
+    ]
+  },
+  {
+    "module": "notion",
+    "moduleLabel": "Notion",
+    "name": "query_database",
+    "description": "Query a Notion database with filters, sorts, and pagination. Supports compound filters (and/or) and multi-property sorting.",
+    "schemaFile": "schemas/notion/query_database.json",
+    "parameterCount": 5,
+    "requiredParams": [
+      "database_id"
+    ],
+    "parameters": [
+      {
+        "name": "database_id",
+        "type": "string",
+        "required": true,
+        "description": "UUID of the Notion database to query"
+      },
+      {
+        "name": "filter",
+        "type": "object",
+        "required": false,
+        "description": "Notion filter object (see Notion API filter spec). Supports property filters and compound and/or groups."
+      },
+      {
+        "name": "sorts",
+        "type": "array",
+        "required": false,
+        "description": "Sort criteria (applied in order)"
+      },
+      {
+        "name": "start_cursor",
+        "type": "string",
+        "required": false,
+        "description": "Pagination cursor from a previous query result"
+      },
+      {
+        "name": "page_size",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "notion",
+    "moduleLabel": "Notion",
+    "name": "search",
+    "description": "Search across all Notion pages and databases accessible to the integration. Filter by object type and sort by relevance or last edited time.",
+    "schemaFile": "schemas/notion/search.json",
+    "parameterCount": 5,
+    "requiredParams": [
+      "query"
+    ],
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "description": "Search query text (matches page titles and content)"
+      },
+      {
+        "name": "filter_type",
+        "type": "string",
+        "required": false,
+        "description": "Restrict results to pages or databases only",
+        "enum": [
+          "page",
+          "database"
+        ]
+      },
+      {
+        "name": "sort",
+        "type": "object",
+        "required": false,
+        "description": "Sort configuration"
+      },
+      {
+        "name": "start_cursor",
+        "type": "string",
+        "required": false,
+        "description": "Pagination cursor from a previous search result"
+      },
+      {
+        "name": "page_size",
+        "type": "number",
+        "required": false,
+        "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "notion",
+    "moduleLabel": "Notion",
+    "name": "update_page",
+    "description": "Update properties, icon, cover, or archived status of an existing Notion page. Does not modify page content blocks (use manage_blocks for that).",
+    "schemaFile": "schemas/notion/update_page.json",
+    "parameterCount": 5,
+    "requiredParams": [
+      "page_id"
+    ],
+    "parameters": [
+      {
+        "name": "page_id",
+        "type": "string",
+        "required": true,
+        "description": "UUID of the page to update"
+      },
+      {
+        "name": "properties",
+        "type": "object",
+        "required": false,
+        "description": "Properties to update (key = property name, value = property value object per Notion API format)"
+      },
+      {
+        "name": "icon",
+        "type": "object",
+        "required": false,
+        "description": "Updated page icon"
+      },
+      {
+        "name": "cover_url",
+        "type": "string",
+        "required": false,
+        "description": "Updated cover image URL (set to null to remove)"
+      },
+      {
+        "name": "archived",
+        "type": "boolean",
+        "required": false,
+        "description": "Set to true to archive the page, false to restore"
+      }
+    ]
+  },
+  {
     "module": "operations",
     "moduleLabel": "Operations",
     "name": "ops_asset_manage",
@@ -4580,6 +4830,785 @@
         "type": "number",
         "required": false,
         "description": "Number of results per page"
+      }
+    ]
+  },
+  {
+    "module": "wechat",
+    "moduleLabel": "WeChat",
+    "name": "mini_program",
+    "description": "Interact with WeChat Mini Program APIs: generate QR codes, send subscription messages, query user session, and manage cloud functions.",
+    "schemaFile": "schemas/wechat/mini_program.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "generate_qrcode",
+          "send_subscription",
+          "code2session",
+          "invoke_cloud_function"
+        ]
+      },
+      {
+        "name": "scene",
+        "type": "string",
+        "required": false,
+        "description": "Scene value for QR code (required for generate_qrcode)"
+      },
+      {
+        "name": "page",
+        "type": "string",
+        "required": false,
+        "description": "Mini-program page path for QR code landing"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "description": "QR code image width in pixels"
+      },
+      {
+        "name": "to_user",
+        "type": "string",
+        "required": false,
+        "description": "User OpenID (required for send_subscription)"
+      },
+      {
+        "name": "template_id",
+        "type": "string",
+        "required": false,
+        "description": "Subscription message template ID"
+      },
+      {
+        "name": "template_data",
+        "type": "object",
+        "required": false,
+        "description": "Template data key-value pairs (for send_subscription)"
+      },
+      {
+        "name": "miniprogram_state",
+        "type": "string",
+        "required": false,
+        "description": "Mini-program environment for subscription messages",
+        "enum": [
+          "developer",
+          "trial",
+          "formal"
+        ]
+      },
+      {
+        "name": "js_code",
+        "type": "string",
+        "required": false,
+        "description": "wx.login() temporary code (required for code2session)"
+      },
+      {
+        "name": "function_name",
+        "type": "string",
+        "required": false,
+        "description": "Cloud function name (required for invoke_cloud_function)"
+      },
+      {
+        "name": "function_data",
+        "type": "object",
+        "required": false,
+        "description": "Data to pass to the cloud function"
+      }
+    ]
+  },
+  {
+    "module": "wechat",
+    "moduleLabel": "WeChat",
+    "name": "send_message",
+    "description": "Send a message to a WeChat user or group via the Official Account or Work (Enterprise) API. Supports text, image, voice, video, news articles, and mini-program cards.",
+    "schemaFile": "schemas/wechat/send_message.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "to_user",
+      "msg_type"
+    ],
+    "parameters": [
+      {
+        "name": "to_user",
+        "type": "string",
+        "required": true,
+        "description": "Recipient OpenID (Official Account) or UserID (Work)"
+      },
+      {
+        "name": "msg_type",
+        "type": "string",
+        "required": true,
+        "description": "Message type",
+        "enum": [
+          "text",
+          "image",
+          "voice",
+          "video",
+          "news",
+          "mpnews",
+          "miniprogram_notice"
+        ]
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "required": false,
+        "description": "Text content (for text messages)"
+      },
+      {
+        "name": "media_id",
+        "type": "string",
+        "required": false,
+        "description": "Media ID from WeChat media upload (for image/voice/video)"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "description": "Title (for video, news, mini-program messages)"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Description (for video and news messages)"
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "required": false,
+        "description": "Click-through URL (for news articles)"
+      },
+      {
+        "name": "thumb_media_id",
+        "type": "string",
+        "required": false,
+        "description": "Thumbnail media ID (for video and news)"
+      },
+      {
+        "name": "articles",
+        "type": "array",
+        "required": false,
+        "description": "News articles (max 8, for news type)"
+      },
+      {
+        "name": "appid",
+        "type": "string",
+        "required": false,
+        "description": "Mini-program AppID (for miniprogram_notice)"
+      },
+      {
+        "name": "pagepath",
+        "type": "string",
+        "required": false,
+        "description": "Mini-program page path (for miniprogram_notice)"
+      }
+    ]
+  },
+  {
+    "module": "wechat",
+    "moduleLabel": "WeChat",
+    "name": "template_message",
+    "description": "Send or manage WeChat Official Account template messages. Supports setting template data, click URLs, and mini-program links.",
+    "schemaFile": "schemas/wechat/template_message.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "send",
+          "list_templates",
+          "get_template",
+          "delete_template"
+        ]
+      },
+      {
+        "name": "to_user",
+        "type": "string",
+        "required": false,
+        "description": "Recipient OpenID (required for send)"
+      },
+      {
+        "name": "template_id",
+        "type": "string",
+        "required": false,
+        "description": "Template ID (required for send/get_template/delete_template)"
+      },
+      {
+        "name": "data",
+        "type": "object",
+        "required": false,
+        "description": "Template data fields (required for send)"
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "required": false,
+        "description": "Click-through URL when user taps the message"
+      },
+      {
+        "name": "miniprogram",
+        "type": "object",
+        "required": false,
+        "description": "Mini-program link (takes priority over url)"
+      },
+      {
+        "name": "client_msg_id",
+        "type": "string",
+        "required": false,
+        "description": "Idempotency key to prevent duplicate sends"
+      }
+    ]
+  },
+  {
+    "module": "wechat",
+    "moduleLabel": "WeChat",
+    "name": "user_info",
+    "description": "Query WeChat user information: get user profile, list followers, batch get user info, and manage user tags.",
+    "schemaFile": "schemas/wechat/user_info.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "get_user",
+          "list_followers",
+          "batch_get",
+          "create_tag",
+          "list_tags",
+          "tag_users",
+          "untag_users"
+        ]
+      },
+      {
+        "name": "openid",
+        "type": "string",
+        "required": false,
+        "description": "User OpenID (required for get_user)"
+      },
+      {
+        "name": "openid_list",
+        "type": "array",
+        "required": false,
+        "description": "List of OpenIDs (required for batch_get, tag_users, untag_users)"
+      },
+      {
+        "name": "lang",
+        "type": "string",
+        "required": false,
+        "description": "Language for user info response",
+        "enum": [
+          "zh_CN",
+          "zh_TW",
+          "en"
+        ]
+      },
+      {
+        "name": "next_openid",
+        "type": "string",
+        "required": false,
+        "description": "Pagination cursor for list_followers"
+      },
+      {
+        "name": "tag_id",
+        "type": "number",
+        "required": false,
+        "description": "Tag ID (required for tag_users/untag_users)"
+      },
+      {
+        "name": "tag_name",
+        "type": "string",
+        "required": false,
+        "description": "Tag name (required for create_tag)"
+      }
+    ]
+  },
+  {
+    "module": "wechat",
+    "moduleLabel": "WeChat",
+    "name": "wechat_pay",
+    "description": "WeChat Pay operations: create unified orders, query payment status, issue refunds, and download transaction bills.",
+    "schemaFile": "schemas/wechat/wechat_pay.json",
+    "parameterCount": 14,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create_order",
+          "query_order",
+          "close_order",
+          "refund",
+          "query_refund",
+          "download_bill"
+        ]
+      },
+      {
+        "name": "out_trade_no",
+        "type": "string",
+        "required": false,
+        "description": "Merchant order number (required for create_order/query_order/close_order)"
+      },
+      {
+        "name": "total_amount",
+        "type": "number",
+        "required": false,
+        "description": "Total amount in cents/fen (required for create_order)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "Payment currency",
+        "enum": [
+          "CNY",
+          "HKD",
+          "USD"
+        ]
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Order description (required for create_order)"
+      },
+      {
+        "name": "payer_openid",
+        "type": "string",
+        "required": false,
+        "description": "Payer's OpenID (required for JSAPI/Mini-program payments)"
+      },
+      {
+        "name": "trade_type",
+        "type": "string",
+        "required": false,
+        "description": "Payment scenario (required for create_order)",
+        "enum": [
+          "JSAPI",
+          "NATIVE",
+          "APP",
+          "H5"
+        ]
+      },
+      {
+        "name": "notify_url",
+        "type": "string",
+        "required": false,
+        "description": "Webhook URL for payment notifications"
+      },
+      {
+        "name": "transaction_id",
+        "type": "string",
+        "required": false,
+        "description": "WeChat Pay transaction ID (for query_order alternative)"
+      },
+      {
+        "name": "out_refund_no",
+        "type": "string",
+        "required": false,
+        "description": "Merchant refund number (required for refund)"
+      },
+      {
+        "name": "refund_amount",
+        "type": "number",
+        "required": false,
+        "description": "Refund amount in cents/fen (required for refund)"
+      },
+      {
+        "name": "refund_reason",
+        "type": "string",
+        "required": false,
+        "description": "Reason for refund"
+      },
+      {
+        "name": "bill_date",
+        "type": "string",
+        "required": false,
+        "description": "Bill date YYYY-MM-DD (required for download_bill)"
+      },
+      {
+        "name": "bill_type",
+        "type": "string",
+        "required": false,
+        "description": "Bill type (for download_bill)",
+        "enum": [
+          "ALL",
+          "SUCCESS",
+          "REFUND"
+        ]
+      }
+    ]
+  },
+  {
+    "module": "whatsapp",
+    "moduleLabel": "WhatsApp Business",
+    "name": "manage_catalog",
+    "description": "Manage WhatsApp Business product catalog. Create, update, delete, and list products. Products can be shared in interactive messages and product list messages.",
+    "schemaFile": "schemas/whatsapp/manage_catalog.json",
+    "parameterCount": 13,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create_product",
+          "update_product",
+          "delete_product",
+          "list_products",
+          "get_product"
+        ]
+      },
+      {
+        "name": "catalog_id",
+        "type": "string",
+        "required": false,
+        "description": "Catalog ID (defaults to the business's primary catalog)"
+      },
+      {
+        "name": "product_id",
+        "type": "string",
+        "required": false,
+        "description": "Product retailer ID (required for update/delete/get)"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Product name (required for create)"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Product description"
+      },
+      {
+        "name": "price",
+        "type": "number",
+        "required": false,
+        "description": "Product price in cents (e.g. 1999 = $19.99)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "ISO 4217 currency code"
+      },
+      {
+        "name": "image_url",
+        "type": "string",
+        "required": false,
+        "description": "Product image URL"
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "required": false,
+        "description": "Product page URL"
+      },
+      {
+        "name": "availability",
+        "type": "string",
+        "required": false,
+        "description": "Product availability",
+        "enum": [
+          "in stock",
+          "out of stock"
+        ]
+      },
+      {
+        "name": "retailer_id",
+        "type": "string",
+        "required": false,
+        "description": "Custom retailer/SKU ID"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "whatsapp",
+    "moduleLabel": "WhatsApp Business",
+    "name": "manage_contacts",
+    "description": "Manage WhatsApp Business contacts. Check if phone numbers are on WhatsApp, manage contact labels, and retrieve conversation profiles.",
+    "schemaFile": "schemas/whatsapp/manage_contacts.json",
+    "parameterCount": 8,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "check_numbers",
+          "get_profile",
+          "list_contacts",
+          "add_label",
+          "remove_label",
+          "list_labels"
+        ]
+      },
+      {
+        "name": "phone_numbers",
+        "type": "array",
+        "required": false,
+        "description": "Phone numbers in E.164 format (required for check_numbers)"
+      },
+      {
+        "name": "contact_phone",
+        "type": "string",
+        "required": false,
+        "description": "Contact phone in E.164 format (required for get_profile/add_label/remove_label)"
+      },
+      {
+        "name": "label_id",
+        "type": "string",
+        "required": false,
+        "description": "Label ID (required for add_label/remove_label)"
+      },
+      {
+        "name": "label_name",
+        "type": "string",
+        "required": false,
+        "description": "Label name (for creating labels via add_label if label_id is omitted)"
+      },
+      {
+        "name": "label_color",
+        "type": "number",
+        "required": false,
+        "description": "Label color index (0-20)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "whatsapp",
+    "moduleLabel": "WhatsApp Business",
+    "name": "read_messages",
+    "description": "Read and manage incoming WhatsApp messages. Mark messages as read, retrieve message details, and list conversation history with a contact.",
+    "schemaFile": "schemas/whatsapp/read_messages.json",
+    "parameterCount": 8,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "get",
+          "list",
+          "mark_read",
+          "download_media"
+        ]
+      },
+      {
+        "name": "message_id",
+        "type": "string",
+        "required": false,
+        "description": "Message ID (required for get/mark_read)"
+      },
+      {
+        "name": "contact_phone",
+        "type": "string",
+        "required": false,
+        "description": "Contact phone in E.164 format (required for list)"
+      },
+      {
+        "name": "media_id",
+        "type": "string",
+        "required": false,
+        "description": "Media ID to download (required for download_media)"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "whatsapp",
+    "moduleLabel": "WhatsApp Business",
+    "name": "send_message",
+    "description": "Send a message via WhatsApp Business API. Supports text, image, document, audio, video, location, contacts, and interactive messages (buttons, lists).",
+    "schemaFile": "schemas/whatsapp/send_message.json",
+    "parameterCount": 8,
+    "requiredParams": [
+      "to",
+      "type"
+    ],
+    "parameters": [
+      {
+        "name": "to",
+        "type": "string",
+        "required": true,
+        "description": "Recipient phone number in E.164 format (e.g. '+85291234567')"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": true,
+        "description": "Message type",
+        "enum": [
+          "text",
+          "image",
+          "document",
+          "audio",
+          "video",
+          "location",
+          "contacts",
+          "interactive"
+        ]
+      },
+      {
+        "name": "text",
+        "type": "object",
+        "required": false,
+        "description": "Text message content (for text type)"
+      },
+      {
+        "name": "image",
+        "type": "object",
+        "required": false,
+        "description": "Image content (for image type)"
+      },
+      {
+        "name": "document",
+        "type": "object",
+        "required": false,
+        "description": "Document content (for document type)"
+      },
+      {
+        "name": "location",
+        "type": "object",
+        "required": false,
+        "description": "Location content (for location type)"
+      },
+      {
+        "name": "interactive",
+        "type": "object",
+        "required": false,
+        "description": "Interactive message (for interactive type)"
+      },
+      {
+        "name": "context",
+        "type": "object",
+        "required": false,
+        "description": "Reply context for threading"
+      }
+    ]
+  },
+  {
+    "module": "whatsapp",
+    "moduleLabel": "WhatsApp Business",
+    "name": "send_template",
+    "description": "Send a pre-approved WhatsApp message template. Templates are required for initiating conversations outside the 24-hour messaging window. Supports parameter substitution for header, body, and buttons.",
+    "schemaFile": "schemas/whatsapp/send_template.json",
+    "parameterCount": 4,
+    "requiredParams": [
+      "to",
+      "template_name",
+      "language_code"
+    ],
+    "parameters": [
+      {
+        "name": "to",
+        "type": "string",
+        "required": true,
+        "description": "Recipient phone number in E.164 format"
+      },
+      {
+        "name": "template_name",
+        "type": "string",
+        "required": true,
+        "description": "Approved template name"
+      },
+      {
+        "name": "language_code",
+        "type": "string",
+        "required": true,
+        "description": "Template language code (e.g. 'en_US', 'zh_HK')"
+      },
+      {
+        "name": "components",
+        "type": "array",
+        "required": false,
+        "description": "Template component parameters"
       }
     ]
   },

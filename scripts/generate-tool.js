@@ -29,6 +29,9 @@ const MODULES = [
   "email",
   "calendar",
   "slack",
+  "notion",
+  "wechat",
+  "whatsapp",
 ];
 
 function parseArgs(args) {

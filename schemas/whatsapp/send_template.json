@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/whatsapp/send_template.json",
+  "title": "send_template",
+  "description": "Send a pre-approved WhatsApp message template. Templates are required for initiating conversations outside the 24-hour messaging window. Supports parameter substitution for header, body, and buttons.",
+  "type": "object",
+  "properties": {
+    "to": {
+      "type": "string",
+      "description": "Recipient phone number in E.164 format"
+    },
+    "template_name": {
+      "type": "string",
+      "description": "Approved template name"
+    },
+    "language_code": {
+      "type": "string",
+      "description": "Template language code (e.g. 'en_US', 'zh_HK')"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["header", "body", "button"],
+            "description": "Component type"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "enum": ["text", "currency", "date_time", "image", "document", "video"], "description": "Parameter type" },
+                "text": { "type": "string", "description": "Text value" },
+                "image": { "type": "object", "properties": { "link": { "type": "string" } }, "description": "Image parameter" },
+                "document": { "type": "object", "properties": { "link": { "type": "string" }, "filename": { "type": "string" } }, "description": "Document parameter" }
+              }
+            },
+            "description": "Parameter substitutions for this component"
+          },
+          "sub_type": {
+            "type": "string",
+            "enum": ["quick_reply", "url"],
+            "description": "Button sub-type (for button components)"
+          },
+          "index": {
+            "type": "number",
+            "description": "Button index (for button components)"
+          }
+        },
+        "required": ["type"]
+      },
+      "description": "Template component parameters"
+    }
+  },
+  "required": ["to", "template_name", "language_code"]
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/notion/query_database.json",
+  "title": "query_database",
+  "description": "Query a Notion database with filters, sorts, and pagination. Supports compound filters (and/or) and multi-property sorting.",
+  "type": "object",
+  "properties": {
+    "database_id": {
+      "type": "string",
+      "description": "UUID of the Notion database to query"
+    },
+    "filter": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Notion filter object (see Notion API filter spec). Supports property filters and compound and/or groups."
+    },
+    "sorts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "property": { "type": "string", "description": "Property name to sort by" },
+          "timestamp": { "type": "string", "enum": ["created_time", "last_edited_time"], "description": "Sort by timestamp instead of property" },
+          "direction": { "type": "string", "enum": ["ascending", "descending"], "description": "Sort direction" }
+        }
+      },
+      "description": "Sort criteria (applied in order)"
+    },
+    "start_cursor": {
+      "type": "string",
+      "description": "Pagination cursor from a previous query result"
+    },
+    "page_size": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["database_id"]
+}

@@ -2,7 +2,7 @@
 
 JSON Schema definitions, generator scripts, and documentation for RDY business tools.
 
-**66 tools** across **11 modules**: Finance, HR, Tax, Procurement, CRM, Operations, Documents, Workflow, Email, Calendar, Slack.
+**81 tools** across **14 modules**: Finance, HR, Tax, Procurement, CRM, Operations, Documents, Workflow, Email, Calendar, Slack, Notion, WeChat, WhatsApp Business.
 
 ## Quick Start
 
@@ -39,6 +39,9 @@ schemas/
   email/           5 tools — send, read, search, drafts, labels (Gmail)
   calendar/        5 tools — events, availability, scheduling (Google/Outlook)
   slack/           5 tools — messages, channels, threads, reactions
+  notion/          5 tools — pages, databases, blocks, search
+  wechat/          5 tools — messages, mini-programs, pay, templates, users
+  whatsapp/        5 tools — messages, templates, catalog, contacts
 scripts/
   generate-tool.js     Scaffold a new tool schema
   build-catalog.js     Generate catalog from schemas
@@ -87,7 +90,10 @@ See [docs/CATALOG.md](docs/CATALOG.md) for the full tool reference.
 | Email (Gmail) | 5 |
 | Calendar (Google/Outlook) | 5 |
 | Slack | 5 |
-| **Total** | **66** |
+| Notion | 5 |
+| WeChat | 5 |
+| WhatsApp Business | 5 |
+| **Total** | **81** |
 
 ## Creating New Tools
 

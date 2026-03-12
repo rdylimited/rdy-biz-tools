@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/notion/manage_blocks.json",
+  "title": "manage_blocks",
+  "description": "Retrieve, append, update, or delete content blocks within a Notion page. Blocks represent paragraphs, headings, lists, code, images, and other content types.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["get_children", "append", "update", "delete"],
+      "description": "Operation to perform"
+    },
+    "block_id": {
+      "type": "string",
+      "description": "Block or page UUID. For get_children/append: the parent. For update/delete: the target block."
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["paragraph", "heading_1", "heading_2", "heading_3", "bulleted_list_item", "numbered_list_item", "to_do", "toggle", "code", "quote", "callout", "divider", "table_of_contents", "image", "bookmark"],
+            "description": "Block type"
+          },
+          "content": {
+            "type": "string",
+            "description": "Text content"
+          },
+          "language": {
+            "type": "string",
+            "description": "Programming language (code blocks)"
+          },
+          "checked": {
+            "type": "boolean",
+            "description": "Checked state (to_do blocks)"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL (image/bookmark blocks)"
+          }
+        },
+        "required": ["type"]
+      },
+      "description": "Blocks to append (required for append action)"
+    },
+    "content": {
+      "type": "string",
+      "description": "Updated text content (for update action on text blocks)"
+    },
+    "start_cursor": {
+      "type": "string",
+      "description": "Pagination cursor for get_children"
+    },
+    "page_size": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 100,
+      "description": "Number of blocks per page (for get_children)"
+    }
+  },
+  "required": ["action", "block_id"]
+}

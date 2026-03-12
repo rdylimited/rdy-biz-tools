@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/wechat/send_message.json",
+  "title": "send_message",
+  "description": "Send a message to a WeChat user or group via the Official Account or Work (Enterprise) API. Supports text, image, voice, video, news articles, and mini-program cards.",
+  "type": "object",
+  "properties": {
+    "to_user": {
+      "type": "string",
+      "description": "Recipient OpenID (Official Account) or UserID (Work)"
+    },
+    "msg_type": {
+      "type": "string",
+      "enum": ["text", "image", "voice", "video", "news", "mpnews", "miniprogram_notice"],
+      "description": "Message type"
+    },
+    "content": {
+      "type": "string",
+      "description": "Text content (for text messages)"
+    },
+    "media_id": {
+      "type": "string",
+      "description": "Media ID from WeChat media upload (for image/voice/video)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title (for video, news, mini-program messages)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description (for video and news messages)"
+    },
+    "url": {
+      "type": "string",
+      "description": "Click-through URL (for news articles)"
+    },
+    "thumb_media_id": {
+      "type": "string",
+      "description": "Thumbnail media ID (for video and news)"
+    },
+    "articles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "Article title" },
+          "description": { "type": "string", "description": "Article summary" },
+          "url": { "type": "string", "description": "Article URL" },
+          "picurl": { "type": "string", "description": "Cover image URL" }
+        },
+        "required": ["title", "url"]
+      },
+      "maxItems": 8,
+      "description": "News articles (max 8, for news type)"
+    },
+    "appid": {
+      "type": "string",
+      "description": "Mini-program AppID (for miniprogram_notice)"
+    },
+    "pagepath": {
+      "type": "string",
+      "description": "Mini-program page path (for miniprogram_notice)"
+    }
+  },
+  "required": ["to_user", "msg_type"]
+}

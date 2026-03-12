@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/wechat/user_info.json",
+  "title": "user_info",
+  "description": "Query WeChat user information: get user profile, list followers, batch get user info, and manage user tags.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["get_user", "list_followers", "batch_get", "create_tag", "list_tags", "tag_users", "untag_users"],
+      "description": "Operation to perform"
+    },
+    "openid": {
+      "type": "string",
+      "description": "User OpenID (required for get_user)"
+    },
+    "openid_list": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 100,
+      "description": "List of OpenIDs (required for batch_get, tag_users, untag_users)"
+    },
+    "lang": {
+      "type": "string",
+      "enum": ["zh_CN", "zh_TW", "en"],
+      "default": "zh_CN",
+      "description": "Language for user info response"
+    },
+    "next_openid": {
+      "type": "string",
+      "description": "Pagination cursor for list_followers"
+    },
+    "tag_id": {
+      "type": "number",
+      "description": "Tag ID (required for tag_users/untag_users)"
+    },
+    "tag_name": {
+      "type": "string",
+      "maxLength": 30,
+      "description": "Tag name (required for create_tag)"
+    }
+  },
+  "required": ["action"]
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/whatsapp/send_message.json",
+  "title": "send_message",
+  "description": "Send a message via WhatsApp Business API. Supports text, image, document, audio, video, location, contacts, and interactive messages (buttons, lists).",
+  "type": "object",
+  "properties": {
+    "to": {
+      "type": "string",
+      "description": "Recipient phone number in E.164 format (e.g. '+85291234567')"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["text", "image", "document", "audio", "video", "location", "contacts", "interactive"],
+      "description": "Message type"
+    },
+    "text": {
+      "type": "object",
+      "properties": {
+        "body": { "type": "string", "maxLength": 4096, "description": "Message text" },
+        "preview_url": { "type": "boolean", "default": false, "description": "Enable link preview" }
+      },
+      "description": "Text message content (for text type)"
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "link": { "type": "string", "format": "uri", "description": "Image URL" },
+        "caption": { "type": "string", "description": "Image caption" }
+      },
+      "description": "Image content (for image type)"
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "link": { "type": "string", "format": "uri", "description": "Document URL" },
+        "filename": { "type": "string", "description": "Display filename" },
+        "caption": { "type": "string", "description": "Document caption" }
+      },
+      "description": "Document content (for document type)"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "latitude": { "type": "number", "description": "Latitude" },
+        "longitude": { "type": "number", "description": "Longitude" },
+        "name": { "type": "string", "description": "Location name" },
+        "address": { "type": "string", "description": "Location address" }
+      },
+      "description": "Location content (for location type)"
+    },
+    "interactive": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["button", "list", "product", "product_list"], "description": "Interactive type" },
+        "header": { "type": "object", "description": "Message header (text, image, document, or video)" },
+        "body": { "type": "object", "properties": { "text": { "type": "string" } }, "description": "Message body" },
+        "footer": { "type": "object", "properties": { "text": { "type": "string" } }, "description": "Message footer" },
+        "action": { "type": "object", "additionalProperties": true, "description": "Buttons or list sections" }
+      },
+      "description": "Interactive message (for interactive type)"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "message_id": { "type": "string", "description": "Message ID to reply to" }
+      },
+      "description": "Reply context for threading"
+    }
+  },
+  "required": ["to", "type"]
+}

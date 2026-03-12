@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/wechat/template_message.json",
+  "title": "template_message",
+  "description": "Send or manage WeChat Official Account template messages. Supports setting template data, click URLs, and mini-program links.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["send", "list_templates", "get_template", "delete_template"],
+      "description": "Operation to perform"
+    },
+    "to_user": {
+      "type": "string",
+      "description": "Recipient OpenID (required for send)"
+    },
+    "template_id": {
+      "type": "string",
+      "description": "Template ID (required for send/get_template/delete_template)"
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "description": "Data value" },
+          "color": { "type": "string", "description": "Text color hex (e.g. '#173177')" }
+        },
+        "required": ["value"]
+      },
+      "description": "Template data fields (required for send)"
+    },
+    "url": {
+      "type": "string",
+      "description": "Click-through URL when user taps the message"
+    },
+    "miniprogram": {
+      "type": "object",
+      "properties": {
+        "appid": { "type": "string", "description": "Mini-program AppID" },
+        "pagepath": { "type": "string", "description": "Mini-program page path" }
+      },
+      "description": "Mini-program link (takes priority over url)"
+    },
+    "client_msg_id": {
+      "type": "string",
+      "description": "Idempotency key to prevent duplicate sends"
+    }
+  },
+  "required": ["action"]
+}

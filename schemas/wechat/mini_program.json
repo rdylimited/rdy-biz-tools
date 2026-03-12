@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/wechat/mini_program.json",
+  "title": "mini_program",
+  "description": "Interact with WeChat Mini Program APIs: generate QR codes, send subscription messages, query user session, and manage cloud functions.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["generate_qrcode", "send_subscription", "code2session", "invoke_cloud_function"],
+      "description": "Operation to perform"
+    },
+    "scene": {
+      "type": "string",
+      "maxLength": 32,
+      "description": "Scene value for QR code (required for generate_qrcode)"
+    },
+    "page": {
+      "type": "string",
+      "description": "Mini-program page path for QR code landing"
+    },
+    "width": {
+      "type": "number",
+      "minimum": 280,
+      "maximum": 1280,
+      "default": 430,
+      "description": "QR code image width in pixels"
+    },
+    "to_user": {
+      "type": "string",
+      "description": "User OpenID (required for send_subscription)"
+    },
+    "template_id": {
+      "type": "string",
+      "description": "Subscription message template ID"
+    },
+    "template_data": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string" }
+        },
+        "required": ["value"]
+      },
+      "description": "Template data key-value pairs (for send_subscription)"
+    },
+    "miniprogram_state": {
+      "type": "string",
+      "enum": ["developer", "trial", "formal"],
+      "default": "formal",
+      "description": "Mini-program environment for subscription messages"
+    },
+    "js_code": {
+      "type": "string",
+      "description": "wx.login() temporary code (required for code2session)"
+    },
+    "function_name": {
+      "type": "string",
+      "description": "Cloud function name (required for invoke_cloud_function)"
+    },
+    "function_data": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Data to pass to the cloud function"
+    }
+  },
+  "required": ["action"]
+}

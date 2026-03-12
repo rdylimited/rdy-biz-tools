@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/notion/search.json",
+  "title": "search",
+  "description": "Search across all Notion pages and databases accessible to the integration. Filter by object type and sort by relevance or last edited time.",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "Search query text (matches page titles and content)"
+    },
+    "filter_type": {
+      "type": "string",
+      "enum": ["page", "database"],
+      "description": "Restrict results to pages or databases only"
+    },
+    "sort": {
+      "type": "object",
+      "properties": {
+        "direction": { "type": "string", "enum": ["ascending", "descending"], "default": "descending" },
+        "timestamp": { "type": "string", "enum": ["last_edited_time"], "default": "last_edited_time" }
+      },
+      "description": "Sort configuration"
+    },
+    "start_cursor": {
+      "type": "string",
+      "description": "Pagination cursor from a previous search result"
+    },
+    "page_size": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Number of results per page"
+    }
+  },
+  "required": ["query"]
+}

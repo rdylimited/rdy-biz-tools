@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/notion/create_page.json",
+  "title": "create_page",
+  "description": "Create a new Notion page in a database or as a child of another page. Supports setting properties, adding content blocks, and specifying an icon and cover image.",
+  "type": "object",
+  "properties": {
+    "parent_type": {
+      "type": "string",
+      "enum": ["database", "page"],
+      "description": "Whether the parent is a database or another page"
+    },
+    "parent_id": {
+      "type": "string",
+      "description": "UUID of the parent database or page"
+    },
+    "title": {
+      "type": "string",
+      "description": "Page title (maps to the title property for database pages)"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Database properties to set (key = property name, value = property value object per Notion API format)"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["paragraph", "heading_1", "heading_2", "heading_3", "bulleted_list_item", "numbered_list_item", "to_do", "toggle", "code", "quote", "callout", "divider", "table_of_contents", "image", "bookmark"],
+            "description": "Block type"
+          },
+          "content": {
+            "type": "string",
+            "description": "Text content for the block"
+          },
+          "language": {
+            "type": "string",
+            "description": "Programming language (for code blocks)"
+          },
+          "checked": {
+            "type": "boolean",
+            "description": "Checked state (for to_do blocks)"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL (for image or bookmark blocks)"
+          }
+        },
+        "required": ["type"]
+      },
+      "description": "Content blocks to add to the page body"
+    },
+    "icon": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["emoji", "external"], "description": "Icon type" },
+        "value": { "type": "string", "description": "Emoji character or external URL" }
+      },
+      "description": "Page icon"
+    },
+    "cover_url": {
+      "type": "string",
+      "description": "External URL for the page cover image"
+    }
+  },
+  "required": ["parent_type", "parent_id", "title"]
+}

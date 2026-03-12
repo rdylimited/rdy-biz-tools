@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/wechat/wechat_pay.json",
+  "title": "wechat_pay",
+  "description": "WeChat Pay operations: create unified orders, query payment status, issue refunds, and download transaction bills.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create_order", "query_order", "close_order", "refund", "query_refund", "download_bill"],
+      "description": "Operation to perform"
+    },
+    "out_trade_no": {
+      "type": "string",
+      "maxLength": 32,
+      "description": "Merchant order number (required for create_order/query_order/close_order)"
+    },
+    "total_amount": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Total amount in cents/fen (required for create_order)"
+    },
+    "currency": {
+      "type": "string",
+      "enum": ["CNY", "HKD", "USD"],
+      "default": "CNY",
+      "description": "Payment currency"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 127,
+      "description": "Order description (required for create_order)"
+    },
+    "payer_openid": {
+      "type": "string",
+      "description": "Payer's OpenID (required for JSAPI/Mini-program payments)"
+    },
+    "trade_type": {
+      "type": "string",
+      "enum": ["JSAPI", "NATIVE", "APP", "H5"],
+      "description": "Payment scenario (required for create_order)"
+    },
+    "notify_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Webhook URL for payment notifications"
+    },
+    "transaction_id": {
+      "type": "string",
+      "description": "WeChat Pay transaction ID (for query_order alternative)"
+    },
+    "out_refund_no": {
+      "type": "string",
+      "description": "Merchant refund number (required for refund)"
+    },
+    "refund_amount": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Refund amount in cents/fen (required for refund)"
+    },
+    "refund_reason": {
+      "type": "string",
+      "description": "Reason for refund"
+    },
+    "bill_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Bill date YYYY-MM-DD (required for download_bill)"
+    },
+    "bill_type": {
+      "type": "string",
+      "enum": ["ALL", "SUCCESS", "REFUND"],
+      "default": "ALL",
+      "description": "Bill type (for download_bill)"
+    }
+  },
+  "required": ["action"]
+}

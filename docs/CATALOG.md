@@ -1,6 +1,6 @@
 # RDY Business Tools — Catalog
 
-> Auto-generated from schema files. 66 tools across 11 modules.
+> Auto-generated from schema files. 81 tools across 14 modules.
 
 ## Calendar (Google/Outlook) (5 tools)
 
@@ -70,6 +70,16 @@
 | [`hr_payroll_run`](../schemas/hr/hr_payroll_run.json) | Create, calculate, approve, pay, get, or list payroll runs. Calculate compute... | 6 (required: action) |
 | [`hr_payslip_generate`](../schemas/hr/hr_payslip_generate.json) | Generate text-based payslip summaries for a payroll run. Provide employee_id ... | 2 (required: payroll_run_id) |
 
+## Notion (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`create_page`](../schemas/notion/create_page.json) | Create a new Notion page in a database or as a child of another page. Support... | 7 (required: parent_type, parent_id, title) |
+| [`manage_blocks`](../schemas/notion/manage_blocks.json) | Retrieve, append, update, or delete content blocks within a Notion page. Bloc... | 6 (required: action, block_id) |
+| [`query_database`](../schemas/notion/query_database.json) | Query a Notion database with filters, sorts, and pagination. Supports compoun... | 5 (required: database_id) |
+| [`search`](../schemas/notion/search.json) | Search across all Notion pages and databases accessible to the integration. F... | 5 (required: query) |
+| [`update_page`](../schemas/notion/update_page.json) | Update properties, icon, cover, or archived status of an existing Notion page... | 5 (required: page_id) |
+
 ## Operations (6 tools)
 
 | Tool | Description | Parameters |
@@ -114,6 +124,26 @@
 | [`tax_report`](../schemas/tax/tax_report.json) | Generate tax summaries, deductions reports, obligations overview | 5 (required: action) |
 | [`tax_withholding_track`](../schemas/tax/tax_withholding_track.json) | Track WHT records, generate certificates | 11 (required: action) |
 
+## WeChat (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`mini_program`](../schemas/wechat/mini_program.json) | Interact with WeChat Mini Program APIs: generate QR codes, send subscription ... | 11 (required: action) |
+| [`send_message`](../schemas/wechat/send_message.json) | Send a message to a WeChat user or group via the Official Account or Work (En... | 11 (required: to_user, msg_type) |
+| [`template_message`](../schemas/wechat/template_message.json) | Send or manage WeChat Official Account template messages. Supports setting te... | 7 (required: action) |
+| [`user_info`](../schemas/wechat/user_info.json) | Query WeChat user information: get user profile, list followers, batch get us... | 7 (required: action) |
+| [`wechat_pay`](../schemas/wechat/wechat_pay.json) | WeChat Pay operations: create unified orders, query payment status, issue ref... | 14 (required: action) |
+
+## WhatsApp Business (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`manage_catalog`](../schemas/whatsapp/manage_catalog.json) | Manage WhatsApp Business product catalog. Create, update, delete, and list pr... | 13 (required: action) |
+| [`manage_contacts`](../schemas/whatsapp/manage_contacts.json) | Manage WhatsApp Business contacts. Check if phone numbers are on WhatsApp, ma... | 8 (required: action) |
+| [`read_messages`](../schemas/whatsapp/read_messages.json) | Read and manage incoming WhatsApp messages. Mark messages as read, retrieve m... | 8 (required: action) |
+| [`send_message`](../schemas/whatsapp/send_message.json) | Send a message via WhatsApp Business API. Supports text, image, document, aud... | 8 (required: to, type) |
+| [`send_template`](../schemas/whatsapp/send_template.json) | Send a pre-approved WhatsApp message template. Templates are required for ini... | 4 (required: to, template_name, language_code) |
+
 ## Workflow (4 tools)
 
 | Tool | Description | Parameters |
@@ -133,9 +163,12 @@
 | Email (Gmail) | 5 |
 | Finance | 10 |
 | Human Resources | 7 |
+| Notion | 5 |
 | Operations | 6 |
 | Procurement | 8 |
 | Slack | 5 |
 | Tax | 5 |
+| WeChat | 5 |
+| WhatsApp Business | 5 |
 | Workflow | 4 |
-| **Total** | **66** |
+| **Total** | **81** |

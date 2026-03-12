@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/notion/update_page.json",
+  "title": "update_page",
+  "description": "Update properties, icon, cover, or archived status of an existing Notion page. Does not modify page content blocks (use manage_blocks for that).",
+  "type": "object",
+  "properties": {
+    "page_id": {
+      "type": "string",
+      "description": "UUID of the page to update"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Properties to update (key = property name, value = property value object per Notion API format)"
+    },
+    "icon": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["emoji", "external"] },
+        "value": { "type": "string" }
+      },
+      "description": "Updated page icon"
+    },
+    "cover_url": {
+      "type": "string",
+      "description": "Updated cover image URL (set to null to remove)"
+    },
+    "archived": {
+      "type": "boolean",
+      "description": "Set to true to archive the page, false to restore"
+    }
+  },
+  "required": ["page_id"]
+}

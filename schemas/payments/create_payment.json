@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/payments/create_payment.json",
+  "title": "create_payment",
+  "description": "Create a payment intent or charge via Stripe, 2C2P, or Alipay. Supports one-time payments, pre-authorization, and multi-currency. Returns a client secret or redirect URL for payment completion.",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "enum": ["stripe", "2c2p", "alipay"],
+      "description": "Payment provider"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Amount in smallest currency unit (e.g. cents for USD, fen for CNY)"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "ISO 4217 currency code (e.g. USD, HKD, CNY, THB, SGD)"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": ["card", "bank_transfer", "alipay", "wechat_pay", "promptpay", "paynow", "fpx", "grabpay"],
+      "description": "Payment method type"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer ID from the payment provider"
+    },
+    "description": {
+      "type": "string",
+      "description": "Payment description (shown on statement)"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Key-value metadata attached to the payment"
+    },
+    "return_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to redirect after payment completion"
+    },
+    "notify_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Webhook URL for payment status notifications"
+    },
+    "capture": {
+      "type": "boolean",
+      "default": true,
+      "description": "Auto-capture payment (false = pre-authorize only)"
+    },
+    "idempotency_key": {
+      "type": "string",
+      "description": "Idempotency key to prevent duplicate charges"
+    }
+  },
+  "required": ["provider", "amount", "currency"]
+}

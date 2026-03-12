@@ -1257,6 +1257,344 @@
     ]
   },
   {
+    "module": "fapiao",
+    "moduleLabel": "Fapiao (China E-Invoice)",
+    "name": "batch_issue",
+    "description": "Batch issue multiple fapiao in a single request. Supports up to 50 fapiao per batch with individual buyer and item details. Returns batch job status and individual results.",
+    "schemaFile": "schemas/fapiao/batch_issue.json",
+    "parameterCount": 3,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "submit: start batch; status: check progress; results: get completed fapiao",
+        "enum": [
+          "submit",
+          "status",
+          "results"
+        ]
+      },
+      {
+        "name": "batch_id",
+        "type": "string",
+        "required": false,
+        "description": "Batch job ID (required for status/results)"
+      },
+      {
+        "name": "fapiao_list",
+        "type": "array",
+        "required": false,
+        "description": "List of fapiao to issue (max 50, required for submit)"
+      }
+    ]
+  },
+  {
+    "module": "fapiao",
+    "moduleLabel": "Fapiao (China E-Invoice)",
+    "name": "fapiao_statistics",
+    "description": "Generate fapiao statistics and reports. Summarize issued amounts by period, type, and tax rate. Track remaining quota and usage against monthly/quarterly limits.",
+    "schemaFile": "schemas/fapiao/fapiao_statistics.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Report type to generate",
+        "enum": [
+          "summary",
+          "quota_status",
+          "tax_breakdown",
+          "monthly_report"
+        ]
+      },
+      {
+        "name": "period_start",
+        "type": "string",
+        "required": false,
+        "description": "Report period start date (YYYY-MM-DD)"
+      },
+      {
+        "name": "period_end",
+        "type": "string",
+        "required": false,
+        "description": "Report period end date (YYYY-MM-DD)"
+      },
+      {
+        "name": "fapiao_type",
+        "type": "string",
+        "required": false,
+        "description": "Filter by fapiao type",
+        "enum": [
+          "general",
+          "special",
+          "all"
+        ]
+      },
+      {
+        "name": "group_by",
+        "type": "string",
+        "required": false,
+        "description": "Grouping dimension for summary",
+        "enum": [
+          "day",
+          "week",
+          "month",
+          "quarter",
+          "tax_rate",
+          "buyer"
+        ]
+      },
+      {
+        "name": "year",
+        "type": "number",
+        "required": false,
+        "description": "Year for monthly_report (e.g. 2026)"
+      },
+      {
+        "name": "month",
+        "type": "number",
+        "required": false,
+        "description": "Month for monthly_report (1-12)"
+      }
+    ]
+  },
+  {
+    "module": "fapiao",
+    "moduleLabel": "Fapiao (China E-Invoice)",
+    "name": "issue_fapiao",
+    "description": "Issue a China electronic fapiao (e-fapiao / 电子发票). Supports general VAT fapiao (普通发票) and special VAT fapiao (专用发票) with line items, tax rates, and buyer/seller information.",
+    "schemaFile": "schemas/fapiao/issue_fapiao.json",
+    "parameterCount": 8,
+    "requiredParams": [
+      "fapiao_type",
+      "buyer",
+      "items"
+    ],
+    "parameters": [
+      {
+        "name": "fapiao_type",
+        "type": "string",
+        "required": true,
+        "description": "Fapiao type: general (普通发票) or special (专用发票, requires buyer tax registration)",
+        "enum": [
+          "general",
+          "special"
+        ]
+      },
+      {
+        "name": "buyer",
+        "type": "object",
+        "required": true,
+        "description": "Buyer information (购买方信息)"
+      },
+      {
+        "name": "items",
+        "type": "array",
+        "required": true,
+        "description": "Fapiao line items (发票明细)"
+      },
+      {
+        "name": "remark",
+        "type": "string",
+        "required": false,
+        "description": "Fapiao remarks (备注)"
+      },
+      {
+        "name": "payee",
+        "type": "string",
+        "required": false,
+        "description": "Payee name (收款人)"
+      },
+      {
+        "name": "reviewer",
+        "type": "string",
+        "required": false,
+        "description": "Reviewer name (复核人)"
+      },
+      {
+        "name": "drawer",
+        "type": "string",
+        "required": false,
+        "description": "Drawer/issuer name (开票人)"
+      },
+      {
+        "name": "related_order_id",
+        "type": "string",
+        "required": false,
+        "description": "Related business order ID for tracking"
+      }
+    ]
+  },
+  {
+    "module": "fapiao",
+    "moduleLabel": "Fapiao (China E-Invoice)",
+    "name": "query_fapiao",
+    "description": "Query and retrieve issued fapiao records. Search by fapiao code/number, buyer, date range, or status. Returns fapiao details including items, amounts, and verification status.",
+    "schemaFile": "schemas/fapiao/query_fapiao.json",
+    "parameterCount": 12,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation: get single fapiao, list with filters, or verify authenticity",
+        "enum": [
+          "get",
+          "list",
+          "verify"
+        ]
+      },
+      {
+        "name": "fapiao_id",
+        "type": "string",
+        "required": false,
+        "description": "Internal fapiao ID (required for get)"
+      },
+      {
+        "name": "fapiao_code",
+        "type": "string",
+        "required": false,
+        "description": "Fapiao code (发票代码) for verification"
+      },
+      {
+        "name": "fapiao_number",
+        "type": "string",
+        "required": false,
+        "description": "Fapiao number (发票号码) for verification"
+      },
+      {
+        "name": "buyer_tax_id",
+        "type": "string",
+        "required": false,
+        "description": "Filter by buyer tax registration number"
+      },
+      {
+        "name": "fapiao_type",
+        "type": "string",
+        "required": false,
+        "description": "Filter by fapiao type",
+        "enum": [
+          "general",
+          "special"
+        ]
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Filter by status",
+        "enum": [
+          "issued",
+          "voided",
+          "red_letter"
+        ]
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "check_code",
+        "type": "string",
+        "required": false,
+        "description": "Verification check code (校验码, last 6 digits, required for verify)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "fapiao",
+    "moduleLabel": "Fapiao (China E-Invoice)",
+    "name": "void_fapiao",
+    "description": "Void an issued fapiao or issue a red-letter (negative) fapiao for corrections. Red-letter fapiao (红字发票) are required when the original has already been claimed for tax deduction.",
+    "schemaFile": "schemas/fapiao/void_fapiao.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "action",
+      "fapiao_id",
+      "reason"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "void: void same-month fapiao; red_letter: issue corrective negative fapiao",
+        "enum": [
+          "void",
+          "red_letter"
+        ]
+      },
+      {
+        "name": "fapiao_id",
+        "type": "string",
+        "required": true,
+        "description": "Internal ID of the original fapiao"
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "required": true,
+        "description": "Reason for voiding or red-letter issuance",
+        "enum": [
+          "billing_error",
+          "sales_return",
+          "service_cancellation",
+          "discount_adjustment",
+          "other"
+        ]
+      },
+      {
+        "name": "reason_detail",
+        "type": "string",
+        "required": false,
+        "description": "Detailed explanation for the void/correction"
+      },
+      {
+        "name": "red_letter_info_number",
+        "type": "string",
+        "required": false,
+        "description": "Red-letter information form number (红字信息表编号, required for special VAT red-letter)"
+      },
+      {
+        "name": "partial_items",
+        "type": "array",
+        "required": false,
+        "description": "Partial red-letter: specific items to reverse (omit to reverse all)"
+      }
+    ]
+  },
+  {
     "module": "finance",
     "moduleLabel": "Finance",
     "name": "fin_balance_sheet",
@@ -3539,6 +3877,515 @@
     ]
   },
   {
+    "module": "payments",
+    "moduleLabel": "Payments (Stripe/2C2P/Alipay)",
+    "name": "create_payment",
+    "description": "Create a payment intent or charge via Stripe, 2C2P, or Alipay. Supports one-time payments, pre-authorization, and multi-currency. Returns a client secret or redirect URL for payment completion.",
+    "schemaFile": "schemas/payments/create_payment.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "provider",
+      "amount",
+      "currency"
+    ],
+    "parameters": [
+      {
+        "name": "provider",
+        "type": "string",
+        "required": true,
+        "description": "Payment provider",
+        "enum": [
+          "stripe",
+          "2c2p",
+          "alipay"
+        ]
+      },
+      {
+        "name": "amount",
+        "type": "number",
+        "required": true,
+        "description": "Amount in smallest currency unit (e.g. cents for USD, fen for CNY)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": true,
+        "description": "ISO 4217 currency code (e.g. USD, HKD, CNY, THB, SGD)"
+      },
+      {
+        "name": "payment_method",
+        "type": "string",
+        "required": false,
+        "description": "Payment method type",
+        "enum": [
+          "card",
+          "bank_transfer",
+          "alipay",
+          "wechat_pay",
+          "promptpay",
+          "paynow",
+          "fpx",
+          "grabpay"
+        ]
+      },
+      {
+        "name": "customer_id",
+        "type": "string",
+        "required": false,
+        "description": "Customer ID from the payment provider"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Payment description (shown on statement)"
+      },
+      {
+        "name": "metadata",
+        "type": "object",
+        "required": false,
+        "description": "Key-value metadata attached to the payment"
+      },
+      {
+        "name": "return_url",
+        "type": "string",
+        "required": false,
+        "description": "URL to redirect after payment completion"
+      },
+      {
+        "name": "notify_url",
+        "type": "string",
+        "required": false,
+        "description": "Webhook URL for payment status notifications"
+      },
+      {
+        "name": "capture",
+        "type": "boolean",
+        "required": false,
+        "description": "Auto-capture payment (false = pre-authorize only)"
+      },
+      {
+        "name": "idempotency_key",
+        "type": "string",
+        "required": false,
+        "description": "Idempotency key to prevent duplicate charges"
+      }
+    ]
+  },
+  {
+    "module": "payments",
+    "moduleLabel": "Payments (Stripe/2C2P/Alipay)",
+    "name": "create_subscription",
+    "description": "Create, update, cancel, or list recurring subscriptions. Supports trial periods, proration, and multi-plan subscriptions via Stripe or 2C2P recurring.",
+    "schemaFile": "schemas/payments/create_subscription.json",
+    "parameterCount": 14,
+    "requiredParams": [
+      "action",
+      "provider"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "cancel",
+          "list",
+          "resume"
+        ]
+      },
+      {
+        "name": "provider",
+        "type": "string",
+        "required": true,
+        "description": "Payment provider",
+        "enum": [
+          "stripe",
+          "2c2p"
+        ]
+      },
+      {
+        "name": "subscription_id",
+        "type": "string",
+        "required": false,
+        "description": "Subscription ID (required for get/update/cancel/resume)"
+      },
+      {
+        "name": "customer_id",
+        "type": "string",
+        "required": false,
+        "description": "Customer ID (required for create)"
+      },
+      {
+        "name": "price_id",
+        "type": "string",
+        "required": false,
+        "description": "Price/plan ID (required for create)"
+      },
+      {
+        "name": "quantity",
+        "type": "number",
+        "required": false,
+        "description": "Subscription quantity (seats, units)"
+      },
+      {
+        "name": "trial_days",
+        "type": "number",
+        "required": false,
+        "description": "Trial period in days"
+      },
+      {
+        "name": "billing_cycle_anchor",
+        "type": "string",
+        "required": false,
+        "description": "Fixed billing date (ISO 8601)"
+      },
+      {
+        "name": "cancel_at_period_end",
+        "type": "boolean",
+        "required": false,
+        "description": "Cancel at end of current period instead of immediately"
+      },
+      {
+        "name": "proration_behavior",
+        "type": "string",
+        "required": false,
+        "description": "How to handle prorations on plan changes",
+        "enum": [
+          "create_prorations",
+          "none",
+          "always_invoice"
+        ]
+      },
+      {
+        "name": "metadata",
+        "type": "object",
+        "required": false,
+        "description": "Key-value metadata"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Filter by status (for list)",
+        "enum": [
+          "active",
+          "past_due",
+          "canceled",
+          "trialing",
+          "paused"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "payments",
+    "moduleLabel": "Payments (Stripe/2C2P/Alipay)",
+    "name": "list_transactions",
+    "description": "List and filter payment transactions across Stripe, 2C2P, or Alipay. Supports filtering by status, date range, customer, and amount range.",
+    "schemaFile": "schemas/payments/list_transactions.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "provider"
+    ],
+    "parameters": [
+      {
+        "name": "provider",
+        "type": "string",
+        "required": true,
+        "description": "Payment provider to query",
+        "enum": [
+          "stripe",
+          "2c2p",
+          "alipay"
+        ]
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Filter by payment status",
+        "enum": [
+          "succeeded",
+          "pending",
+          "failed",
+          "canceled",
+          "refunded",
+          "requires_action"
+        ]
+      },
+      {
+        "name": "customer_id",
+        "type": "string",
+        "required": false,
+        "description": "Filter by customer ID"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter (YYYY-MM-DD)"
+      },
+      {
+        "name": "amount_min",
+        "type": "number",
+        "required": false,
+        "description": "Minimum amount filter (in smallest currency unit)"
+      },
+      {
+        "name": "amount_max",
+        "type": "number",
+        "required": false,
+        "description": "Maximum amount filter (in smallest currency unit)"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "description": "Filter by currency code"
+      },
+      {
+        "name": "starting_after",
+        "type": "string",
+        "required": false,
+        "description": "Pagination cursor (transaction ID to start after)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "payments",
+    "moduleLabel": "Payments (Stripe/2C2P/Alipay)",
+    "name": "manage_customers",
+    "description": "Create, update, retrieve, list, or delete payment customers. Manages stored payment methods, billing details, and tax IDs across Stripe, 2C2P, and Alipay.",
+    "schemaFile": "schemas/payments/manage_customers.json",
+    "parameterCount": 13,
+    "requiredParams": [
+      "action",
+      "provider"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "delete",
+          "add_payment_method",
+          "list_payment_methods",
+          "remove_payment_method"
+        ]
+      },
+      {
+        "name": "provider",
+        "type": "string",
+        "required": true,
+        "description": "Payment provider",
+        "enum": [
+          "stripe",
+          "2c2p",
+          "alipay"
+        ]
+      },
+      {
+        "name": "customer_id",
+        "type": "string",
+        "required": false,
+        "description": "Customer ID (required for get/update/delete and payment method operations)"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": false,
+        "description": "Customer email"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Customer name"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "required": false,
+        "description": "Customer phone number"
+      },
+      {
+        "name": "address",
+        "type": "object",
+        "required": false,
+        "description": "Billing address"
+      },
+      {
+        "name": "tax_id",
+        "type": "object",
+        "required": false,
+        "description": "Tax identification"
+      },
+      {
+        "name": "payment_method_id",
+        "type": "string",
+        "required": false,
+        "description": "Payment method ID (for add/remove_payment_method)"
+      },
+      {
+        "name": "default_payment_method",
+        "type": "string",
+        "required": false,
+        "description": "Set as default payment method ID"
+      },
+      {
+        "name": "metadata",
+        "type": "object",
+        "required": false,
+        "description": "Key-value metadata"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "payments",
+    "moduleLabel": "Payments (Stripe/2C2P/Alipay)",
+    "name": "process_refund",
+    "description": "Process full or partial refunds for completed payments. Supports refund reason tracking and idempotency across Stripe, 2C2P, and Alipay.",
+    "schemaFile": "schemas/payments/process_refund.json",
+    "parameterCount": 10,
+    "requiredParams": [
+      "action",
+      "provider"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list"
+        ]
+      },
+      {
+        "name": "provider",
+        "type": "string",
+        "required": true,
+        "description": "Payment provider",
+        "enum": [
+          "stripe",
+          "2c2p",
+          "alipay"
+        ]
+      },
+      {
+        "name": "refund_id",
+        "type": "string",
+        "required": false,
+        "description": "Refund ID (required for get)"
+      },
+      {
+        "name": "payment_id",
+        "type": "string",
+        "required": false,
+        "description": "Original payment/charge ID (required for create)"
+      },
+      {
+        "name": "amount",
+        "type": "number",
+        "required": false,
+        "description": "Refund amount in smallest currency unit (omit for full refund)"
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "required": false,
+        "description": "Refund reason",
+        "enum": [
+          "duplicate",
+          "fraudulent",
+          "requested_by_customer",
+          "product_not_received",
+          "product_unsatisfactory",
+          "other"
+        ]
+      },
+      {
+        "name": "notes",
+        "type": "string",
+        "required": false,
+        "description": "Internal notes about the refund"
+      },
+      {
+        "name": "idempotency_key",
+        "type": "string",
+        "required": false,
+        "description": "Idempotency key to prevent duplicate refunds"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
     "module": "procurement",
     "moduleLabel": "Procurement",
     "name": "proc_bom_cost_calc",
@@ -4442,6 +5289,432 @@
         "type": "boolean",
         "required": false,
         "description": "Post as the authenticated user (vs. bot)"
+      }
+    ]
+  },
+  {
+    "module": "social-insurance",
+    "moduleLabel": "China Social Insurance (五险一金)",
+    "name": "calculate_contributions",
+    "description": "Calculate China five insurances and housing fund (五险一金) contributions for employees. Computes employer and employee portions based on city-specific base amounts and rates for pension, medical, unemployment, work injury, maternity, and housing fund.",
+    "schemaFile": "schemas/social-insurance/calculate_contributions.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "city",
+      "salary_base"
+    ],
+    "parameters": [
+      {
+        "name": "city",
+        "type": "string",
+        "required": true,
+        "description": "City code or name for local rates (e.g. 'shanghai', 'beijing', 'shenzhen', 'guangzhou')"
+      },
+      {
+        "name": "salary_base",
+        "type": "string",
+        "required": true,
+        "description": "Monthly salary base for contributions as decimal string (capped by city min/max)"
+      },
+      {
+        "name": "housing_fund_base",
+        "type": "string",
+        "required": false,
+        "description": "Housing fund base (if different from salary base)"
+      },
+      {
+        "name": "housing_fund_rate",
+        "type": "string",
+        "required": false,
+        "description": "Housing fund rate as decimal (e.g. '0.07' for 7%, range typically 5-12%)"
+      },
+      {
+        "name": "employee_type",
+        "type": "string",
+        "required": false,
+        "description": "Employee hukou type (affects rates in some cities)",
+        "enum": [
+          "local_urban",
+          "local_rural",
+          "non_local_urban",
+          "non_local_rural"
+        ]
+      },
+      {
+        "name": "include_supplementary",
+        "type": "boolean",
+        "required": false,
+        "description": "Include supplementary medical insurance and annuity if applicable"
+      },
+      {
+        "name": "year",
+        "type": "number",
+        "required": false,
+        "description": "Rate year (defaults to current year)"
+      }
+    ]
+  },
+  {
+    "module": "social-insurance",
+    "moduleLabel": "China Social Insurance (五险一金)",
+    "name": "employee_enrollment",
+    "description": "Manage employee enrollment and termination in social insurance and housing fund programs. Handle new hires, departures, inter-city transfers, and base adjustments.",
+    "schemaFile": "schemas/social-insurance/employee_enrollment.json",
+    "parameterCount": 15,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "enroll",
+          "terminate",
+          "transfer_in",
+          "transfer_out",
+          "adjust_base",
+          "get_status",
+          "list"
+        ]
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Internal employee ID"
+      },
+      {
+        "name": "id_number",
+        "type": "string",
+        "required": false,
+        "description": "National ID number (身份证号)"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Employee name"
+      },
+      {
+        "name": "city",
+        "type": "string",
+        "required": false,
+        "description": "City for enrollment/transfer"
+      },
+      {
+        "name": "effective_date",
+        "type": "string",
+        "required": false,
+        "description": "Effective date for the action (YYYY-MM-DD)"
+      },
+      {
+        "name": "salary_base",
+        "type": "string",
+        "required": false,
+        "description": "Social insurance contribution base"
+      },
+      {
+        "name": "housing_fund_base",
+        "type": "string",
+        "required": false,
+        "description": "Housing fund contribution base"
+      },
+      {
+        "name": "housing_fund_rate",
+        "type": "string",
+        "required": false,
+        "description": "Housing fund rate as decimal"
+      },
+      {
+        "name": "employee_type",
+        "type": "string",
+        "required": false,
+        "description": "Hukou type",
+        "enum": [
+          "local_urban",
+          "local_rural",
+          "non_local_urban",
+          "non_local_rural"
+        ]
+      },
+      {
+        "name": "transfer_city",
+        "type": "string",
+        "required": false,
+        "description": "Destination city (for transfer_out) or origin city (for transfer_in)"
+      },
+      {
+        "name": "termination_reason",
+        "type": "string",
+        "required": false,
+        "description": "Reason for termination (required for terminate)",
+        "enum": [
+          "resignation",
+          "dismissal",
+          "retirement",
+          "contract_end",
+          "transfer"
+        ]
+      },
+      {
+        "name": "insurance_types",
+        "type": "array",
+        "required": false,
+        "description": "Specific insurance types to enroll/terminate (defaults to all)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "social-insurance",
+    "moduleLabel": "China Social Insurance (五险一金)",
+    "name": "generate_report",
+    "description": "Generate social insurance and housing fund reports. Includes cost summaries, employee contribution statements, compliance checks, and annual base adjustment reports.",
+    "schemaFile": "schemas/social-insurance/generate_report.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "report_type"
+    ],
+    "parameters": [
+      {
+        "name": "report_type",
+        "type": "string",
+        "required": true,
+        "description": "Type of report to generate",
+        "enum": [
+          "cost_summary",
+          "employee_statement",
+          "compliance_check",
+          "base_adjustment",
+          "annual_summary"
+        ]
+      },
+      {
+        "name": "period_from",
+        "type": "string",
+        "required": false,
+        "description": "Report start period (YYYY-MM)"
+      },
+      {
+        "name": "period_to",
+        "type": "string",
+        "required": false,
+        "description": "Report end period (YYYY-MM)"
+      },
+      {
+        "name": "city",
+        "type": "string",
+        "required": false,
+        "description": "City filter (omit for all cities)"
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Employee ID (required for employee_statement)"
+      },
+      {
+        "name": "group_by",
+        "type": "string",
+        "required": false,
+        "description": "Grouping dimension for cost_summary",
+        "enum": [
+          "city",
+          "department",
+          "insurance_type",
+          "month"
+        ]
+      },
+      {
+        "name": "include_employer",
+        "type": "boolean",
+        "required": false,
+        "description": "Include employer contribution portion"
+      },
+      {
+        "name": "include_employee",
+        "type": "boolean",
+        "required": false,
+        "description": "Include employee contribution portion"
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "required": false,
+        "description": "Output format",
+        "enum": [
+          "json",
+          "csv",
+          "pdf"
+        ]
+      }
+    ]
+  },
+  {
+    "module": "social-insurance",
+    "moduleLabel": "China Social Insurance (五险一金)",
+    "name": "query_records",
+    "description": "Query social insurance and housing fund contribution records for individual employees or the company. Returns detailed breakdowns by insurance type and period.",
+    "schemaFile": "schemas/social-insurance/query_records.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Query type",
+        "enum": [
+          "employee_history",
+          "company_summary",
+          "payment_status"
+        ]
+      },
+      {
+        "name": "employee_id",
+        "type": "string",
+        "required": false,
+        "description": "Employee ID (required for employee_history)"
+      },
+      {
+        "name": "id_number",
+        "type": "string",
+        "required": false,
+        "description": "National ID number for lookup"
+      },
+      {
+        "name": "insurance_type",
+        "type": "string",
+        "required": false,
+        "description": "Filter by insurance type",
+        "enum": [
+          "pension",
+          "medical",
+          "unemployment",
+          "work_injury",
+          "maternity",
+          "housing_fund",
+          "all"
+        ]
+      },
+      {
+        "name": "period_from",
+        "type": "string",
+        "required": false,
+        "description": "Start period (YYYY-MM)"
+      },
+      {
+        "name": "period_to",
+        "type": "string",
+        "required": false,
+        "description": "End period (YYYY-MM)"
+      },
+      {
+        "name": "city",
+        "type": "string",
+        "required": false,
+        "description": "City code filter"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "social-insurance",
+    "moduleLabel": "China Social Insurance (五险一金)",
+    "name": "submit_declaration",
+    "description": "Submit monthly social insurance and housing fund declarations to the local bureau. Batch declare contributions for all enrolled employees in a pay period.",
+    "schemaFile": "schemas/social-insurance/submit_declaration.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation: prepare draft, submit to bureau, check status, or list history",
+        "enum": [
+          "prepare",
+          "submit",
+          "get_status",
+          "list_declarations"
+        ]
+      },
+      {
+        "name": "declaration_id",
+        "type": "string",
+        "required": false,
+        "description": "Declaration ID (required for get_status)"
+      },
+      {
+        "name": "city",
+        "type": "string",
+        "required": false,
+        "description": "City code for the declaration"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "description": "Declaration period (YYYY-MM)"
+      },
+      {
+        "name": "employees",
+        "type": "array",
+        "required": false,
+        "description": "Employee contribution details (required for prepare/submit)"
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter for list_declarations"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter for list_declarations"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
       }
     ]
   },

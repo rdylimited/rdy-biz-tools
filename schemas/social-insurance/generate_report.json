@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/social-insurance/generate_report.json",
+  "title": "generate_report",
+  "description": "Generate social insurance and housing fund reports. Includes cost summaries, employee contribution statements, compliance checks, and annual base adjustment reports.",
+  "type": "object",
+  "properties": {
+    "report_type": {
+      "type": "string",
+      "enum": ["cost_summary", "employee_statement", "compliance_check", "base_adjustment", "annual_summary"],
+      "description": "Type of report to generate"
+    },
+    "period_from": {
+      "type": "string",
+      "description": "Report start period (YYYY-MM)"
+    },
+    "period_to": {
+      "type": "string",
+      "description": "Report end period (YYYY-MM)"
+    },
+    "city": {
+      "type": "string",
+      "description": "City filter (omit for all cities)"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee ID (required for employee_statement)"
+    },
+    "group_by": {
+      "type": "string",
+      "enum": ["city", "department", "insurance_type", "month"],
+      "default": "month",
+      "description": "Grouping dimension for cost_summary"
+    },
+    "include_employer": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include employer contribution portion"
+    },
+    "include_employee": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include employee contribution portion"
+    },
+    "format": {
+      "type": "string",
+      "enum": ["json", "csv", "pdf"],
+      "default": "json",
+      "description": "Output format"
+    }
+  },
+  "required": ["report_type"]
+}

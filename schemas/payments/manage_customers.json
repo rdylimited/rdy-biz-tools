@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/payments/manage_customers.json",
+  "title": "manage_customers",
+  "description": "Create, update, retrieve, list, or delete payment customers. Manages stored payment methods, billing details, and tax IDs across Stripe, 2C2P, and Alipay.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "delete", "add_payment_method", "list_payment_methods", "remove_payment_method"],
+      "description": "Operation to perform"
+    },
+    "provider": {
+      "type": "string",
+      "enum": ["stripe", "2c2p", "alipay"],
+      "description": "Payment provider"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer ID (required for get/update/delete and payment method operations)"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Customer email"
+    },
+    "name": {
+      "type": "string",
+      "description": "Customer name"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Customer phone number"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "line1": { "type": "string" },
+        "line2": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "postal_code": { "type": "string" },
+        "country": { "type": "string", "minLength": 2, "maxLength": 2, "description": "ISO 3166-1 alpha-2" }
+      },
+      "description": "Billing address"
+    },
+    "tax_id": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "description": "Tax ID type (e.g. hk_br, cn_tin, sg_uen, us_ein)" },
+        "value": { "type": "string", "description": "Tax ID value" }
+      },
+      "description": "Tax identification"
+    },
+    "payment_method_id": {
+      "type": "string",
+      "description": "Payment method ID (for add/remove_payment_method)"
+    },
+    "default_payment_method": {
+      "type": "string",
+      "description": "Set as default payment method ID"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Key-value metadata"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action", "provider"]
+}

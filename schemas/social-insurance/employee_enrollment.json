@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/social-insurance/employee_enrollment.json",
+  "title": "employee_enrollment",
+  "description": "Manage employee enrollment and termination in social insurance and housing fund programs. Handle new hires, departures, inter-city transfers, and base adjustments.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["enroll", "terminate", "transfer_in", "transfer_out", "adjust_base", "get_status", "list"],
+      "description": "Operation to perform"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Internal employee ID"
+    },
+    "id_number": {
+      "type": "string",
+      "description": "National ID number (身份证号)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Employee name"
+    },
+    "city": {
+      "type": "string",
+      "description": "City for enrollment/transfer"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Effective date for the action (YYYY-MM-DD)"
+    },
+    "salary_base": {
+      "type": "string",
+      "description": "Social insurance contribution base"
+    },
+    "housing_fund_base": {
+      "type": "string",
+      "description": "Housing fund contribution base"
+    },
+    "housing_fund_rate": {
+      "type": "string",
+      "description": "Housing fund rate as decimal"
+    },
+    "employee_type": {
+      "type": "string",
+      "enum": ["local_urban", "local_rural", "non_local_urban", "non_local_rural"],
+      "description": "Hukou type"
+    },
+    "transfer_city": {
+      "type": "string",
+      "description": "Destination city (for transfer_out) or origin city (for transfer_in)"
+    },
+    "termination_reason": {
+      "type": "string",
+      "enum": ["resignation", "dismissal", "retirement", "contract_end", "transfer"],
+      "description": "Reason for termination (required for terminate)"
+    },
+    "insurance_types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["pension", "medical", "unemployment", "work_injury", "maternity", "housing_fund"]
+      },
+      "description": "Specific insurance types to enroll/terminate (defaults to all)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

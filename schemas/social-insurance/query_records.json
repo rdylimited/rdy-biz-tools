@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/social-insurance/query_records.json",
+  "title": "query_records",
+  "description": "Query social insurance and housing fund contribution records for individual employees or the company. Returns detailed breakdowns by insurance type and period.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["employee_history", "company_summary", "payment_status"],
+      "description": "Query type"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee ID (required for employee_history)"
+    },
+    "id_number": {
+      "type": "string",
+      "description": "National ID number for lookup"
+    },
+    "insurance_type": {
+      "type": "string",
+      "enum": ["pension", "medical", "unemployment", "work_injury", "maternity", "housing_fund", "all"],
+      "default": "all",
+      "description": "Filter by insurance type"
+    },
+    "period_from": {
+      "type": "string",
+      "description": "Start period (YYYY-MM)"
+    },
+    "period_to": {
+      "type": "string",
+      "description": "End period (YYYY-MM)"
+    },
+    "city": {
+      "type": "string",
+      "description": "City code filter"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

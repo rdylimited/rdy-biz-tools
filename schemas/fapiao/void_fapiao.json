@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/fapiao/void_fapiao.json",
+  "title": "void_fapiao",
+  "description": "Void an issued fapiao or issue a red-letter (negative) fapiao for corrections. Red-letter fapiao (红字发票) are required when the original has already been claimed for tax deduction.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["void", "red_letter"],
+      "description": "void: void same-month fapiao; red_letter: issue corrective negative fapiao"
+    },
+    "fapiao_id": {
+      "type": "string",
+      "description": "Internal ID of the original fapiao"
+    },
+    "reason": {
+      "type": "string",
+      "enum": ["billing_error", "sales_return", "service_cancellation", "discount_adjustment", "other"],
+      "description": "Reason for voiding or red-letter issuance"
+    },
+    "reason_detail": {
+      "type": "string",
+      "description": "Detailed explanation for the void/correction"
+    },
+    "red_letter_info_number": {
+      "type": "string",
+      "description": "Red-letter information form number (红字信息表编号, required for special VAT red-letter)"
+    },
+    "partial_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "original_line_index": { "type": "number", "description": "Index of the original line item (0-based)" },
+          "quantity": { "type": "string", "description": "Quantity to reverse (as positive decimal)" },
+          "amount": { "type": "string", "description": "Amount to reverse (as positive decimal)" }
+        },
+        "required": ["original_line_index"]
+      },
+      "description": "Partial red-letter: specific items to reverse (omit to reverse all)"
+    }
+  },
+  "required": ["action", "fapiao_id", "reason"]
+}

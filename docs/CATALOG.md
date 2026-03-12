@@ -1,6 +1,6 @@
 # RDY Business Tools — Catalog
 
-> Auto-generated from schema files. 81 tools across 14 modules.
+> Auto-generated from schema files. 96 tools across 17 modules.
 
 ## Calendar (Google/Outlook) (5 tools)
 
@@ -42,6 +42,16 @@
 | [`read_email`](../schemas/email/read_email.json) | Read emails from inbox or a specific message by ID. Returns subject, sender, ... | 7 (required: action) |
 | [`search_email`](../schemas/email/search_email.json) | Search emails by query string, sender, labels, date range, or attachment pres... | 11 (required: query) |
 | [`send_email`](../schemas/email/send_email.json) | Compose and send an email via Gmail or compatible SMTP provider. Supports TO,... | 9 (required: to, subject, body) |
+
+## Fapiao (China E-Invoice) (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`batch_issue`](../schemas/fapiao/batch_issue.json) | Batch issue multiple fapiao in a single request. Supports up to 50 fapiao per... | 3 (required: action) |
+| [`fapiao_statistics`](../schemas/fapiao/fapiao_statistics.json) | Generate fapiao statistics and reports. Summarize issued amounts by period, t... | 7 (required: action) |
+| [`issue_fapiao`](../schemas/fapiao/issue_fapiao.json) | Issue a China electronic fapiao (e-fapiao / 电子发票). Supports general VAT fapia... | 8 (required: fapiao_type, buyer, items) |
+| [`query_fapiao`](../schemas/fapiao/query_fapiao.json) | Query and retrieve issued fapiao records. Search by fapiao code/number, buyer... | 12 (required: action) |
+| [`void_fapiao`](../schemas/fapiao/void_fapiao.json) | Void an issued fapiao or issue a red-letter (negative) fapiao for corrections... | 6 (required: action, fapiao_id, reason) |
 
 ## Finance (10 tools)
 
@@ -91,6 +101,16 @@
 | [`ops_shipment_track`](../schemas/operations/ops_shipment_track.json) | Shipment tracking with status updates, events, and item management. | 14 (required: action) |
 | [`ops_warehouse_manage`](../schemas/operations/ops_warehouse_manage.json) | Warehouse CRUD operations and stock transfer between warehouses. | 13 (required: action) |
 
+## Payments (Stripe/2C2P/Alipay) (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`create_payment`](../schemas/payments/create_payment.json) | Create a payment intent or charge via Stripe, 2C2P, or Alipay. Supports one-t... | 11 (required: provider, amount, currency) |
+| [`create_subscription`](../schemas/payments/create_subscription.json) | Create, update, cancel, or list recurring subscriptions. Supports trial perio... | 14 (required: action, provider) |
+| [`list_transactions`](../schemas/payments/list_transactions.json) | List and filter payment transactions across Stripe, 2C2P, or Alipay. Supports... | 11 (required: provider) |
+| [`manage_customers`](../schemas/payments/manage_customers.json) | Create, update, retrieve, list, or delete payment customers. Manages stored p... | 13 (required: action, provider) |
+| [`process_refund`](../schemas/payments/process_refund.json) | Process full or partial refunds for completed payments. Supports refund reaso... | 10 (required: action, provider) |
+
 ## Procurement (8 tools)
 
 | Tool | Description | Parameters |
@@ -113,6 +133,16 @@
 | [`list_channels`](../schemas/slack/list_channels.json) | List accessible Slack channels. Filter by type (public, private, DM, group DM... | 6 (required: none) |
 | [`search_messages`](../schemas/slack/search_messages.json) | Search Slack message history by query. Supports filtering by channel, user, d... | 9 (required: query) |
 | [`send_message`](../schemas/slack/send_message.json) | Post a message to a Slack channel or direct message. Supports plain text, mar... | 8 (required: channel, text) |
+
+## China Social Insurance (五险一金) (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`calculate_contributions`](../schemas/social-insurance/calculate_contributions.json) | Calculate China five insurances and housing fund (五险一金) contributions for emp... | 7 (required: city, salary_base) |
+| [`employee_enrollment`](../schemas/social-insurance/employee_enrollment.json) | Manage employee enrollment and termination in social insurance and housing fu... | 15 (required: action) |
+| [`generate_report`](../schemas/social-insurance/generate_report.json) | Generate social insurance and housing fund reports. Includes cost summaries, ... | 9 (required: report_type) |
+| [`query_records`](../schemas/social-insurance/query_records.json) | Query social insurance and housing fund contribution records for individual e... | 9 (required: action) |
+| [`submit_declaration`](../schemas/social-insurance/submit_declaration.json) | Submit monthly social insurance and housing fund declarations to the local bu... | 9 (required: action) |
 
 ## Tax (5 tools)
 
@@ -161,14 +191,17 @@
 | CRM | 5 |
 | Documents | 6 |
 | Email (Gmail) | 5 |
+| Fapiao (China E-Invoice) | 5 |
 | Finance | 10 |
 | Human Resources | 7 |
 | Notion | 5 |
 | Operations | 6 |
+| Payments (Stripe/2C2P/Alipay) | 5 |
 | Procurement | 8 |
 | Slack | 5 |
+| China Social Insurance (五险一金) | 5 |
 | Tax | 5 |
 | WeChat | 5 |
 | WhatsApp Business | 5 |
 | Workflow | 4 |
-| **Total** | **81** |
+| **Total** | **96** |

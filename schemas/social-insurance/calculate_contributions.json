@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/social-insurance/calculate_contributions.json",
+  "title": "calculate_contributions",
+  "description": "Calculate China five insurances and housing fund (五险一金) contributions for employees. Computes employer and employee portions based on city-specific base amounts and rates for pension, medical, unemployment, work injury, maternity, and housing fund.",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string",
+      "description": "City code or name for local rates (e.g. 'shanghai', 'beijing', 'shenzhen', 'guangzhou')"
+    },
+    "salary_base": {
+      "type": "string",
+      "description": "Monthly salary base for contributions as decimal string (capped by city min/max)"
+    },
+    "housing_fund_base": {
+      "type": "string",
+      "description": "Housing fund base (if different from salary base)"
+    },
+    "housing_fund_rate": {
+      "type": "string",
+      "description": "Housing fund rate as decimal (e.g. '0.07' for 7%, range typically 5-12%)"
+    },
+    "employee_type": {
+      "type": "string",
+      "enum": ["local_urban", "local_rural", "non_local_urban", "non_local_rural"],
+      "default": "local_urban",
+      "description": "Employee hukou type (affects rates in some cities)"
+    },
+    "include_supplementary": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include supplementary medical insurance and annuity if applicable"
+    },
+    "year": {
+      "type": "number",
+      "description": "Rate year (defaults to current year)"
+    }
+  },
+  "required": ["city", "salary_base"]
+}

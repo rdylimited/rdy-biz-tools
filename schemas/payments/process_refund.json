@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/payments/process_refund.json",
+  "title": "process_refund",
+  "description": "Process full or partial refunds for completed payments. Supports refund reason tracking and idempotency across Stripe, 2C2P, and Alipay.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list"],
+      "description": "Operation to perform"
+    },
+    "provider": {
+      "type": "string",
+      "enum": ["stripe", "2c2p", "alipay"],
+      "description": "Payment provider"
+    },
+    "refund_id": {
+      "type": "string",
+      "description": "Refund ID (required for get)"
+    },
+    "payment_id": {
+      "type": "string",
+      "description": "Original payment/charge ID (required for create)"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Refund amount in smallest currency unit (omit for full refund)"
+    },
+    "reason": {
+      "type": "string",
+      "enum": ["duplicate", "fraudulent", "requested_by_customer", "product_not_received", "product_unsatisfactory", "other"],
+      "description": "Refund reason"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes about the refund"
+    },
+    "idempotency_key": {
+      "type": "string",
+      "description": "Idempotency key to prevent duplicate refunds"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action", "provider"]
+}

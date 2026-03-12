@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/payments/list_transactions.json",
+  "title": "list_transactions",
+  "description": "List and filter payment transactions across Stripe, 2C2P, or Alipay. Supports filtering by status, date range, customer, and amount range.",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "enum": ["stripe", "2c2p", "alipay"],
+      "description": "Payment provider to query"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["succeeded", "pending", "failed", "canceled", "refunded", "requires_action"],
+      "description": "Filter by payment status"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Filter by customer ID"
+    },
+    "date_from": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date filter (YYYY-MM-DD)"
+    },
+    "date_to": {
+      "type": "string",
+      "format": "date",
+      "description": "End date filter (YYYY-MM-DD)"
+    },
+    "amount_min": {
+      "type": "number",
+      "description": "Minimum amount filter (in smallest currency unit)"
+    },
+    "amount_max": {
+      "type": "number",
+      "description": "Maximum amount filter (in smallest currency unit)"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "description": "Filter by currency code"
+    },
+    "starting_after": {
+      "type": "string",
+      "description": "Pagination cursor (transaction ID to start after)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["provider"]
+}

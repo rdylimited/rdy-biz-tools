@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/payments/create_subscription.json",
+  "title": "create_subscription",
+  "description": "Create, update, cancel, or list recurring subscriptions. Supports trial periods, proration, and multi-plan subscriptions via Stripe or 2C2P recurring.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "cancel", "list", "resume"],
+      "description": "Operation to perform"
+    },
+    "provider": {
+      "type": "string",
+      "enum": ["stripe", "2c2p"],
+      "description": "Payment provider"
+    },
+    "subscription_id": {
+      "type": "string",
+      "description": "Subscription ID (required for get/update/cancel/resume)"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer ID (required for create)"
+    },
+    "price_id": {
+      "type": "string",
+      "description": "Price/plan ID (required for create)"
+    },
+    "quantity": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Subscription quantity (seats, units)"
+    },
+    "trial_days": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Trial period in days"
+    },
+    "billing_cycle_anchor": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Fixed billing date (ISO 8601)"
+    },
+    "cancel_at_period_end": {
+      "type": "boolean",
+      "default": false,
+      "description": "Cancel at end of current period instead of immediately"
+    },
+    "proration_behavior": {
+      "type": "string",
+      "enum": ["create_prorations", "none", "always_invoice"],
+      "default": "create_prorations",
+      "description": "How to handle prorations on plan changes"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Key-value metadata"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "past_due", "canceled", "trialing", "paused"],
+      "description": "Filter by status (for list)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action", "provider"]
+}

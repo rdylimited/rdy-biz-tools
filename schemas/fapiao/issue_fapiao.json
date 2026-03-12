@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/fapiao/issue_fapiao.json",
+  "title": "issue_fapiao",
+  "description": "Issue a China electronic fapiao (e-fapiao / 电子发票). Supports general VAT fapiao (普通发票) and special VAT fapiao (专用发票) with line items, tax rates, and buyer/seller information.",
+  "type": "object",
+  "properties": {
+    "fapiao_type": {
+      "type": "string",
+      "enum": ["general", "special"],
+      "description": "Fapiao type: general (普通发票) or special (专用发票, requires buyer tax registration)"
+    },
+    "buyer": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Buyer company name (购买方名称)" },
+        "tax_id": { "type": "string", "description": "Buyer tax registration number (纳税人识别号)" },
+        "address": { "type": "string", "description": "Buyer address (地址)" },
+        "phone": { "type": "string", "description": "Buyer phone (电话)" },
+        "bank_name": { "type": "string", "description": "Buyer bank name (开户银行)" },
+        "bank_account": { "type": "string", "description": "Buyer bank account (银行账号)" }
+      },
+      "required": ["name", "tax_id"],
+      "description": "Buyer information (购买方信息)"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Item name (货物或应税劳务名称)" },
+          "tax_category_code": { "type": "string", "description": "Tax category code (税收分类编码)" },
+          "specification": { "type": "string", "description": "Specification/model (规格型号)" },
+          "unit": { "type": "string", "description": "Unit of measure (单位)" },
+          "quantity": { "type": "string", "description": "Quantity as decimal string" },
+          "unit_price": { "type": "string", "description": "Unit price excluding tax (不含税单价)" },
+          "tax_rate": { "type": "string", "description": "Tax rate as decimal (e.g. '0.13' for 13%)" },
+          "discount_amount": { "type": "string", "description": "Discount amount (折扣金额)" }
+        },
+        "required": ["name", "tax_category_code", "quantity", "unit_price", "tax_rate"]
+      },
+      "minItems": 1,
+      "description": "Fapiao line items (发票明细)"
+    },
+    "remark": {
+      "type": "string",
+      "description": "Fapiao remarks (备注)"
+    },
+    "payee": {
+      "type": "string",
+      "description": "Payee name (收款人)"
+    },
+    "reviewer": {
+      "type": "string",
+      "description": "Reviewer name (复核人)"
+    },
+    "drawer": {
+      "type": "string",
+      "description": "Drawer/issuer name (开票人)"
+    },
+    "related_order_id": {
+      "type": "string",
+      "description": "Related business order ID for tracking"
+    }
+  },
+  "required": ["fapiao_type", "buyer", "items"]
+}

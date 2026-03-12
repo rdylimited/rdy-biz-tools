@@ -34,6 +34,9 @@ const MODULE_LABELS = {
   notion: "Notion",
   wechat: "WeChat",
   whatsapp: "WhatsApp Business",
+  payments: "Payments (Stripe/2C2P/Alipay)",
+  fapiao: "Fapiao (China E-Invoice)",
+  "social-insurance": "China Social Insurance (五险一金)",
 };
 
 const catalog = [];

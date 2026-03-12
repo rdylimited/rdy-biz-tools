@@ -32,6 +32,9 @@ const MODULES = [
   "notion",
   "wechat",
   "whatsapp",
+  "payments",
+  "fapiao",
+  "social-insurance",
 ];
 
 function parseArgs(args) {

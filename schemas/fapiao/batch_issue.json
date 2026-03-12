@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/fapiao/batch_issue.json",
+  "title": "batch_issue",
+  "description": "Batch issue multiple fapiao in a single request. Supports up to 50 fapiao per batch with individual buyer and item details. Returns batch job status and individual results.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["submit", "status", "results"],
+      "description": "submit: start batch; status: check progress; results: get completed fapiao"
+    },
+    "batch_id": {
+      "type": "string",
+      "description": "Batch job ID (required for status/results)"
+    },
+    "fapiao_list": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fapiao_type": { "type": "string", "enum": ["general", "special"] },
+          "buyer": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "tax_id": { "type": "string" }
+            },
+            "required": ["name", "tax_id"]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "tax_category_code": { "type": "string" },
+                "quantity": { "type": "string" },
+                "unit_price": { "type": "string" },
+                "tax_rate": { "type": "string" }
+              },
+              "required": ["name", "tax_category_code", "quantity", "unit_price", "tax_rate"]
+            },
+            "minItems": 1
+          },
+          "remark": { "type": "string" },
+          "related_order_id": { "type": "string" }
+        },
+        "required": ["fapiao_type", "buyer", "items"]
+      },
+      "maxItems": 50,
+      "description": "List of fapiao to issue (max 50, required for submit)"
+    }
+  },
+  "required": ["action"]
+}

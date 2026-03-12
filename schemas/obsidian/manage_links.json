@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/obsidian/manage_links.json",
+  "title": "manage_links",
+  "description": "Manage wiki-links and backlinks between Obsidian notes. Query outgoing links, incoming backlinks, unlinked mentions, and broken links. Add or remove links programmatically.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["get_outgoing", "get_backlinks", "get_unlinked_mentions", "find_broken", "add_link", "remove_link"],
+      "description": "Operation to perform"
+    },
+    "note_path": {
+      "type": "string",
+      "description": "Note path relative to vault root (required for most actions)"
+    },
+    "target_note": {
+      "type": "string",
+      "description": "Target note name or path for add_link/remove_link (e.g. 'Meeting Notes')"
+    },
+    "alias": {
+      "type": "string",
+      "description": "Display alias for the link (e.g. [[target|alias]])"
+    },
+    "link_type": {
+      "type": "string",
+      "enum": ["wiki", "markdown"],
+      "default": "wiki",
+      "description": "Link format: wiki ([[note]]) or markdown ([text](note.md))"
+    },
+    "include_embeds": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include embed links (![[note]]) in results"
+    }
+  },
+  "required": ["action", "note_path"]
+}

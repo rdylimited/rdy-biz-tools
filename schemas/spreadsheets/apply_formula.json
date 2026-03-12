@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/spreadsheets/apply_formula.json",
+  "title": "apply_formula",
+  "description": "Apply formulas to cells or ranges in a spreadsheet. Supports single-cell formulas, array formulas, and named ranges. Can also create and manage named ranges.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["set_formula", "set_array_formula", "create_named_range", "list_named_ranges", "delete_named_range"],
+      "description": "Operation to perform"
+    },
+    "spreadsheet_id": {
+      "type": "string",
+      "description": "Spreadsheet ID or file path"
+    },
+    "sheet_name": {
+      "type": "string",
+      "description": "Sheet/tab name"
+    },
+    "cell": {
+      "type": "string",
+      "description": "Target cell in A1 notation (e.g. 'E2', required for set_formula)"
+    },
+    "formula": {
+      "type": "string",
+      "description": "Formula string starting with '=' (e.g. '=SUM(A1:A10)', '=VLOOKUP(B2,Sheet2!A:C,3,FALSE)')"
+    },
+    "range": {
+      "type": "string",
+      "description": "Target range for array formula or named range (e.g. 'A1:D10')"
+    },
+    "named_range_name": {
+      "type": "string",
+      "description": "Name for the named range (required for create/delete_named_range)"
+    },
+    "fill_down": {
+      "type": "boolean",
+      "default": false,
+      "description": "Auto-fill formula down the column to match adjacent data"
+    }
+  },
+  "required": ["action", "spreadsheet_id"]
+}

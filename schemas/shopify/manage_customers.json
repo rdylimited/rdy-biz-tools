@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/shopify/manage_customers.json",
+  "title": "manage_customers",
+  "description": "Create, retrieve, update, list, search, or delete Shopify customers. Manage customer addresses, tags, and marketing consent.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "update", "list", "search", "delete"],
+      "description": "Operation to perform"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer ID (required for get/update/delete)"
+    },
+    "first_name": {
+      "type": "string",
+      "description": "First name"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Last name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Customer email"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "addresses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "address1": { "type": "string" },
+          "address2": { "type": "string" },
+          "city": { "type": "string" },
+          "province": { "type": "string" },
+          "country": { "type": "string" },
+          "zip": { "type": "string" },
+          "default": { "type": "boolean" }
+        }
+      },
+      "description": "Customer addresses"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Customer tags"
+    },
+    "note": {
+      "type": "string",
+      "description": "Internal notes"
+    },
+    "accepts_marketing": {
+      "type": "boolean",
+      "description": "Marketing email consent"
+    },
+    "query": {
+      "type": "string",
+      "description": "Search query (for search action)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 250,
+      "default": 50,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

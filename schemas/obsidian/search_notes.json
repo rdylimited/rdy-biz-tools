@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/obsidian/search_notes.json",
+  "title": "search_notes",
+  "description": "Search notes in an Obsidian vault by content, title, tags, frontmatter properties, or folder. Returns matching notes with context snippets.",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "Full-text search query across note content and titles"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Filter by tags (notes must have ALL specified tags)"
+    },
+    "folder": {
+      "type": "string",
+      "description": "Restrict search to a folder path (e.g. 'Projects/2026')"
+    },
+    "frontmatter_filter": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Filter by frontmatter properties (e.g. {\"status\": \"active\", \"type\": \"meeting\"})"
+    },
+    "modified_after": {
+      "type": "string",
+      "format": "date",
+      "description": "Only notes modified after this date (YYYY-MM-DD)"
+    },
+    "modified_before": {
+      "type": "string",
+      "format": "date",
+      "description": "Only notes modified before this date"
+    },
+    "include_content": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include full note content in results (default: snippets only)"
+    },
+    "sort_by": {
+      "type": "string",
+      "enum": ["relevance", "modified", "created", "title"],
+      "default": "relevance",
+      "description": "Sort order"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 25,
+      "description": "Items per page"
+    }
+  },
+  "required": ["query"]
+}

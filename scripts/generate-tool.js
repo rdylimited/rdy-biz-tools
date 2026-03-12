@@ -35,6 +35,9 @@ const MODULES = [
   "payments",
   "fapiao",
   "social-insurance",
+  "shopify",
+  "spreadsheets",
+  "obsidian",
 ];
 
 function parseArgs(args) {

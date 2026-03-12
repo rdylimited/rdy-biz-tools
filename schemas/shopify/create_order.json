@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/shopify/create_order.json",
+  "title": "create_order",
+  "description": "Create, retrieve, update, list, cancel, or close Shopify orders. Supports line items, shipping addresses, discounts, and tax overrides.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "update", "cancel", "close"],
+      "description": "Operation to perform"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "Order ID (required for get/update/cancel/close)"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer ID to associate with the order"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Customer email"
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "variant_id": { "type": "string", "description": "Product variant ID" },
+          "quantity": { "type": "number", "minimum": 1, "description": "Quantity" },
+          "price": { "type": "string", "description": "Price override (omit to use variant price)" },
+          "title": { "type": "string", "description": "Custom line item title (for custom items)" }
+        }
+      },
+      "description": "Order line items (required for create)"
+    },
+    "shipping_address": {
+      "type": "object",
+      "properties": {
+        "first_name": { "type": "string" },
+        "last_name": { "type": "string" },
+        "address1": { "type": "string" },
+        "address2": { "type": "string" },
+        "city": { "type": "string" },
+        "province": { "type": "string" },
+        "country": { "type": "string" },
+        "zip": { "type": "string" },
+        "phone": { "type": "string" }
+      },
+      "description": "Shipping address"
+    },
+    "discount_codes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "amount": { "type": "string" },
+          "type": { "type": "string", "enum": ["fixed_amount", "percentage"] }
+        },
+        "required": ["code", "amount", "type"]
+      },
+      "description": "Discount codes to apply"
+    },
+    "note": {
+      "type": "string",
+      "description": "Order notes"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Order tags"
+    },
+    "financial_status": {
+      "type": "string",
+      "enum": ["pending", "authorized", "paid", "partially_paid", "refunded", "voided"],
+      "description": "Filter by financial status (for list)"
+    },
+    "fulfillment_status": {
+      "type": "string",
+      "enum": ["unfulfilled", "partial", "fulfilled"],
+      "description": "Filter by fulfillment status (for list)"
+    },
+    "cancel_reason": {
+      "type": "string",
+      "enum": ["customer", "fraud", "inventory", "declined", "other"],
+      "description": "Cancellation reason (for cancel)"
+    },
+    "date_from": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date filter"
+    },
+    "date_to": {
+      "type": "string",
+      "format": "date",
+      "description": "End date filter"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 250,
+      "default": 50,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

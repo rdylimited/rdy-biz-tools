@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/obsidian/manage_tags.json",
+  "title": "manage_tags",
+  "description": "Manage tags across an Obsidian vault. List all tags with counts, add or remove tags from notes, rename tags globally, and find notes by tag combinations.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["list_all", "add", "remove", "rename", "find_by_tags"],
+      "description": "Operation to perform"
+    },
+    "note_path": {
+      "type": "string",
+      "description": "Note path (required for add/remove)"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tags to add, remove, or search for (without # prefix)"
+    },
+    "old_tag": {
+      "type": "string",
+      "description": "Tag to rename from (required for rename)"
+    },
+    "new_tag": {
+      "type": "string",
+      "description": "Tag to rename to (required for rename)"
+    },
+    "tag_location": {
+      "type": "string",
+      "enum": ["frontmatter", "inline", "both"],
+      "default": "frontmatter",
+      "description": "Where to add/remove tags: YAML frontmatter, inline #tag, or both"
+    },
+    "match_mode": {
+      "type": "string",
+      "enum": ["all", "any"],
+      "default": "all",
+      "description": "For find_by_tags: match ALL tags or ANY tag"
+    },
+    "include_nested": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include nested tags (e.g. #project/active matches #project)"
+    },
+    "sort_by": {
+      "type": "string",
+      "enum": ["name", "count"],
+      "default": "count",
+      "description": "Sort order for list_all"
+    }
+  },
+  "required": ["action"]
+}

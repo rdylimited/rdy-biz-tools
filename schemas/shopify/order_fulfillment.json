@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/shopify/order_fulfillment.json",
+  "title": "order_fulfillment",
+  "description": "Create, update, list, and cancel fulfillments for Shopify orders. Track shipping with carrier and tracking number. Supports partial fulfillment.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["create", "get", "list", "update_tracking", "cancel"],
+      "description": "Operation to perform"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "Order ID (required for create/list)"
+    },
+    "fulfillment_id": {
+      "type": "string",
+      "description": "Fulfillment ID (required for get/update_tracking/cancel)"
+    },
+    "location_id": {
+      "type": "string",
+      "description": "Fulfillment location ID"
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Line item ID" },
+          "quantity": { "type": "number", "minimum": 1, "description": "Quantity to fulfill" }
+        },
+        "required": ["id", "quantity"]
+      },
+      "description": "Line items to fulfill (omit to fulfill all remaining)"
+    },
+    "tracking_number": {
+      "type": "string",
+      "description": "Carrier tracking number"
+    },
+    "tracking_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Tracking URL"
+    },
+    "tracking_company": {
+      "type": "string",
+      "description": "Shipping carrier name (e.g. 'DHL', 'FedEx', 'SF Express')"
+    },
+    "notify_customer": {
+      "type": "boolean",
+      "default": true,
+      "description": "Send shipping notification email to customer"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 250,
+      "default": 50,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

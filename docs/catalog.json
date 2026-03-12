@@ -3352,6 +3352,339 @@
     ]
   },
   {
+    "module": "obsidian",
+    "moduleLabel": "Obsidian",
+    "name": "create_note",
+    "description": "Create or update a note in an Obsidian vault. Supports markdown content, YAML frontmatter, folder placement, and template application.",
+    "schemaFile": "schemas/obsidian/create_note.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "action",
+      "path"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "create: new note; update: overwrite content; append/prepend: add to existing",
+        "enum": [
+          "create",
+          "update",
+          "append",
+          "prepend"
+        ]
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "required": true,
+        "description": "Note path relative to vault root (e.g. 'Projects/my-project.md')"
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "required": false,
+        "description": "Markdown content for the note body"
+      },
+      {
+        "name": "frontmatter",
+        "type": "object",
+        "required": false,
+        "description": "YAML frontmatter key-value pairs (e.g. {\"tags\": [\"project\"], \"status\": \"active\"})"
+      },
+      {
+        "name": "template",
+        "type": "string",
+        "required": false,
+        "description": "Template note path to apply (copies template content and frontmatter)"
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "required": false,
+        "description": "Allow overwriting existing note (for create action)"
+      }
+    ]
+  },
+  {
+    "module": "obsidian",
+    "moduleLabel": "Obsidian",
+    "name": "manage_links",
+    "description": "Manage wiki-links and backlinks between Obsidian notes. Query outgoing links, incoming backlinks, unlinked mentions, and broken links. Add or remove links programmatically.",
+    "schemaFile": "schemas/obsidian/manage_links.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "action",
+      "note_path"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "get_outgoing",
+          "get_backlinks",
+          "get_unlinked_mentions",
+          "find_broken",
+          "add_link",
+          "remove_link"
+        ]
+      },
+      {
+        "name": "note_path",
+        "type": "string",
+        "required": true,
+        "description": "Note path relative to vault root (required for most actions)"
+      },
+      {
+        "name": "target_note",
+        "type": "string",
+        "required": false,
+        "description": "Target note name or path for add_link/remove_link (e.g. 'Meeting Notes')"
+      },
+      {
+        "name": "alias",
+        "type": "string",
+        "required": false,
+        "description": "Display alias for the link (e.g. [[target|alias]])"
+      },
+      {
+        "name": "link_type",
+        "type": "string",
+        "required": false,
+        "description": "Link format: wiki ([[note]]) or markdown ([text](note.md))",
+        "enum": [
+          "wiki",
+          "markdown"
+        ]
+      },
+      {
+        "name": "include_embeds",
+        "type": "boolean",
+        "required": false,
+        "description": "Include embed links (![[note]]) in results"
+      }
+    ]
+  },
+  {
+    "module": "obsidian",
+    "moduleLabel": "Obsidian",
+    "name": "manage_tags",
+    "description": "Manage tags across an Obsidian vault. List all tags with counts, add or remove tags from notes, rename tags globally, and find notes by tag combinations.",
+    "schemaFile": "schemas/obsidian/manage_tags.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "list_all",
+          "add",
+          "remove",
+          "rename",
+          "find_by_tags"
+        ]
+      },
+      {
+        "name": "note_path",
+        "type": "string",
+        "required": false,
+        "description": "Note path (required for add/remove)"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "required": false,
+        "description": "Tags to add, remove, or search for (without # prefix)"
+      },
+      {
+        "name": "old_tag",
+        "type": "string",
+        "required": false,
+        "description": "Tag to rename from (required for rename)"
+      },
+      {
+        "name": "new_tag",
+        "type": "string",
+        "required": false,
+        "description": "Tag to rename to (required for rename)"
+      },
+      {
+        "name": "tag_location",
+        "type": "string",
+        "required": false,
+        "description": "Where to add/remove tags: YAML frontmatter, inline #tag, or both",
+        "enum": [
+          "frontmatter",
+          "inline",
+          "both"
+        ]
+      },
+      {
+        "name": "match_mode",
+        "type": "string",
+        "required": false,
+        "description": "For find_by_tags: match ALL tags or ANY tag",
+        "enum": [
+          "all",
+          "any"
+        ]
+      },
+      {
+        "name": "include_nested",
+        "type": "boolean",
+        "required": false,
+        "description": "Include nested tags (e.g. #project/active matches #project)"
+      },
+      {
+        "name": "sort_by",
+        "type": "string",
+        "required": false,
+        "description": "Sort order for list_all",
+        "enum": [
+          "name",
+          "count"
+        ]
+      }
+    ]
+  },
+  {
+    "module": "obsidian",
+    "moduleLabel": "Obsidian",
+    "name": "read_note",
+    "description": "Read an Obsidian note's content, frontmatter, metadata, and statistics. Returns parsed markdown, YAML frontmatter, tags, links, and file info.",
+    "schemaFile": "schemas/obsidian/read_note.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "path"
+    ],
+    "parameters": [
+      {
+        "name": "path",
+        "type": "string",
+        "required": true,
+        "description": "Note path relative to vault root (e.g. 'Daily/2026-03-12.md')"
+      },
+      {
+        "name": "include_frontmatter",
+        "type": "boolean",
+        "required": false,
+        "description": "Parse and return YAML frontmatter as structured object"
+      },
+      {
+        "name": "include_links",
+        "type": "boolean",
+        "required": false,
+        "description": "Extract and return all outgoing links"
+      },
+      {
+        "name": "include_tags",
+        "type": "boolean",
+        "required": false,
+        "description": "Extract and return all tags (frontmatter + inline)"
+      },
+      {
+        "name": "include_stats",
+        "type": "boolean",
+        "required": false,
+        "description": "Include word count, character count, reading time"
+      },
+      {
+        "name": "section",
+        "type": "string",
+        "required": false,
+        "description": "Return only a specific heading section (e.g. '## Summary')"
+      }
+    ]
+  },
+  {
+    "module": "obsidian",
+    "moduleLabel": "Obsidian",
+    "name": "search_notes",
+    "description": "Search notes in an Obsidian vault by content, title, tags, frontmatter properties, or folder. Returns matching notes with context snippets.",
+    "schemaFile": "schemas/obsidian/search_notes.json",
+    "parameterCount": 10,
+    "requiredParams": [
+      "query"
+    ],
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "description": "Full-text search query across note content and titles"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "required": false,
+        "description": "Filter by tags (notes must have ALL specified tags)"
+      },
+      {
+        "name": "folder",
+        "type": "string",
+        "required": false,
+        "description": "Restrict search to a folder path (e.g. 'Projects/2026')"
+      },
+      {
+        "name": "frontmatter_filter",
+        "type": "object",
+        "required": false,
+        "description": "Filter by frontmatter properties (e.g. {\"status\": \"active\", \"type\": \"meeting\"})"
+      },
+      {
+        "name": "modified_after",
+        "type": "string",
+        "required": false,
+        "description": "Only notes modified after this date (YYYY-MM-DD)"
+      },
+      {
+        "name": "modified_before",
+        "type": "string",
+        "required": false,
+        "description": "Only notes modified before this date"
+      },
+      {
+        "name": "include_content",
+        "type": "boolean",
+        "required": false,
+        "description": "Include full note content in results (default: snippets only)"
+      },
+      {
+        "name": "sort_by",
+        "type": "string",
+        "required": false,
+        "description": "Sort order",
+        "enum": [
+          "relevance",
+          "modified",
+          "created",
+          "title"
+        ]
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
     "module": "operations",
     "moduleLabel": "Operations",
     "name": "ops_asset_manage",
@@ -5021,6 +5354,514 @@
     ]
   },
   {
+    "module": "shopify",
+    "moduleLabel": "Shopify",
+    "name": "create_order",
+    "description": "Create, retrieve, update, list, cancel, or close Shopify orders. Supports line items, shipping addresses, discounts, and tax overrides.",
+    "schemaFile": "schemas/shopify/create_order.json",
+    "parameterCount": 16,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "update",
+          "cancel",
+          "close"
+        ]
+      },
+      {
+        "name": "order_id",
+        "type": "string",
+        "required": false,
+        "description": "Order ID (required for get/update/cancel/close)"
+      },
+      {
+        "name": "customer_id",
+        "type": "string",
+        "required": false,
+        "description": "Customer ID to associate with the order"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": false,
+        "description": "Customer email"
+      },
+      {
+        "name": "line_items",
+        "type": "array",
+        "required": false,
+        "description": "Order line items (required for create)"
+      },
+      {
+        "name": "shipping_address",
+        "type": "object",
+        "required": false,
+        "description": "Shipping address"
+      },
+      {
+        "name": "discount_codes",
+        "type": "array",
+        "required": false,
+        "description": "Discount codes to apply"
+      },
+      {
+        "name": "note",
+        "type": "string",
+        "required": false,
+        "description": "Order notes"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "required": false,
+        "description": "Order tags"
+      },
+      {
+        "name": "financial_status",
+        "type": "string",
+        "required": false,
+        "description": "Filter by financial status (for list)",
+        "enum": [
+          "pending",
+          "authorized",
+          "paid",
+          "partially_paid",
+          "refunded",
+          "voided"
+        ]
+      },
+      {
+        "name": "fulfillment_status",
+        "type": "string",
+        "required": false,
+        "description": "Filter by fulfillment status (for list)",
+        "enum": [
+          "unfulfilled",
+          "partial",
+          "fulfilled"
+        ]
+      },
+      {
+        "name": "cancel_reason",
+        "type": "string",
+        "required": false,
+        "description": "Cancellation reason (for cancel)",
+        "enum": [
+          "customer",
+          "fraud",
+          "inventory",
+          "declined",
+          "other"
+        ]
+      },
+      {
+        "name": "date_from",
+        "type": "string",
+        "required": false,
+        "description": "Start date filter"
+      },
+      {
+        "name": "date_to",
+        "type": "string",
+        "required": false,
+        "description": "End date filter"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "shopify",
+    "moduleLabel": "Shopify",
+    "name": "list_products",
+    "description": "List, search, and filter Shopify products. Returns product details including variants, images, inventory levels, and collection membership.",
+    "schemaFile": "schemas/shopify/list_products.json",
+    "parameterCount": 13,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "list",
+          "get",
+          "create",
+          "update",
+          "delete"
+        ]
+      },
+      {
+        "name": "product_id",
+        "type": "string",
+        "required": false,
+        "description": "Product ID (required for get/update/delete)"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "description": "Product title (required for create)"
+      },
+      {
+        "name": "body_html",
+        "type": "string",
+        "required": false,
+        "description": "Product description as HTML"
+      },
+      {
+        "name": "vendor",
+        "type": "string",
+        "required": false,
+        "description": "Product vendor/brand"
+      },
+      {
+        "name": "product_type",
+        "type": "string",
+        "required": false,
+        "description": "Product type/category"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "required": false,
+        "description": "Product tags for filtering and organization"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Product status filter (for list) or target status",
+        "enum": [
+          "active",
+          "draft",
+          "archived"
+        ]
+      },
+      {
+        "name": "variants",
+        "type": "array",
+        "required": false,
+        "description": "Product variants"
+      },
+      {
+        "name": "collection_id",
+        "type": "string",
+        "required": false,
+        "description": "Filter by collection ID (for list)"
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "description": "Search query for title, vendor, or tags"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "shopify",
+    "moduleLabel": "Shopify",
+    "name": "manage_customers",
+    "description": "Create, retrieve, update, list, search, or delete Shopify customers. Manage customer addresses, tags, and marketing consent.",
+    "schemaFile": "schemas/shopify/manage_customers.json",
+    "parameterCount": 13,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "update",
+          "list",
+          "search",
+          "delete"
+        ]
+      },
+      {
+        "name": "customer_id",
+        "type": "string",
+        "required": false,
+        "description": "Customer ID (required for get/update/delete)"
+      },
+      {
+        "name": "first_name",
+        "type": "string",
+        "required": false,
+        "description": "First name"
+      },
+      {
+        "name": "last_name",
+        "type": "string",
+        "required": false,
+        "description": "Last name"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": false,
+        "description": "Customer email"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "required": false,
+        "description": "Phone number"
+      },
+      {
+        "name": "addresses",
+        "type": "array",
+        "required": false,
+        "description": "Customer addresses"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "required": false,
+        "description": "Customer tags"
+      },
+      {
+        "name": "note",
+        "type": "string",
+        "required": false,
+        "description": "Internal notes"
+      },
+      {
+        "name": "accepts_marketing",
+        "type": "boolean",
+        "required": false,
+        "description": "Marketing email consent"
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "description": "Search query (for search action)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "shopify",
+    "moduleLabel": "Shopify",
+    "name": "order_fulfillment",
+    "description": "Create, update, list, and cancel fulfillments for Shopify orders. Track shipping with carrier and tracking number. Supports partial fulfillment.",
+    "schemaFile": "schemas/shopify/order_fulfillment.json",
+    "parameterCount": 11,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "create",
+          "get",
+          "list",
+          "update_tracking",
+          "cancel"
+        ]
+      },
+      {
+        "name": "order_id",
+        "type": "string",
+        "required": false,
+        "description": "Order ID (required for create/list)"
+      },
+      {
+        "name": "fulfillment_id",
+        "type": "string",
+        "required": false,
+        "description": "Fulfillment ID (required for get/update_tracking/cancel)"
+      },
+      {
+        "name": "location_id",
+        "type": "string",
+        "required": false,
+        "description": "Fulfillment location ID"
+      },
+      {
+        "name": "line_items",
+        "type": "array",
+        "required": false,
+        "description": "Line items to fulfill (omit to fulfill all remaining)"
+      },
+      {
+        "name": "tracking_number",
+        "type": "string",
+        "required": false,
+        "description": "Carrier tracking number"
+      },
+      {
+        "name": "tracking_url",
+        "type": "string",
+        "required": false,
+        "description": "Tracking URL"
+      },
+      {
+        "name": "tracking_company",
+        "type": "string",
+        "required": false,
+        "description": "Shipping carrier name (e.g. 'DHL', 'FedEx', 'SF Express')"
+      },
+      {
+        "name": "notify_customer",
+        "type": "boolean",
+        "required": false,
+        "description": "Send shipping notification email to customer"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "shopify",
+    "moduleLabel": "Shopify",
+    "name": "update_inventory",
+    "description": "Query and adjust Shopify inventory levels across locations. Set absolute quantities, make relative adjustments, and track inventory items across multiple warehouses.",
+    "schemaFile": "schemas/shopify/update_inventory.json",
+    "parameterCount": 9,
+    "requiredParams": [
+      "action"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "get_level",
+          "set_level",
+          "adjust",
+          "list_locations",
+          "list_items"
+        ]
+      },
+      {
+        "name": "inventory_item_id",
+        "type": "string",
+        "required": false,
+        "description": "Inventory item ID (required for get_level/set_level/adjust)"
+      },
+      {
+        "name": "location_id",
+        "type": "string",
+        "required": false,
+        "description": "Location ID (required for get_level/set_level/adjust)"
+      },
+      {
+        "name": "available",
+        "type": "number",
+        "required": false,
+        "description": "Absolute quantity to set (for set_level)"
+      },
+      {
+        "name": "adjustment",
+        "type": "number",
+        "required": false,
+        "description": "Relative quantity change, positive or negative (for adjust)"
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "required": false,
+        "description": "Reason for inventory adjustment",
+        "enum": [
+          "received",
+          "sold",
+          "returned",
+          "damaged",
+          "correction",
+          "transfer",
+          "other"
+        ]
+      },
+      {
+        "name": "product_id",
+        "type": "string",
+        "required": false,
+        "description": "Filter inventory items by product ID (for list_items)"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": false,
+        "description": "Page number"
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Items per page"
+      }
+    ]
+  },
+  {
     "module": "slack",
     "moduleLabel": "Slack",
     "name": "add_reaction",
@@ -5715,6 +6556,321 @@
         "type": "number",
         "required": false,
         "description": "Items per page"
+      }
+    ]
+  },
+  {
+    "module": "spreadsheets",
+    "moduleLabel": "Spreadsheets (Google Sheets/Excel)",
+    "name": "apply_formula",
+    "description": "Apply formulas to cells or ranges in a spreadsheet. Supports single-cell formulas, array formulas, and named ranges. Can also create and manage named ranges.",
+    "schemaFile": "schemas/spreadsheets/apply_formula.json",
+    "parameterCount": 8,
+    "requiredParams": [
+      "action",
+      "spreadsheet_id"
+    ],
+    "parameters": [
+      {
+        "name": "action",
+        "type": "string",
+        "required": true,
+        "description": "Operation to perform",
+        "enum": [
+          "set_formula",
+          "set_array_formula",
+          "create_named_range",
+          "list_named_ranges",
+          "delete_named_range"
+        ]
+      },
+      {
+        "name": "spreadsheet_id",
+        "type": "string",
+        "required": true,
+        "description": "Spreadsheet ID or file path"
+      },
+      {
+        "name": "sheet_name",
+        "type": "string",
+        "required": false,
+        "description": "Sheet/tab name"
+      },
+      {
+        "name": "cell",
+        "type": "string",
+        "required": false,
+        "description": "Target cell in A1 notation (e.g. 'E2', required for set_formula)"
+      },
+      {
+        "name": "formula",
+        "type": "string",
+        "required": false,
+        "description": "Formula string starting with '=' (e.g. '=SUM(A1:A10)', '=VLOOKUP(B2,Sheet2!A:C,3,FALSE)')"
+      },
+      {
+        "name": "range",
+        "type": "string",
+        "required": false,
+        "description": "Target range for array formula or named range (e.g. 'A1:D10')"
+      },
+      {
+        "name": "named_range_name",
+        "type": "string",
+        "required": false,
+        "description": "Name for the named range (required for create/delete_named_range)"
+      },
+      {
+        "name": "fill_down",
+        "type": "boolean",
+        "required": false,
+        "description": "Auto-fill formula down the column to match adjacent data"
+      }
+    ]
+  },
+  {
+    "module": "spreadsheets",
+    "moduleLabel": "Spreadsheets (Google Sheets/Excel)",
+    "name": "create_spreadsheet",
+    "description": "Create a new Google Sheets spreadsheet or Excel file with optional initial sheets, headers, and data. Returns the spreadsheet ID/URL.",
+    "schemaFile": "schemas/spreadsheets/create_spreadsheet.json",
+    "parameterCount": 5,
+    "requiredParams": [
+      "title"
+    ],
+    "parameters": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Spreadsheet title"
+      },
+      {
+        "name": "sheets",
+        "type": "array",
+        "required": false,
+        "description": "Sheets to create (defaults to one empty 'Sheet1')"
+      },
+      {
+        "name": "folder_id",
+        "type": "string",
+        "required": false,
+        "description": "Google Drive folder ID to create the spreadsheet in"
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "required": false,
+        "description": "Output format",
+        "enum": [
+          "google_sheets",
+          "xlsx"
+        ]
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "description": "Spreadsheet locale (e.g. 'en_US', 'zh_CN')"
+      }
+    ]
+  },
+  {
+    "module": "spreadsheets",
+    "moduleLabel": "Spreadsheets (Google Sheets/Excel)",
+    "name": "format_cells",
+    "description": "Apply formatting to cells or ranges in a spreadsheet. Set number formats, fonts, colors, borders, alignment, conditional formatting, and data validation.",
+    "schemaFile": "schemas/spreadsheets/format_cells.json",
+    "parameterCount": 10,
+    "requiredParams": [
+      "spreadsheet_id",
+      "range"
+    ],
+    "parameters": [
+      {
+        "name": "spreadsheet_id",
+        "type": "string",
+        "required": true,
+        "description": "Spreadsheet ID or file path"
+      },
+      {
+        "name": "sheet_name",
+        "type": "string",
+        "required": false,
+        "description": "Sheet/tab name"
+      },
+      {
+        "name": "range",
+        "type": "string",
+        "required": true,
+        "description": "Target range in A1 notation (e.g. 'A1:D10')"
+      },
+      {
+        "name": "number_format",
+        "type": "string",
+        "required": false,
+        "description": "Number format pattern (e.g. '#,##0.00', '0%', 'yyyy-mm-dd', '$#,##0')"
+      },
+      {
+        "name": "font",
+        "type": "object",
+        "required": false,
+        "description": "Font formatting"
+      },
+      {
+        "name": "background_color",
+        "type": "string",
+        "required": false,
+        "description": "Cell background color hex (e.g. '#f0f0f0')"
+      },
+      {
+        "name": "alignment",
+        "type": "object",
+        "required": false,
+        "description": "Cell alignment"
+      },
+      {
+        "name": "borders",
+        "type": "object",
+        "required": false,
+        "description": "Cell border formatting"
+      },
+      {
+        "name": "conditional_format",
+        "type": "object",
+        "required": false,
+        "description": "Conditional formatting rule"
+      },
+      {
+        "name": "merge",
+        "type": "boolean",
+        "required": false,
+        "description": "Merge cells in the range"
+      }
+    ]
+  },
+  {
+    "module": "spreadsheets",
+    "moduleLabel": "Spreadsheets (Google Sheets/Excel)",
+    "name": "read_range",
+    "description": "Read cell values from a Google Sheets spreadsheet or Excel file. Returns raw values, formatted values, or formulas for the specified range.",
+    "schemaFile": "schemas/spreadsheets/read_range.json",
+    "parameterCount": 6,
+    "requiredParams": [
+      "spreadsheet_id",
+      "range"
+    ],
+    "parameters": [
+      {
+        "name": "spreadsheet_id",
+        "type": "string",
+        "required": true,
+        "description": "Spreadsheet ID (Google Sheets) or file path (Excel)"
+      },
+      {
+        "name": "range",
+        "type": "string",
+        "required": true,
+        "description": "A1 notation range (e.g. 'Sheet1!A1:D10', 'A:A', 'Sheet2!B2:B')"
+      },
+      {
+        "name": "sheet_name",
+        "type": "string",
+        "required": false,
+        "description": "Sheet/tab name (alternative to including in range)"
+      },
+      {
+        "name": "value_render",
+        "type": "string",
+        "required": false,
+        "description": "How to render cell values",
+        "enum": [
+          "raw",
+          "formatted",
+          "formula"
+        ]
+      },
+      {
+        "name": "major_dimension",
+        "type": "string",
+        "required": false,
+        "description": "Whether to return data as rows or columns",
+        "enum": [
+          "ROWS",
+          "COLUMNS"
+        ]
+      },
+      {
+        "name": "include_headers",
+        "type": "boolean",
+        "required": false,
+        "description": "Treat first row as headers and return as key-value objects"
+      }
+    ]
+  },
+  {
+    "module": "spreadsheets",
+    "moduleLabel": "Spreadsheets (Google Sheets/Excel)",
+    "name": "write_range",
+    "description": "Write values to a range in a Google Sheets spreadsheet or Excel file. Supports overwriting, appending rows, and inserting with shift.",
+    "schemaFile": "schemas/spreadsheets/write_range.json",
+    "parameterCount": 7,
+    "requiredParams": [
+      "spreadsheet_id",
+      "range",
+      "values"
+    ],
+    "parameters": [
+      {
+        "name": "spreadsheet_id",
+        "type": "string",
+        "required": true,
+        "description": "Spreadsheet ID (Google Sheets) or file path (Excel)"
+      },
+      {
+        "name": "range",
+        "type": "string",
+        "required": true,
+        "description": "A1 notation target range (e.g. 'Sheet1!A1:D5')"
+      },
+      {
+        "name": "sheet_name",
+        "type": "string",
+        "required": false,
+        "description": "Sheet/tab name"
+      },
+      {
+        "name": "values",
+        "type": "array",
+        "required": true,
+        "description": "2D array of values to write (rows × columns)"
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "required": false,
+        "description": "Write mode: overwrite range, append after last row, or insert shifting existing data",
+        "enum": [
+          "overwrite",
+          "append",
+          "insert"
+        ]
+      },
+      {
+        "name": "value_input",
+        "type": "string",
+        "required": false,
+        "description": "raw: values stored as-is; user_entered: parsed as if typed (formulas evaluated)",
+        "enum": [
+          "raw",
+          "user_entered"
+        ]
+      },
+      {
+        "name": "include_headers",
+        "type": "boolean",
+        "required": false,
+        "description": "First row of values contains headers"
       }
     ]
   },

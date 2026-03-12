@@ -1,6 +1,6 @@
 # RDY Business Tools — Catalog
 
-> Auto-generated from schema files. 96 tools across 17 modules.
+> Auto-generated from schema files. 111 tools across 20 modules.
 
 ## Calendar (Google/Outlook) (5 tools)
 
@@ -90,6 +90,16 @@
 | [`search`](../schemas/notion/search.json) | Search across all Notion pages and databases accessible to the integration. F... | 5 (required: query) |
 | [`update_page`](../schemas/notion/update_page.json) | Update properties, icon, cover, or archived status of an existing Notion page... | 5 (required: page_id) |
 
+## Obsidian (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`create_note`](../schemas/obsidian/create_note.json) | Create or update a note in an Obsidian vault. Supports markdown content, YAML... | 6 (required: action, path) |
+| [`manage_links`](../schemas/obsidian/manage_links.json) | Manage wiki-links and backlinks between Obsidian notes. Query outgoing links,... | 6 (required: action, note_path) |
+| [`manage_tags`](../schemas/obsidian/manage_tags.json) | Manage tags across an Obsidian vault. List all tags with counts, add or remov... | 9 (required: action) |
+| [`read_note`](../schemas/obsidian/read_note.json) | Read an Obsidian note's content, frontmatter, metadata, and statistics. Retur... | 6 (required: path) |
+| [`search_notes`](../schemas/obsidian/search_notes.json) | Search notes in an Obsidian vault by content, title, tags, frontmatter proper... | 10 (required: query) |
+
 ## Operations (6 tools)
 
 | Tool | Description | Parameters |
@@ -124,6 +134,16 @@
 | [`proc_supplier_manage`](../schemas/procurement/proc_supplier_manage.json) | Create, retrieve, update, list, or deactivate suppliers | 10 (required: action) |
 | [`proc_supplier_quote`](../schemas/procurement/proc_supplier_quote.json) | Create, retrieve, list, or compare supplier quotations | 12 (required: action) |
 
+## Shopify (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`create_order`](../schemas/shopify/create_order.json) | Create, retrieve, update, list, cancel, or close Shopify orders. Supports lin... | 16 (required: action) |
+| [`list_products`](../schemas/shopify/list_products.json) | List, search, and filter Shopify products. Returns product details including ... | 13 (required: action) |
+| [`manage_customers`](../schemas/shopify/manage_customers.json) | Create, retrieve, update, list, search, or delete Shopify customers. Manage c... | 13 (required: action) |
+| [`order_fulfillment`](../schemas/shopify/order_fulfillment.json) | Create, update, list, and cancel fulfillments for Shopify orders. Track shipp... | 11 (required: action) |
+| [`update_inventory`](../schemas/shopify/update_inventory.json) | Query and adjust Shopify inventory levels across locations. Set absolute quan... | 9 (required: action) |
+
 ## Slack (5 tools)
 
 | Tool | Description | Parameters |
@@ -143,6 +163,16 @@
 | [`generate_report`](../schemas/social-insurance/generate_report.json) | Generate social insurance and housing fund reports. Includes cost summaries, ... | 9 (required: report_type) |
 | [`query_records`](../schemas/social-insurance/query_records.json) | Query social insurance and housing fund contribution records for individual e... | 9 (required: action) |
 | [`submit_declaration`](../schemas/social-insurance/submit_declaration.json) | Submit monthly social insurance and housing fund declarations to the local bu... | 9 (required: action) |
+
+## Spreadsheets (Google Sheets/Excel) (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`apply_formula`](../schemas/spreadsheets/apply_formula.json) | Apply formulas to cells or ranges in a spreadsheet. Supports single-cell form... | 8 (required: action, spreadsheet_id) |
+| [`create_spreadsheet`](../schemas/spreadsheets/create_spreadsheet.json) | Create a new Google Sheets spreadsheet or Excel file with optional initial sh... | 5 (required: title) |
+| [`format_cells`](../schemas/spreadsheets/format_cells.json) | Apply formatting to cells or ranges in a spreadsheet. Set number formats, fon... | 10 (required: spreadsheet_id, range) |
+| [`read_range`](../schemas/spreadsheets/read_range.json) | Read cell values from a Google Sheets spreadsheet or Excel file. Returns raw ... | 6 (required: spreadsheet_id, range) |
+| [`write_range`](../schemas/spreadsheets/write_range.json) | Write values to a range in a Google Sheets spreadsheet or Excel file. Support... | 7 (required: spreadsheet_id, range, values) |
 
 ## Tax (5 tools)
 
@@ -195,13 +225,16 @@
 | Finance | 10 |
 | Human Resources | 7 |
 | Notion | 5 |
+| Obsidian | 5 |
 | Operations | 6 |
 | Payments (Stripe/2C2P/Alipay) | 5 |
 | Procurement | 8 |
+| Shopify | 5 |
 | Slack | 5 |
 | China Social Insurance (五险一金) | 5 |
+| Spreadsheets (Google Sheets/Excel) | 5 |
 | Tax | 5 |
 | WeChat | 5 |
 | WhatsApp Business | 5 |
 | Workflow | 4 |
-| **Total** | **96** |
+| **Total** | **111** |

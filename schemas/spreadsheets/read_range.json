@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/spreadsheets/read_range.json",
+  "title": "read_range",
+  "description": "Read cell values from a Google Sheets spreadsheet or Excel file. Returns raw values, formatted values, or formulas for the specified range.",
+  "type": "object",
+  "properties": {
+    "spreadsheet_id": {
+      "type": "string",
+      "description": "Spreadsheet ID (Google Sheets) or file path (Excel)"
+    },
+    "range": {
+      "type": "string",
+      "description": "A1 notation range (e.g. 'Sheet1!A1:D10', 'A:A', 'Sheet2!B2:B')"
+    },
+    "sheet_name": {
+      "type": "string",
+      "description": "Sheet/tab name (alternative to including in range)"
+    },
+    "value_render": {
+      "type": "string",
+      "enum": ["raw", "formatted", "formula"],
+      "default": "formatted",
+      "description": "How to render cell values"
+    },
+    "major_dimension": {
+      "type": "string",
+      "enum": ["ROWS", "COLUMNS"],
+      "default": "ROWS",
+      "description": "Whether to return data as rows or columns"
+    },
+    "include_headers": {
+      "type": "boolean",
+      "default": true,
+      "description": "Treat first row as headers and return as key-value objects"
+    }
+  },
+  "required": ["spreadsheet_id", "range"]
+}

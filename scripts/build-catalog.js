@@ -37,6 +37,9 @@ const MODULE_LABELS = {
   payments: "Payments (Stripe/2C2P/Alipay)",
   fapiao: "Fapiao (China E-Invoice)",
   "social-insurance": "China Social Insurance (五险一金)",
+  shopify: "Shopify",
+  spreadsheets: "Spreadsheets (Google Sheets/Excel)",
+  obsidian: "Obsidian",
 };
 
 const catalog = [];

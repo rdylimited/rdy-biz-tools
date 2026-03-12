@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/spreadsheets/format_cells.json",
+  "title": "format_cells",
+  "description": "Apply formatting to cells or ranges in a spreadsheet. Set number formats, fonts, colors, borders, alignment, conditional formatting, and data validation.",
+  "type": "object",
+  "properties": {
+    "spreadsheet_id": {
+      "type": "string",
+      "description": "Spreadsheet ID or file path"
+    },
+    "sheet_name": {
+      "type": "string",
+      "description": "Sheet/tab name"
+    },
+    "range": {
+      "type": "string",
+      "description": "Target range in A1 notation (e.g. 'A1:D10')"
+    },
+    "number_format": {
+      "type": "string",
+      "description": "Number format pattern (e.g. '#,##0.00', '0%', 'yyyy-mm-dd', '$#,##0')"
+    },
+    "font": {
+      "type": "object",
+      "properties": {
+        "family": { "type": "string", "description": "Font family (e.g. 'Arial', 'Roboto Mono')" },
+        "size": { "type": "number", "description": "Font size in points" },
+        "bold": { "type": "boolean" },
+        "italic": { "type": "boolean" },
+        "underline": { "type": "boolean" },
+        "strikethrough": { "type": "boolean" },
+        "color": { "type": "string", "description": "Font color hex (e.g. '#333333')" }
+      },
+      "description": "Font formatting"
+    },
+    "background_color": {
+      "type": "string",
+      "description": "Cell background color hex (e.g. '#f0f0f0')"
+    },
+    "alignment": {
+      "type": "object",
+      "properties": {
+        "horizontal": { "type": "string", "enum": ["left", "center", "right"] },
+        "vertical": { "type": "string", "enum": ["top", "middle", "bottom"] },
+        "wrap": { "type": "boolean", "description": "Enable text wrapping" }
+      },
+      "description": "Cell alignment"
+    },
+    "borders": {
+      "type": "object",
+      "properties": {
+        "style": { "type": "string", "enum": ["thin", "medium", "thick", "dashed", "dotted", "none"] },
+        "color": { "type": "string", "description": "Border color hex" },
+        "sides": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["top", "bottom", "left", "right", "all"] },
+          "default": ["all"]
+        }
+      },
+      "description": "Cell border formatting"
+    },
+    "conditional_format": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["greater_than", "less_than", "between", "text_contains", "custom_formula"], "description": "Condition type" },
+        "values": { "type": "array", "items": { "type": "string" }, "description": "Condition values" },
+        "format": {
+          "type": "object",
+          "properties": {
+            "background_color": { "type": "string" },
+            "font_color": { "type": "string" },
+            "bold": { "type": "boolean" }
+          }
+        }
+      },
+      "description": "Conditional formatting rule"
+    },
+    "merge": {
+      "type": "boolean",
+      "description": "Merge cells in the range"
+    }
+  },
+  "required": ["spreadsheet_id", "range"]
+}

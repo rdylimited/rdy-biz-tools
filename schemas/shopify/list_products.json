@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/shopify/list_products.json",
+  "title": "list_products",
+  "description": "List, search, and filter Shopify products. Returns product details including variants, images, inventory levels, and collection membership.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["list", "get", "create", "update", "delete"],
+      "description": "Operation to perform"
+    },
+    "product_id": {
+      "type": "string",
+      "description": "Product ID (required for get/update/delete)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Product title (required for create)"
+    },
+    "body_html": {
+      "type": "string",
+      "description": "Product description as HTML"
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Product vendor/brand"
+    },
+    "product_type": {
+      "type": "string",
+      "description": "Product type/category"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Product tags for filtering and organization"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "archived"],
+      "description": "Product status filter (for list) or target status"
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "Variant title (e.g. 'Small / Red')" },
+          "price": { "type": "string", "description": "Variant price" },
+          "compare_at_price": { "type": "string", "description": "Original price (for showing discounts)" },
+          "sku": { "type": "string", "description": "SKU code" },
+          "barcode": { "type": "string", "description": "Barcode (ISBN, UPC, etc.)" },
+          "weight": { "type": "number", "description": "Weight in grams" },
+          "inventory_quantity": { "type": "number", "description": "Stock quantity" },
+          "requires_shipping": { "type": "boolean", "default": true }
+        }
+      },
+      "description": "Product variants"
+    },
+    "collection_id": {
+      "type": "string",
+      "description": "Filter by collection ID (for list)"
+    },
+    "query": {
+      "type": "string",
+      "description": "Search query for title, vendor, or tags"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 250,
+      "default": 50,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

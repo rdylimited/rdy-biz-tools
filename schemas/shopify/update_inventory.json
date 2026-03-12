@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/shopify/update_inventory.json",
+  "title": "update_inventory",
+  "description": "Query and adjust Shopify inventory levels across locations. Set absolute quantities, make relative adjustments, and track inventory items across multiple warehouses.",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["get_level", "set_level", "adjust", "list_locations", "list_items"],
+      "description": "Operation to perform"
+    },
+    "inventory_item_id": {
+      "type": "string",
+      "description": "Inventory item ID (required for get_level/set_level/adjust)"
+    },
+    "location_id": {
+      "type": "string",
+      "description": "Location ID (required for get_level/set_level/adjust)"
+    },
+    "available": {
+      "type": "number",
+      "description": "Absolute quantity to set (for set_level)"
+    },
+    "adjustment": {
+      "type": "number",
+      "description": "Relative quantity change, positive or negative (for adjust)"
+    },
+    "reason": {
+      "type": "string",
+      "enum": ["received", "sold", "returned", "damaged", "correction", "transfer", "other"],
+      "description": "Reason for inventory adjustment"
+    },
+    "product_id": {
+      "type": "string",
+      "description": "Filter inventory items by product ID (for list_items)"
+    },
+    "page": {
+      "type": "number",
+      "minimum": 1,
+      "default": 1,
+      "description": "Page number"
+    },
+    "limit": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 250,
+      "default": 50,
+      "description": "Items per page"
+    }
+  },
+  "required": ["action"]
+}

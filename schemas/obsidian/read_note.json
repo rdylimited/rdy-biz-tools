@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/obsidian/read_note.json",
+  "title": "read_note",
+  "description": "Read an Obsidian note's content, frontmatter, metadata, and statistics. Returns parsed markdown, YAML frontmatter, tags, links, and file info.",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Note path relative to vault root (e.g. 'Daily/2026-03-12.md')"
+    },
+    "include_frontmatter": {
+      "type": "boolean",
+      "default": true,
+      "description": "Parse and return YAML frontmatter as structured object"
+    },
+    "include_links": {
+      "type": "boolean",
+      "default": true,
+      "description": "Extract and return all outgoing links"
+    },
+    "include_tags": {
+      "type": "boolean",
+      "default": true,
+      "description": "Extract and return all tags (frontmatter + inline)"
+    },
+    "include_stats": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include word count, character count, reading time"
+    },
+    "section": {
+      "type": "string",
+      "description": "Return only a specific heading section (e.g. '## Summary')"
+    }
+  },
+  "required": ["path"]
+}

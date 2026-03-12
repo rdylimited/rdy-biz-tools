@@ -2,7 +2,7 @@
 
 JSON Schema definitions, generator scripts, and documentation for RDY business tools.
 
-**96 tools** across **17 modules**: Finance, HR, Tax, Procurement, CRM, Operations, Documents, Workflow, Email, Calendar, Slack, Notion, WeChat, WhatsApp Business, Payments, Fapiao, China Social Insurance.
+**111 tools** across **20 modules**: Finance, HR, Tax, Procurement, CRM, Operations, Documents, Workflow, Email, Calendar, Slack, Notion, WeChat, WhatsApp Business, Payments, Fapiao, China Social Insurance, Shopify, Spreadsheets, Obsidian.
 
 ## Quick Start
 
@@ -45,6 +45,9 @@ schemas/
   payments/        5 tools — payments, transactions, subscriptions, refunds (Stripe/2C2P/Alipay)
   fapiao/          5 tools — e-fapiao issue, query, void, batch, statistics
   social-insurance/ 5 tools — 五险一金 contributions, declarations, enrollment
+  shopify/         5 tools — products, orders, customers, inventory, fulfillment
+  spreadsheets/    5 tools — read/write ranges, formulas, formatting (Sheets/Excel)
+  obsidian/        5 tools — notes, search, links, tags
 scripts/
   generate-tool.js     Scaffold a new tool schema
   build-catalog.js     Generate catalog from schemas
@@ -99,7 +102,10 @@ See [docs/CATALOG.md](docs/CATALOG.md) for the full tool reference.
 | Payments (Stripe/2C2P/Alipay) | 5 |
 | Fapiao (China E-Invoice) | 5 |
 | China Social Insurance | 5 |
-| **Total** | **96** |
+| Shopify | 5 |
+| Spreadsheets (Sheets/Excel) | 5 |
+| Obsidian | 5 |
+| **Total** | **111** |
 
 ## Creating New Tools
 

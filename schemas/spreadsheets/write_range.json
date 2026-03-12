@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/spreadsheets/write_range.json",
+  "title": "write_range",
+  "description": "Write values to a range in a Google Sheets spreadsheet or Excel file. Supports overwriting, appending rows, and inserting with shift.",
+  "type": "object",
+  "properties": {
+    "spreadsheet_id": {
+      "type": "string",
+      "description": "Spreadsheet ID (Google Sheets) or file path (Excel)"
+    },
+    "range": {
+      "type": "string",
+      "description": "A1 notation target range (e.g. 'Sheet1!A1:D5')"
+    },
+    "sheet_name": {
+      "type": "string",
+      "description": "Sheet/tab name"
+    },
+    "values": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {}
+      },
+      "description": "2D array of values to write (rows × columns)"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["overwrite", "append", "insert"],
+      "default": "overwrite",
+      "description": "Write mode: overwrite range, append after last row, or insert shifting existing data"
+    },
+    "value_input": {
+      "type": "string",
+      "enum": ["raw", "user_entered"],
+      "default": "user_entered",
+      "description": "raw: values stored as-is; user_entered: parsed as if typed (formulas evaluated)"
+    },
+    "include_headers": {
+      "type": "boolean",
+      "default": false,
+      "description": "First row of values contains headers"
+    }
+  },
+  "required": ["spreadsheet_id", "range", "values"]
+}

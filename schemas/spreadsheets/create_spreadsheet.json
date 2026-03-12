@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/spreadsheets/create_spreadsheet.json",
+  "title": "create_spreadsheet",
+  "description": "Create a new Google Sheets spreadsheet or Excel file with optional initial sheets, headers, and data. Returns the spreadsheet ID/URL.",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Spreadsheet title"
+    },
+    "sheets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Sheet/tab name" },
+          "headers": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Column headers for the first row"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {}
+            },
+            "description": "Initial data rows (2D array)"
+          },
+          "column_widths": {
+            "type": "object",
+            "additionalProperties": { "type": "number" },
+            "description": "Column width overrides (key = column letter, value = pixels)"
+          },
+          "frozen_rows": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Number of frozen header rows"
+          },
+          "frozen_columns": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Number of frozen columns"
+          }
+        },
+        "required": ["name"]
+      },
+      "description": "Sheets to create (defaults to one empty 'Sheet1')"
+    },
+    "folder_id": {
+      "type": "string",
+      "description": "Google Drive folder ID to create the spreadsheet in"
+    },
+    "format": {
+      "type": "string",
+      "enum": ["google_sheets", "xlsx"],
+      "default": "google_sheets",
+      "description": "Output format"
+    },
+    "locale": {
+      "type": "string",
+      "description": "Spreadsheet locale (e.g. 'en_US', 'zh_CN')"
+    }
+  },
+  "required": ["title"]
+}

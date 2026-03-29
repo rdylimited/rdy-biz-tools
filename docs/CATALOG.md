@@ -134,15 +134,17 @@
 | [`proc_supplier_manage`](../schemas/procurement/proc_supplier_manage.json) | Create, retrieve, update, list, or deactivate suppliers | 10 (required: action) |
 | [`proc_supplier_quote`](../schemas/procurement/proc_supplier_quote.json) | Create, retrieve, list, or compare supplier quotations | 12 (required: action) |
 
-## Security (5 tools)
+## Security (5 tools + 22 rules)
 
-| Tool | Description | Parameters |
-|------|-------------|------------|
-| [`check_behavior`](../schemas/security/check_behavior.json) | Analyze a sequence of agent actions for suspicious behavioral patterns — rapi... | 2 (required: actions) |
-| [`check_message`](../schemas/security/check_message.json) | Scan a message for prompt injection, jailbreak attempts, social engineering, ... | 3 (required: content) |
-| [`check_tool_call`](../schemas/security/check_tool_call.json) | Validate an agent's tool call against security rules. Checks for unauthorized... | 4 (required: tool_name, arguments) |
-| [`list_rules`](../schemas/security/list_rules.json) | List all active agent threat rules with their ID, name, category, severity, a... | 3 (required: none) |
-| [`scan_secrets`](../schemas/security/scan_secrets.json) | Scan text content for accidentally exposed secrets — API keys, tokens, passwo... | 3 (required: content) |
+| Tool | Description |
+|------|-------------|
+| check_message | Scan messages for prompt injection and agent threats |
+| check_tool_call | Validate tool calls against security rules |
+| check_behavior | Analyze action sequences for suspicious patterns |
+| list_rules | List active agent threat detection rules |
+| scan_secrets | Detect exposed API keys, tokens, private keys |
+
+Rule catalog: [`schemas/security/rules/default.json`](../schemas/security/rules/default.json) — 22 rules across 8 ATR categories, mapped to OWASP Agentic Top 10.
 
 ## Shopify (5 tools)
 

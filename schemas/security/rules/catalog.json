@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/security/rules/catalog.json",
+  "title": "Agent Threat Rule Catalog",
+  "description": "Public catalog of agent threat detection rules. Lists what is checked without exposing detection patterns. Based on the Agent Threat Rules (ATR) standard.",
+  "type": "object",
+  "properties": {
+    "version": { "type": "string" },
+    "source": { "type": "string" },
+    "rules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rule" }
+    }
+  },
+  "$defs": {
+    "rule": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique rule identifier (e.g. ATR-PI-001)" },
+        "name": { "type": "string", "description": "Human-readable rule name" },
+        "category": {
+          "type": "string",
+          "enum": ["prompt_injection", "context_exfiltration", "privilege_escalation", "tool_poisoning", "agent_manipulation", "excessive_autonomy", "data_poisoning", "skill_compromise"]
+        },
+        "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "description": { "type": "string", "description": "What this rule detects (without revealing how)" },
+        "owasp": { "type": "string", "description": "OWASP Agentic Top 10 mapping" },
+        "mitigations": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Recommended mitigations when this rule fires"
+        }
+      },
+      "required": ["id", "name", "category", "severity", "description"]
+    }
+  }
+}

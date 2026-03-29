@@ -1,0 +1,204 @@
+{
+  "version": "1.0.0",
+  "source": "Agent Threat Rules (ATR) standard — https://github.com/Agent-Threat-Rule/agent-threat-rules",
+  "rules": [
+    {
+      "id": "ATR-PI-001",
+      "name": "Instruction Override",
+      "category": "prompt_injection",
+      "severity": "high",
+      "description": "Detects attempts to override system instructions with phrases like 'ignore previous instructions' or 'new instructions'",
+      "owasp": "LLM01: Prompt Injection",
+      "mitigations": ["Input sanitization", "Instruction boundary enforcement", "System prompt isolation"]
+    },
+    {
+      "id": "ATR-PI-002",
+      "name": "Jailbreak Attempt",
+      "category": "prompt_injection",
+      "severity": "critical",
+      "description": "Detects jailbreak patterns including DAN prompts, developer mode requests, and unrestricted mode activation",
+      "owasp": "LLM01: Prompt Injection",
+      "mitigations": ["Input filtering", "Output monitoring", "Behavioral guardrails"]
+    },
+    {
+      "id": "ATR-PI-003",
+      "name": "Persona Hijacking",
+      "category": "prompt_injection",
+      "severity": "high",
+      "description": "Detects attempts to force the agent into a different persona or role via 'you are now' or 'act as' instructions",
+      "owasp": "LLM01: Prompt Injection",
+      "mitigations": ["Role anchoring", "Identity verification", "Persona lock"]
+    },
+    {
+      "id": "ATR-PI-004",
+      "name": "System Prompt Extraction",
+      "category": "prompt_injection",
+      "severity": "high",
+      "description": "Detects attempts to extract the system prompt via 'repeat your instructions' or 'show system prompt' patterns",
+      "owasp": "LLM01: Prompt Injection",
+      "mitigations": ["Prompt isolation", "Extraction detection", "Refusal training"]
+    },
+    {
+      "id": "ATR-PI-005",
+      "name": "Goal Hijacking",
+      "category": "prompt_injection",
+      "severity": "medium",
+      "description": "Detects attempts to redirect the agent's goal via 'actually do this instead' or 'forget the task' patterns",
+      "owasp": "LLM01: Prompt Injection",
+      "mitigations": ["Task anchoring", "Goal verification", "Multi-turn context tracking"]
+    },
+    {
+      "id": "ATR-PI-006",
+      "name": "Encoding Bypass",
+      "category": "prompt_injection",
+      "severity": "medium",
+      "description": "Detects base64, hex, or Unicode obfuscation used to bypass input filters",
+      "owasp": "LLM01: Prompt Injection",
+      "mitigations": ["Multi-encoding detection", "Decode-before-scan", "Content normalization"]
+    },
+    {
+      "id": "ATR-PI-007",
+      "name": "Multi-Turn Injection",
+      "category": "prompt_injection",
+      "severity": "high",
+      "description": "Detects injection attempts spread across multiple conversation turns to avoid single-message detection",
+      "owasp": "LLM01: Prompt Injection",
+      "mitigations": ["Cross-turn analysis", "Conversation-level scanning", "Sliding window detection"]
+    },
+    {
+      "id": "ATR-CE-001",
+      "name": "Environment Variable Harvesting",
+      "category": "context_exfiltration",
+      "severity": "high",
+      "description": "Detects attempts to read environment variables, process.env, or os.environ to extract secrets",
+      "owasp": "LLM06: Excessive Agency",
+      "mitigations": ["Environment isolation", "Variable redaction", "Sandbox enforcement"]
+    },
+    {
+      "id": "ATR-CE-002",
+      "name": "API Key Exposure",
+      "category": "context_exfiltration",
+      "severity": "critical",
+      "description": "Detects API keys, AWS credentials, or authentication tokens in agent outputs or tool arguments",
+      "owasp": "LLM02: Insecure Output Handling",
+      "mitigations": ["Output scanning", "Secret redaction", "Credential rotation"]
+    },
+    {
+      "id": "ATR-CE-003",
+      "name": "Private Key Exposure",
+      "category": "context_exfiltration",
+      "severity": "critical",
+      "description": "Detects PEM-encoded private keys, SSH keys, or JWT secrets in content",
+      "owasp": "LLM02: Insecure Output Handling",
+      "mitigations": ["Key detection", "Content filtering", "Automatic redaction"]
+    },
+    {
+      "id": "ATR-PE-001",
+      "name": "Shell Command Execution",
+      "category": "privilege_escalation",
+      "severity": "critical",
+      "description": "Detects attempts to execute shell commands via exec, system, eval, or subprocess calls",
+      "owasp": "LLM06: Excessive Agency",
+      "mitigations": ["Command whitelist", "Sandbox execution", "Shell access removal"]
+    },
+    {
+      "id": "ATR-PE-002",
+      "name": "Database Destruction",
+      "category": "privilege_escalation",
+      "severity": "critical",
+      "description": "Detects SQL DROP TABLE, DELETE FROM, or TRUNCATE attempts that would destroy data",
+      "owasp": "LLM06: Excessive Agency",
+      "mitigations": ["Query validation", "Read-only connections", "Backup enforcement"]
+    },
+    {
+      "id": "ATR-PE-003",
+      "name": "Privileged Flag Injection",
+      "category": "privilege_escalation",
+      "severity": "high",
+      "description": "Detects attempts to inject admin/sudo/root flags into tool arguments",
+      "owasp": "LLM06: Excessive Agency",
+      "mitigations": ["Argument sanitization", "Permission validation", "Least privilege"]
+    },
+    {
+      "id": "ATR-TP-001",
+      "name": "Financial Tool Misuse",
+      "category": "tool_poisoning",
+      "severity": "high",
+      "description": "Detects unauthorized use of payment, transfer, or financial tools without proper authorization flow",
+      "owasp": "LLM07: Insecure Plugin Design",
+      "mitigations": ["Transaction approval gates", "Amount limits", "Two-factor confirmation"]
+    },
+    {
+      "id": "ATR-TP-002",
+      "name": "Tool Chain Manipulation",
+      "category": "tool_poisoning",
+      "severity": "medium",
+      "description": "Detects suspicious tool call sequences that may indicate tool chain exploitation",
+      "owasp": "LLM07: Insecure Plugin Design",
+      "mitigations": ["Call sequence validation", "Tool dependency graphs", "Chain depth limits"]
+    },
+    {
+      "id": "ATR-AM-001",
+      "name": "Social Engineering",
+      "category": "agent_manipulation",
+      "severity": "medium",
+      "description": "Detects social engineering attempts including urgency pressure, authority claims, and emotional manipulation",
+      "owasp": "LLM05: Insecure Output Handling",
+      "mitigations": ["Manipulation detection", "Authority verification", "Cool-down periods"]
+    },
+    {
+      "id": "ATR-AM-002",
+      "name": "Agent Impersonation",
+      "category": "agent_manipulation",
+      "severity": "high",
+      "description": "Detects attempts to impersonate other agents, services, or system components",
+      "owasp": "LLM05: Insecure Output Handling",
+      "mitigations": ["Identity verification", "Agent authentication", "Message signing"]
+    },
+    {
+      "id": "ATR-EA-001",
+      "name": "Excessive Retry Loop",
+      "category": "excessive_autonomy",
+      "severity": "medium",
+      "description": "Detects agents stuck in retry loops that may indicate runaway behavior or resource exhaustion",
+      "owasp": "LLM06: Excessive Agency",
+      "mitigations": ["Retry limits", "Circuit breakers", "Human escalation"]
+    },
+    {
+      "id": "ATR-EA-002",
+      "name": "Self-Modification Attempt",
+      "category": "excessive_autonomy",
+      "severity": "critical",
+      "description": "Detects attempts by the agent to modify its own configuration, prompts, or code",
+      "owasp": "LLM06: Excessive Agency",
+      "mitigations": ["Configuration immutability", "Write protection", "Change detection"]
+    },
+    {
+      "id": "ATR-DP-001",
+      "name": "Training Data Manipulation",
+      "category": "data_poisoning",
+      "severity": "high",
+      "description": "Detects attempts to inject biased or malicious data into training pipelines or knowledge bases",
+      "owasp": "LLM03: Training Data Poisoning",
+      "mitigations": ["Input validation", "Data provenance tracking", "Quality gates"]
+    },
+    {
+      "id": "ATR-SC-001",
+      "name": "Unauthorized Skill Loading",
+      "category": "skill_compromise",
+      "severity": "high",
+      "description": "Detects attempts to load, install, or execute unauthorized skills, plugins, or extensions",
+      "owasp": "LLM07: Insecure Plugin Design",
+      "mitigations": ["Skill whitelist", "Signature verification", "Sandboxed execution"]
+    },
+    {
+      "id": "ATR-SC-002",
+      "name": "Skill Argument Injection",
+      "category": "skill_compromise",
+      "severity": "medium",
+      "description": "Detects injection of malicious arguments into skill/plugin invocations",
+      "owasp": "LLM07: Insecure Plugin Design",
+      "mitigations": ["Argument sanitization", "Schema validation", "Type checking"]
+    }
+  ]
+}

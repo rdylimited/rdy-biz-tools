@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/security/check_tool_call.json",
+  "title": "check_tool_call",
+  "description": "Validate an agent's tool call against security rules. Checks for unauthorized tool usage, suspicious arguments (e.g. shell injection, path traversal), data exfiltration patterns, and privilege escalation attempts.",
+  "type": "object",
+  "properties": {
+    "tool_name": {
+      "type": "string",
+      "description": "Name of the tool being called"
+    },
+    "arguments": {
+      "type": "object",
+      "description": "The arguments passed to the tool",
+      "additionalProperties": true
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "ID of the agent making the call (for permission checking)"
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Whitelist of tools this agent is permitted to use. If provided, calls to unlisted tools are flagged."
+    }
+  },
+  "required": ["tool_name", "arguments"],
+  "additionalProperties": false
+}

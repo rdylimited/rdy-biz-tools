@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/security/list_rules.json",
+  "title": "list_rules",
+  "description": "List all active agent threat rules with their ID, name, category, severity, and enabled status. Optionally filter by category or severity.",
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string",
+      "enum": ["prompt_injection", "context_exfiltration", "privilege_escalation", "tool_poisoning", "agent_manipulation", "excessive_autonomy", "data_poisoning", "skill_compromise"],
+      "description": "Filter rules by threat category"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "description": "Filter rules by minimum severity"
+    },
+    "enabled_only": {
+      "type": "boolean",
+      "default": true,
+      "description": "Only return enabled rules"
+    }
+  },
+  "additionalProperties": false
+}

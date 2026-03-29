@@ -5354,6 +5354,188 @@
     ]
   },
   {
+    "module": "security",
+    "moduleLabel": "Security",
+    "name": "check_behavior",
+    "description": "Analyze a sequence of agent actions for suspicious behavioral patterns — rapid retries, escalating privilege attempts, data gathering before exfiltration, etc. Uses temporal pattern matching across the action sequence.",
+    "schemaFile": "schemas/security/check_behavior.json",
+    "parameterCount": 2,
+    "requiredParams": [
+      "actions"
+    ],
+    "parameters": [
+      {
+        "name": "actions",
+        "type": "array",
+        "required": true,
+        "description": "Ordered sequence of agent actions to analyze"
+      },
+      {
+        "name": "window_seconds",
+        "type": "integer",
+        "required": false,
+        "description": "Time window in seconds to consider for pattern matching"
+      }
+    ]
+  },
+  {
+    "module": "security",
+    "moduleLabel": "Security",
+    "name": "check_message",
+    "description": "Scan a message for prompt injection, jailbreak attempts, social engineering, and other agent threats. Based on the Agent Threat Rules (ATR) standard. Returns matched rules, severity, and recommended mitigations.",
+    "schemaFile": "schemas/security/check_message.json",
+    "parameterCount": 3,
+    "requiredParams": [
+      "content"
+    ],
+    "parameters": [
+      {
+        "name": "content",
+        "type": "string",
+        "required": true,
+        "description": "The message content to scan for threats"
+      },
+      {
+        "name": "context",
+        "type": "string",
+        "required": false,
+        "description": "Where this message came from — affects which rules apply",
+        "enum": [
+          "user_input",
+          "tool_output",
+          "system_prompt",
+          "agent_response"
+        ]
+      },
+      {
+        "name": "sensitivity",
+        "type": "string",
+        "required": false,
+        "description": "Minimum severity threshold to report. 'low' reports everything, 'critical' only reports critical threats",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      }
+    ]
+  },
+  {
+    "module": "security",
+    "moduleLabel": "Security",
+    "name": "check_tool_call",
+    "description": "Validate an agent's tool call against security rules. Checks for unauthorized tool usage, suspicious arguments (e.g. shell injection, path traversal), data exfiltration patterns, and privilege escalation attempts.",
+    "schemaFile": "schemas/security/check_tool_call.json",
+    "parameterCount": 4,
+    "requiredParams": [
+      "tool_name",
+      "arguments"
+    ],
+    "parameters": [
+      {
+        "name": "tool_name",
+        "type": "string",
+        "required": true,
+        "description": "Name of the tool being called"
+      },
+      {
+        "name": "arguments",
+        "type": "object",
+        "required": true,
+        "description": "The arguments passed to the tool"
+      },
+      {
+        "name": "agent_id",
+        "type": "string",
+        "required": false,
+        "description": "ID of the agent making the call (for permission checking)"
+      },
+      {
+        "name": "allowed_tools",
+        "type": "array",
+        "required": false,
+        "description": "Whitelist of tools this agent is permitted to use. If provided, calls to unlisted tools are flagged."
+      }
+    ]
+  },
+  {
+    "module": "security",
+    "moduleLabel": "Security",
+    "name": "list_rules",
+    "description": "List all active agent threat rules with their ID, name, category, severity, and enabled status. Optionally filter by category or severity.",
+    "schemaFile": "schemas/security/list_rules.json",
+    "parameterCount": 3,
+    "requiredParams": [],
+    "parameters": [
+      {
+        "name": "category",
+        "type": "string",
+        "required": false,
+        "description": "Filter rules by threat category",
+        "enum": [
+          "prompt_injection",
+          "context_exfiltration",
+          "privilege_escalation",
+          "tool_poisoning",
+          "agent_manipulation",
+          "excessive_autonomy",
+          "data_poisoning",
+          "skill_compromise"
+        ]
+      },
+      {
+        "name": "severity",
+        "type": "string",
+        "required": false,
+        "description": "Filter rules by minimum severity",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      {
+        "name": "enabled_only",
+        "type": "boolean",
+        "required": false,
+        "description": "Only return enabled rules"
+      }
+    ]
+  },
+  {
+    "module": "security",
+    "moduleLabel": "Security",
+    "name": "scan_secrets",
+    "description": "Scan text content for accidentally exposed secrets — API keys, tokens, passwords, private keys, connection strings. Uses pattern matching for common secret formats (AWS, GitHub, JWT, PEM, etc.).",
+    "schemaFile": "schemas/security/scan_secrets.json",
+    "parameterCount": 3,
+    "requiredParams": [
+      "content"
+    ],
+    "parameters": [
+      {
+        "name": "content",
+        "type": "string",
+        "required": true,
+        "description": "Text content to scan for exposed secrets"
+      },
+      {
+        "name": "redact",
+        "type": "boolean",
+        "required": false,
+        "description": "If true, return a redacted version of the content with secrets masked"
+      },
+      {
+        "name": "patterns",
+        "type": "array",
+        "required": false,
+        "description": "Additional regex patterns to check beyond the defaults. Each pattern should have a capture group for the secret value."
+      }
+    ]
+  },
+  {
     "module": "shopify",
     "moduleLabel": "Shopify",
     "name": "create_order",

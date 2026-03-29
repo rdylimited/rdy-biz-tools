@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/security/check_message.json",
+  "title": "check_message",
+  "description": "Scan a message for prompt injection, jailbreak attempts, social engineering, and other agent threats. Based on the Agent Threat Rules (ATR) standard. Returns matched rules, severity, and recommended mitigations.",
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "string",
+      "description": "The message content to scan for threats"
+    },
+    "context": {
+      "type": "string",
+      "enum": ["user_input", "tool_output", "system_prompt", "agent_response"],
+      "default": "user_input",
+      "description": "Where this message came from — affects which rules apply"
+    },
+    "sensitivity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "default": "medium",
+      "description": "Minimum severity threshold to report. 'low' reports everything, 'critical' only reports critical threats"
+    }
+  },
+  "required": ["content"],
+  "additionalProperties": false
+}

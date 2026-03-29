@@ -2,7 +2,7 @@
 
 JSON Schema definitions, generator scripts, and documentation for RDY business tools.
 
-**111 tools** across **20 modules**: Finance, HR, Tax, Procurement, CRM, Operations, Documents, Workflow, Email, Calendar, Slack, Notion, WeChat, WhatsApp Business, Payments, Fapiao, China Social Insurance, Shopify, Spreadsheets, Obsidian.
+**116 tools** across **21 modules**: Finance, HR, Tax, Procurement, CRM, Operations, Documents, Workflow, Email, Calendar, Slack, Notion, WeChat, WhatsApp Business, Payments, Fapiao, China Social Insurance, Shopify, Spreadsheets, Obsidian, Security.
 
 ## Quick Start
 
@@ -48,6 +48,7 @@ schemas/
   shopify/         5 tools — products, orders, customers, inventory, fulfillment
   spreadsheets/    5 tools — read/write ranges, formulas, formatting (Sheets/Excel)
   obsidian/        5 tools — notes, search, links, tags
+  security/        5 tools — agent threat checking, tool call validation, behavior analysis, secret scanning
 scripts/
   generate-tool.js     Scaffold a new tool schema
   build-catalog.js     Generate catalog from schemas
@@ -105,7 +106,8 @@ See [docs/CATALOG.md](docs/CATALOG.md) for the full tool reference.
 | Shopify | 5 |
 | Spreadsheets (Sheets/Excel) | 5 |
 | Obsidian | 5 |
-| **Total** | **111** |
+| Security | 5 |
+| **Total** | **116** |
 
 ## Creating New Tools
 

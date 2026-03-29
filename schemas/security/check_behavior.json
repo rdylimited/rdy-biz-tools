@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rdyai.co/schemas/security/check_behavior.json",
+  "title": "check_behavior",
+  "description": "Analyze a sequence of agent actions for suspicious behavioral patterns — rapid retries, escalating privilege attempts, data gathering before exfiltration, etc. Uses temporal pattern matching across the action sequence.",
+  "type": "object",
+  "properties": {
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["message", "tool_call", "tool_result", "error"],
+            "description": "Type of action"
+          },
+          "content": {
+            "type": "string",
+            "description": "Action content — message text, tool name, result, or error"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this action occurred"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Additional context — tool arguments, error codes, etc."
+          }
+        },
+        "required": ["type", "content"]
+      },
+      "minItems": 1,
+      "description": "Ordered sequence of agent actions to analyze"
+    },
+    "window_seconds": {
+      "type": "integer",
+      "default": 300,
+      "minimum": 10,
+      "maximum": 86400,
+      "description": "Time window in seconds to consider for pattern matching"
+    }
+  },
+  "required": ["actions"],
+  "additionalProperties": false
+}

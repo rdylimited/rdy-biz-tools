@@ -40,6 +40,7 @@ const MODULE_LABELS = {
   shopify: "Shopify",
   spreadsheets: "Spreadsheets (Google Sheets/Excel)",
   obsidian: "Obsidian",
+  security: "Security",
 };
 
 const catalog = [];

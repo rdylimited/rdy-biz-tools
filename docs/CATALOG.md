@@ -1,6 +1,6 @@
 # RDY Business Tools — Catalog
 
-> Auto-generated from schema files. 111 tools across 20 modules.
+> Auto-generated from schema files. 116 tools across 21 modules.
 
 ## Calendar (Google/Outlook) (5 tools)
 
@@ -134,6 +134,16 @@
 | [`proc_supplier_manage`](../schemas/procurement/proc_supplier_manage.json) | Create, retrieve, update, list, or deactivate suppliers | 10 (required: action) |
 | [`proc_supplier_quote`](../schemas/procurement/proc_supplier_quote.json) | Create, retrieve, list, or compare supplier quotations | 12 (required: action) |
 
+## Security (5 tools)
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| [`check_behavior`](../schemas/security/check_behavior.json) | Analyze a sequence of agent actions for suspicious behavioral patterns — rapi... | 2 (required: actions) |
+| [`check_message`](../schemas/security/check_message.json) | Scan a message for prompt injection, jailbreak attempts, social engineering, ... | 3 (required: content) |
+| [`check_tool_call`](../schemas/security/check_tool_call.json) | Validate an agent's tool call against security rules. Checks for unauthorized... | 4 (required: tool_name, arguments) |
+| [`list_rules`](../schemas/security/list_rules.json) | List all active agent threat rules with their ID, name, category, severity, a... | 3 (required: none) |
+| [`scan_secrets`](../schemas/security/scan_secrets.json) | Scan text content for accidentally exposed secrets — API keys, tokens, passwo... | 3 (required: content) |
+
 ## Shopify (5 tools)
 
 | Tool | Description | Parameters |
@@ -229,6 +239,7 @@
 | Operations | 6 |
 | Payments (Stripe/2C2P/Alipay) | 5 |
 | Procurement | 8 |
+| Security | 5 |
 | Shopify | 5 |
 | Slack | 5 |
 | China Social Insurance (五险一金) | 5 |
@@ -237,4 +248,4 @@
 | WeChat | 5 |
 | WhatsApp Business | 5 |
 | Workflow | 4 |
-| **Total** | **111** |
+| **Total** | **116** |
